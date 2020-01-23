@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_for_title"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recyclerView"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:id="@+id/llayoutForComment"
+        android:layout_width="match_parent"
+        android:layout_height="85dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color_01"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:paddingRight="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivCheck"
+                    android:background="@drawable/check_default"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="공지"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:background="@drawable/box_off_01">
+
+                <EditText
+                    android:background="@color/color_translate"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
+                    android:hint="댓글을 입력해 주세요."
+                    android:textColorHint="@color/color_text_03"
+                    android:textColor="@color/color_text_08"
+                    android:id="@+id/edtComment"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:stateListAnimator="@null"
+                    android:id="@+id/btnWrite"
+                    android:layout_width="55dp"
+                    android:text="입력"
+                    android:textColor="@color/color_text_08"
+                    android:textSize="14dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_06"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

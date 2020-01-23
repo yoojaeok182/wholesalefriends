@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46.66dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45.66dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:gravity="center"
+                android:id="@+id/llayoutTopMenu01"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="상가별매장"
+                    android:id="@+id/tvTobMenu01"
+                    android:textSize="13dp"
+                    android:textColor="@color/btn_textcolor_03_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:id="@+id/llayoutTopMenu02"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="베스트 100 상품"
+                    android:id="@+id/tvTobMenu02"
+                    android:textSize="13dp"
+                    android:textColor="@color/btn_textcolor_03_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:id="@+id/llayoutTopMenu03"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="이월세일"
+                    android:id="@+id/tvTobMenu03"
+                    android:textSize="13dp"
+                    android:textColor="@color/btn_textcolor_03_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:gravity="center"
+                android:id="@+id/llayoutTopLine01"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="58dp"
+                    android:layout_height="1dp"
+                    android:background="@color/line_color_05"/>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="invisible"
+                android:gravity="center"
+                android:id="@+id/llayoutTopLine02"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="58dp"
+                    android:layout_height="1dp"
+                    android:background="@color/line_color_05"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="invisible"
+                android:gravity="center"
+                android:id="@+id/llayoutTopLine03"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="58dp"
+                    android:layout_height="1dp"
+                    android:background="@color/line_color_05"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

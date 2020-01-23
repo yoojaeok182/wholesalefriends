@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_for_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llayoutForTitle"/>
+
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:scrollbarSize="2dp"
+      android:fillViewport="true">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+
+          <LinearLayout
+              android:paddingTop="35dp"
+
+              android:orientation="vertical"
+              android:paddingLeft="20dp"
+              android:paddingRight="20dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              >
+
+
+              <TextView
+                  android:textSize="16dp"
+                  android:textColor="@color/color_text_06"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="자주 이용하는 결제수단으로 저장해보세요."/>
+
+              <LinearLayout
+                  android:id="@+id/btmPaymentType01"
+                  android:layout_marginTop="18.33dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="54.33dp"
+                  android:paddingLeft="20dp"
+                  android:paddingRight="20dp"
+                  android:gravity="center_vertical"
+                  android:background="@drawable/box_off_01"
+                  android:orientation="horizontal">
+                  <TextView
+                      android:textSize="16dp"
+                      android:textColor="@color/color_text_06"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="wrap_content"
+                      android:text="매장 수령 후 결제"/>
+
+
+                  <ImageView
+                      android:id="@+id/ivCheck01"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/check_default"/>
+              </LinearLayout>
+
+              <LinearLayout
+                  android:id="@+id/btmPaymentType02"
+                  android:layout_marginTop="15dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="54.33dp"
+                  android:paddingLeft="20dp"
+                  android:paddingRight="20dp"
+                  android:gravity="center_vertical"
+                  android:background="@drawable/box_off_01"
+                  android:orientation="horizontal">
+                  <TextView
+                      android:textSize="16dp"
+                      android:textColor="@color/color_text_06"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="wrap_content"
+                      android:text="사입삼촌 대납"/>
+
+
+                  <ImageView
+                      android:id="@+id/ivCheck02"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/check_default"/>
+              </LinearLayout>
+
+              <LinearLayout
+                  android:id="@+id/btmPaymentType03"
+                  android:layout_marginTop="15dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="54.33dp"
+                  android:paddingLeft="20dp"
+                  android:paddingRight="20dp"
+                  android:gravity="center_vertical"
+                  android:background="@drawable/box_off_01"
+                  android:orientation="horizontal">
+                  <TextView
+                      android:textSize="16dp"
+                      android:textColor="@color/color_text_06"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="wrap_content"
+                      android:text="계좌이체"/>
+
+
+                  <ImageView
+                      android:id="@+id/ivCheck03"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/check_default"/>
+              </LinearLayout>
+
+              <TextView
+                  android:layout_marginTop="20dp"
+                  android:textSize="12dp"
+                  android:textColor="@color/color_text_03"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:lineSpacingExtra="4dp"
+                  android:text="*사입삼촌 대납,또는 계좌이체시에는 필요한 정보를\n미리 입력하여 저장해주세요."/>
+          </LinearLayout>
+
+          <ImageView
+              android:layout_marginTop="32.33dp"
+              android:layout_width="match_parent"
+              android:layout_height="10dp"
+              android:background="@color/color_bg2"/>
+
+          <LinearLayout
+              android:paddingBottom="50dp"
+              android:paddingLeft="20dp"
+              android:paddingRight="20dp"
+              android:paddingTop="30dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/color_text_08"
+                  android:textStyle="bold"
+                  android:text="입금자명"
+                  android:textSize="15dp"/>
+
+              <EditText
+                  android:textSize="13dp"
+                  android:textColor="@color/color_text_08"
+                  android:hint="입금자명"
+                  android:textColorHint="@color/color_text_03"
+                  android:layout_marginTop="13dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="45dp"
+                  android:id="@+id/edtName"
+                  android:paddingLeft="20dp"
+                  android:paddingRight="20dp"
+                  android:gravity="center_vertical"
+                  android:background="@drawable/input_box_off_01"/>
+
+              <TextView
+                  android:layout_marginTop="30dp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/color_text_08"
+                  android:textStyle="bold"
+                  android:text="사입삼촌"
+                  android:textSize="15dp"/>
+
+
+              <LinearLayout
+                  android:layout_marginTop="13dp"
+                  android:background="@drawable/box_off_01"
+                  android:layout_width="match_parent"
+                  android:layout_height="45dp">
+
+                  <LinearLayout
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:id="@+id/btnPurchase01"
+                      android:background="@drawable/l_roundbox_off_01">
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/tvPurchase01"
+                          android:textSize="13dp"
+                          android:text="있어요"
+                           android:textColor="@color/color_text_03"/>
+                  </LinearLayout>
+                  <LinearLayout
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:id="@+id/btnPurchase02"
+                      android:background="@drawable/r_roundbox_on_01">
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/tvPurchase02"
+                          android:textSize="13dp"
+                          android:text="없어요"
+                          android:textColor="@color/color_text_07"/>
+                  </LinearLayout>
+              </LinearLayout>
+          </LinearLayout>
+
+
+      </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/btnSave"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:background="@color/btn_bg_02"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="기본 결제방법 저장하기"
+                android:textSize="15dp"
+                android:textColor="@color/color_text_09"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

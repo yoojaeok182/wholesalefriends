@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:1:1-16:12
+INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:1:1-16:12
+INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:1:1-16:12
+	package
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:1:11-46
+		INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+		INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:4:5-14:19
+activity#com.gun0912.tedpermission.TedPermissionActivity
+ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:7:9-12:15
+	android:screenOrientation
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:10:13-52
+	android:configChanges
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:9:13-144
+	android:theme
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:11:13-64
+	android:name
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml:8:13-50
+uses-sdk
+INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+		INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+		ADDED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml
+		INJECTED from G:\company_job\my\wholesalefriends\tedpermission\src\main\AndroidManifest.xml

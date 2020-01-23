@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name" translatable="false">WholesaleFriends</string>
+
+    <string name="permission_reject_cannot_service_msg" translatable="false">필수 권한을 거부하면 서비스를 사용할 수 없습니다.\n[설정]> [권한]에서 권한을 켜십시오.</string>
+    <string name="permission_reject_cannot_service_go_btn" translatable="false">설정</string>
+
+    <!--퍼미션 설정-->
+    <string name="permission_title_msg_01" translatable="false">%d 서비스를 이용하기 위해서는</string>
+    <string name="tedpermission_setting" translatable="false">설정</string>
+    <string name="tedpermission_close" translatable="false">닫기</string>
+    <string name="tedpermission_confirm" translatable="false">확인</string>
+    <string name="rationale_title" translatable="false">사용권한 설정</string>
+    <string name="rationale_message" translatable="false">의 다음 작업을 \n허용하시겠습니까? </string>
+    <string name="rationale_message1" translatable="false">에 액세스 </string>
+    <string name="rationale_denied_message_close" translatable="false">필수 권한설정이 되어야 앱 이용이 가능합니다.</string>
+    <string name="rationale_denied_message_photo" translatable="false"><b>사진</b> 권한설정이 허용 되어야 이용 가능합니다.</string>
+    <string name="rationale_denied_message_local" translatable="false"><b>위치</b> 권한설정이 허용 되어야 이용 가능합니다.</string>
+
+    <string name="rationale_denied_message_request" translatable="false">앱 권한을 설정하지 않으면 앱을 사용할수 없습니다.\n 권한을 설정해주세요.</string>
+
+
+    <string name="rationale_denied_message" translatable="false">권한 설정을 거부하면 서비스를 사용할 수 없습니다.[설정]> [권한]에서 권한을 켜십시오</string>
+
+    <string name="permission_title_phone" translatable="false">전화</string>
+    <string name="permission_title_mic" translatable="false">마이크</string>
+    <string name="permission_title_sms" translatable="false">SMS</string>
+    <string name="permission_title_write_space" translatable="false">저장공간</string>
+    <string name="permission_title_address" translatable="false">주소록</string>
+    <string name="permission_title_camera" translatable="false">카메라</string>
+
+    <string name="toast_permission_success" translatable="false">퍼미션 부여</string>
+    <string name="toast_permission_fail" translatable="false">사용권한 거부</string>
+    <string name="permission_denied_title" translatable="false">사용권한 거부</string>
+
+    <string name="permission_setting_ok" translatable="false">확인</string>
+
+
+    <string name="permission_check_status_01" translatable="false">(필수)</string>
+    <string name="permission_terms_msg_01" translatable="false">회원 가입을 간편 하게 이용할 수 있습니다.</string>
+    <string name="permission_terms_msg_02" translatable="false">영상 통화 기능을 이용 할 수 있습니다.</string>
+    <string name="permission_terms_msg_03" translatable="false">기기에서 사진, 동영상, 파일을 전송하거나\n저장하기 위해 사용합니다.</string>
+    <string name="permission_terms_msg_04" translatable="false">사용자간 통화기능을 이용 할 수 있습니다.</string>
+    <string name="permission_terms_msg_05" translatable="false">푸시 사용을 위해 사용합니다.</string>
+    <string name="permission_terms_msg_06" translatable="false">사용자들간 사진을 공유하거나 영상통화 기능을\n이용 할 수 있습니다.</string>
+
+    <string name="permission_terms_btn_title" translatable="false">확인</string>
+
+    <string name="permission_common_msg" translatable="false">상기 필수 권한은 %d 서비스 이용시 꼭 필요하지만\n서버에는 저장하지 않으니 안심하고 이용하세요.</string>
+
+
+    <string name="permission_check_title1" translatable="false">앱 권한 설정 안내</string>
+    <string name="permission_check_title2" translatable="false">필수적 접근권한</string>
+
+
+    <string name="permission_title_msg_02" translatable="false">아래의  </string>
+    <string name="permission_title_msg_03" translatable="false">권한설정의 동의</string>
+    <string name="permission_title_msg_04" translatable="false">가 필요합니다.</string>
+
+
+    <string name="coprite_title" translatable="false">2019ⓒWHOLESALE FRIENDS All Right reserved.</string>
+
+    <string name="hint_id" translatable="false">아이디</string>
+    <string name="hint_id2" translatable="false">영문,숫자</string>
+
+    <string name="hint_pwd" translatable="false">비밀번호</string>
+    <string name="hint_pwd2" translatable="false">변경할 비밀번호를 입력하세요.</string>
+    <string name="hint_pwd3" translatable="false">비밀번호를 다시 입력해주세요.</string>
+    <string name="hint_pwd4" translatable="false">영문,숫자 6~15자</string>
+    <string name="hint_pwd5" translatable="false">비밀번호 확인</string>
+
+    <string name="hint_phone" translatable="false">010-0000-0000</string>
+    <string name="hint_phone2" translatable="false">인증번호를 입력해주세요.</string>
+    <string name="hint_store_name" translatable="false">상호명</string>
+    <string name="hint_ceo_name" translatable="false">대표자이름</string>
+    <string name="hint_store_regist_number" translatable="false">사업자등록번호</string>
+    <string name="hint_name" translatable="false">직원 이름</string>
+    <string name="hint_phone3" translatable="false">-없이 입력</string>
+    <string name="hint_inquire" translatable="false">문의사항을 입력해 주세요.</string>
+
+    <string name="button_title_01" translatable="false">로그인</string>
+    <string name="button_title_02" translatable="false">신규가입하기</string>
+    <string name="button_title_03" translatable="false">비밀번호를 분실하셨나요?</string>
+    <string name="button_title_04" translatable="false">다음</string>
+    <string name="button_title_05" translatable="false">동의하고 가입하기</string>
+    <string name="button_title_06" translatable="false">상품등록하기</string>
+
+    <string name="join_step_01_title_01" translatable="false">도매 회원가입</string>
+    <string name="join_step_01_title_02" translatable="false">소매 회원가입</string>
+    <string name="join_step_02_title_01" translatable="false">대표</string>
+    <string name="join_step_02_title_02" translatable="false">직원</string>
+    <string name="join_step_03_title_01" translatable="false">매장찾기</string>
+    <string name="join_step_03_title_02" translatable="false">상가선택</string>
+    <string name="join_step_03_title_03" translatable="false">층 선택</string>
+    <string name="join_step_03_title_04" translatable="false">호수 선택</string>
+
+    <string name="join_step_01_desc_01" translatable="false">동대문,남대문 매장 대표 및 직원</string>
+    <string name="join_step_01_desc_02" translatable="false">온라인,오프라인 소매 매장 대표 및 직원</string>
+
+    <string name="join_step_02_msg" translatable="false">회원을 구분하여 선택해 주세요.</string>
+    <string name="join_step_03_msg" translatable="false">회원을 구분하여 선택해 주세요.</string>
+    <string name="join_step_03_msg2" translatable="false">STEP1.상가를 선택해 주세요.</string>
+    <string name="join_step_03_msg3" translatable="false">STEP2.층을 선택해 주세요.</string>
+    <string name="join_step_03_msg4" translatable="false">STEP3.호수를 선택해 주세요.</string>
+
+    <string name="alarm_system_click" translatable="false"><u>여기를 클릭</u></string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <string name="camera">카메라</string>
+    <string name="album">사진 앨범</string>
+    <string name="button_ok">확인</string>
+    <string name="button_cancel">취소</string>
+    <string name="dialog_alert">알림</string>
+    <string name="dialog_ok">확인</string>
+    <string name="dialog_continue">이어하기</string>
+    <string name="dialog_cancel">취소</string>
+    <!-- 권한 요청-->
+    <string name="dialog_request_call_permission">전화 권한이 없어서\n앱을 실행할 수 없습니다.\n권한 설정에서 권한을 설정해주세요.</string>
+    <string name="dialog_request_storage_permission">저장 권한이 없어서\n기능을 실행할 수 없습니다.\n권한 설정에서 권한을 설정해주세요.</string>
+    <string name="dialog_request_account_permission">주소록 권한이 없어서\n기능을 사용할 수 없습니다.\n권한 설정에서 권한을 설정해주세요.</string>
+    <string name="dialog_request_camera_storage_permission">카메라, 저장 권한이 없어서\n기능을 사용할 수 없습니다.\n권한 설정에서 권한을 설정해주세요.</string>
+    <string name="dialog_request_camera_permission">카메라 권한이 없어서 기능을 사용할 수 없습니다.\n권한 설정에서 권한을 설정해주세요.</string>
+    <string name="toast_broken_camera">사진불러오기를 실패하였습니다.</string>
+
+    <string name="toast_not_use_gif">GIF 이미지는 사용할 수 없습니다.</string>
+    <string name="dialog_image_size_alert">최대 5MB까지 올릴 수 있습니다.</string>
+    <string name="dialog_image_size_no">선택된 이미지가 올바르지 않습니다.</string>
+</resources>

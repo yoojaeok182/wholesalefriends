@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <ImageView
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/line_color_01"/>
+       <LinearLayout
+           android:duplicateParentState="true"
+           android:layout_width="match_parent"
+           android:layout_height="60dp"
+           android:orientation="horizontal">
+
+           <LinearLayout
+               android:orientation="vertical"
+               android:id="@+id/btnMenu01"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:layout_height="match_parent">
+
+               <ImageView
+                   android:id="@+id/ivMenu01"
+                   android:background="@drawable/btn_main_menu_01_select"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+
+               <TextView
+                   android:layout_marginTop="12dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tvMenu01"
+                   android:textColor="@color/btn_textcolor_01_select"
+                   android:textSize="10dp"
+                   android:text="HOME"/>
+           </LinearLayout>
+           <LinearLayout
+               android:orientation="vertical"
+               android:id="@+id/btnMenu02"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:layout_height="match_parent">
+               <ImageView
+                   android:id="@+id/ivMenu02"
+                   android:background="@drawable/btn_main_menu_02_select"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+
+               <TextView
+                   android:layout_marginTop="12dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tvMenu02"
+                   android:textColor="@color/btn_textcolor_01_select"
+                   android:textSize="10dp"
+                   android:text="주문목록"/>
+
+           </LinearLayout>
+           <LinearLayout
+               android:orientation="vertical"
+               android:id="@+id/btnMenu03"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:layout_height="match_parent">
+               <ImageView
+                   android:id="@+id/ivMenu03"
+                   android:background="@drawable/btn_main_menu_03_select"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+
+               <TextView
+                   android:layout_marginTop="12dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tvMenu03"
+                   android:textColor="@color/btn_textcolor_01_select"
+                   android:textSize="10dp"
+                   android:text="거래처관리"/>
+
+           </LinearLayout>
+           <LinearLayout
+               android:orientation="vertical"
+               android:id="@+id/btnMenu04"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:layout_height="match_parent">
+               <ImageView
+                   android:id="@+id/ivMenu04"
+                   android:background="@drawable/btn_main_menu_04_select"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+
+               <TextView
+                   android:layout_marginTop="12dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tvMenu04"
+                   android:textColor="@color/btn_textcolor_01_select"
+                   android:textSize="10dp"
+                   android:text="마이페이지"/>
+
+           </LinearLayout>
+       </LinearLayout>
+   </LinearLayout>
+
+</LinearLayout>

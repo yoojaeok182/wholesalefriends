@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_for_title5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llayoutForTitle"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/llayoutForData"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:paddingTop="35dp"
+
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:clipToPadding="false"
+                    android:layout_marginTop="14dp"
+                    android:paddingBottom="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/btnOrder"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:background="@color/btn_bg_02"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="주문완료"
+                        android:textSize="15dp"
+                        android:textColor="@color/color_text_09"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/llayoutForNoData">
+
+            <ImageView
+                android:background="@drawable/icon_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="22dp"
+                android:textSize="15dp"
+                android:textColor="@color/color_text_04"
+                android:text="장바구니에 담긴 상품이 없습니다."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

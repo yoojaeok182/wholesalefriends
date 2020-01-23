@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="store_view_item">
+        <item>마마 ​</item>
+        <item>부르뎅​</item>
+        <item>포키​</item>
+        <item>크레용​</item>
+        <item>페인트타운​​</item>
+        <item>아이라인​</item>
+        <item>탑랜드​</item>
+        <item>혜양​</item>
+        <item>제평​</item>
+        <item>팀204​</item>
+        <item>거리매장​</item>
+        <item>자체제작업체​</item>
+    </string-array>
+    
+</resources>

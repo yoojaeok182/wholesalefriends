@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_for_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llayoutForTitle"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/btnAlarmSetting"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="74.66dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_06"
+                android:lineSpacingExtra="6dp"
+                android:text="알림 설정(주문 및 상품 알림을\n받을 수 있습니다.)"/>
+
+            <ImageView
+                android:id="@+id/ivAlarmToggle"
+                android:background="@drawable/toggle_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color_01"/>
+        <LinearLayout
+            android:id="@+id/btnDisturbSetting"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="74.66dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_06"
+                android:lineSpacingExtra="6dp"
+                android:text="설정한 시간동안 알림 소리\n(진동),LED 끄기"/>
+
+            <ImageView
+                android:id="@+id/ivDisturbToggle"
+                android:background="@drawable/toggle_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color_01"/>
+
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="30.33dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="시작시간"
+                    android:textSize="14dp"
+                    android:textColor="@color/color_text_04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.wholesale.wholesalefriends.module.view.WheelView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="11dp"
+                    android:id="@+id/wVStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="종료시간"
+                    android:textSize="14dp"
+                    android:textColor="@color/color_text_04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.wholesale.wholesalefriends.module.view.WheelView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="11dp"
+                    android:id="@+id/wVEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="30dp"
+            android:gravity="bottom|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/btnSystemAlarmSetting"
+            android:gravity="center"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="12dp"
+                    android:textColor="@color/color_text_04"
+                    android:text="혹시 알림이 동작 안되시면"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textSize="12dp"
+                    android:textColor="@color/color_text_07"
+                    android:layout_marginLeft="4.3dp"
+                    android:text="@string/alarm_system_click"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textSize="12dp"
+                    android:textColor="@color/color_text_04"
+                    android:text="하여"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="4.3dp"
+                android:textSize="12dp"
+                android:textColor="@color/color_text_04"
+                android:text="시스템 알림 설정을 확인해주세요."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:openDrawer="start">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_for_title3"/>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/layoutcontainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+
+
+
+            <include android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_for_main_menu2"/>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/LLayoutForSetting"
+            layout="@layout/nav_header_main2"
+            android:layout_gravity="start"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:clickable="true"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>

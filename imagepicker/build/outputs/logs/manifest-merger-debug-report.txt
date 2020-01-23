@@ -1,0 +1,45 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:1:1-19:12
+INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:1:1-19:12
+INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:1:1-19:12
+	package
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:2:5-47
+		INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+		INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:5:5-80
+	android:name
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:5:22-77
+application
+ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:7:5-17:19
+	android:label
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:9:9-41
+	android:allowBackup
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:8:9-35
+activity#net.yazeed44.imagepicker.ui.PickerActivity
+ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:12:9-79
+	android:name
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:12:19-76
+service#net.yazeed44.imagepicker.util.OfflineSpiceService
+ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:14:9-16:40
+	android:exported
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:16:13-37
+	android:name
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml:15:13-77
+uses-sdk
+INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+		INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+		ADDED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml
+		INJECTED from G:\company_job\my\wholesalefriends\imagepicker\src\main\AndroidManifest.xml

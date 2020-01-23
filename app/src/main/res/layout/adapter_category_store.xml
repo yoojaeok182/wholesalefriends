@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:background="@drawable/box_off_01"
+            android:gravity="center"
+            android:id="@+id/rootContainer"
+            android:layout_width="135.33dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivPhoto"
+                android:scaleType="centerCrop"
+                android:layout_width="78.66dp"
+                android:layout_height="35.33dp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:id="@+id/tvName"
+                android:textSize="13dp"
+                android:textColor="@color/color_text_08"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:layout_marginTop="11dp"
+                android:id="@+id/tvStoreNumber"
+                android:textSize="13dp"
+                android:textColor="@color/color_text_08"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginTop="21dp"
+                android:id="@+id/ivCheck"
+                android:background="@drawable/check_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</LinearLayout>

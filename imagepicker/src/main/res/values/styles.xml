@@ -1,0 +1,10 @@
+<resources>
+
+
+    <style name="RecyclerView"></style>
+
+    <style name="Progress" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/color_transparent</item>
+        <item name="android:background">@color/color_transparent</item>
+    </style>
+</resources>

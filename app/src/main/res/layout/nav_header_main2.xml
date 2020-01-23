@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical"
+
+    android:background="@color/color_translate" >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/color_bg"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarSize="2dp">
+                <LinearLayout
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_menu_shop"/>
+
+                        <LinearLayout
+                            android:layout_marginLeft="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:id="@+id/laySetting"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <TextView
+                                        android:textSize="15dp"
+                                        android:textColor="@color/color_text_08"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <ImageView
+                                        android:background="@drawable/icon_menu_setting"
+                                        android:layout_marginLeft="8.3dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/ivStaffType"
+                                    android:background="@drawable/btn_staff"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_marginTop="12dp"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_04"
+                                android:id="@+id/tvShopLocale"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btnOrder"
+                            android:duplicateParentState="true"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/icon_menu_order"/>
+
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:text="주문문의"
+                                android:textSize="13dp"
+                                android:textColor="@color/btn_textcolor_02_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="25.66dp"
+                            android:background="@color/line_color_01"/>
+
+
+                        <LinearLayout
+                            android:id="@+id/btnProduct"
+                            android:duplicateParentState="true"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/icon_menu_product"/>
+
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:text="상품문의"
+                                android:textSize="13dp"
+                                android:textColor="@color/btn_textcolor_02_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/color_bg2"/>
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="91dp"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btnShowProductSearch"
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:text="0"
+                                android:textSize="15dp"
+                                android:textColor="@color/color_text_06"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_marginTop="11dp"
+                                android:text="매장방문\n상품조회"
+                                android:lineSpacingExtra="5dp"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="53.66dp"
+                            android:background="@color/line_color_01"/>
+
+                        <LinearLayout
+                            android:id="@+id/btnCustomer"
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:text="0"
+                                android:textSize="15dp"
+                                android:textColor="@color/color_text_06"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_marginTop="11dp"
+                                android:text="거래처"
+                                android:lineSpacingExtra="5dp"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="53.66dp"
+                            android:background="@color/line_color_01"/>
+
+                        <LinearLayout
+                            android:id="@+id/btnAllProduct"
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:text="0"
+                                android:textSize="15dp"
+                                android:textColor="@color/color_text_06"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_marginTop="11dp"
+                                android:text="전체상품"
+                                android:lineSpacingExtra="5dp"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/color_bg2"/>
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:id="@+id/btnMyShopBest30"
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_height="54dp">
+
+                            <TextView
+                                android:layout_marginLeft="20dp"
+                                android:text="우리매장 Top 30"
+                                android:lineSpacingExtra="5dp"
+                                android:textSize="14dp"
+                                android:textColor="@color/color_text_03"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:layout_height="match_parent"/>
+
+                            <ImageView
+                                android:background="@drawable/icon_list_arrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_color_01"
+                            android:layout_marginRight="20dp"/>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:id="@+id/btnMyShopNotice"
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_height="54dp">
+
+                            <TextView
+                                android:layout_marginLeft="20dp"
+                                android:text="우리매장 공지사항"
+                                android:lineSpacingExtra="5dp"
+                                android:textSize="14dp"
+                                android:textColor="@color/color_text_03"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:layout_height="match_parent"/>
+
+                            <ImageView
+                                android:background="@drawable/icon_list_arrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_color_01"
+                            android:layout_marginRight="20dp"/>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:id="@+id/btnMyShopServiceCenter"
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_height="54dp">
+
+                            <TextView
+                                android:layout_marginLeft="20dp"
+                                android:text="고객센터"
+                                android:lineSpacingExtra="5dp"
+                                android:textSize="14dp"
+                                android:textColor="@color/color_text_03"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:layout_height="match_parent"/>
+
+                            <ImageView
+                                android:background="@drawable/icon_list_arrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnClose"
+            android:gravity="center"
+            android:background="@color/btn_bg_02"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/icon_close"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/llayoutForTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_for_title"/>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbarSize="2dp">
+            <LinearLayout
+                android:descendantFocusability="blocksDescendants"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+
+                <LinearLayout
+                    android:paddingTop="35dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <TextView
+                        android:gravity="center"
+                        android:textColor="@color/color_text_08"
+                        android:textSize="15dp"
+                        android:lineSpacingExtra="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="상호명"/>
+
+                    <TextView
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/tvStoreName"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:maxLength="30"
+                        android:hint="@string/hint_store_name"
+                        android:background="@drawable/input_box_off_03"/>
+                    <TextView
+                        android:text="상호명을 선택해 주세요."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg01"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@color/color_text_08"
+                        android:textSize="15dp"
+                        android:lineSpacingExtra="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="직원 이름"/>
+
+                    <EditText
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/edtCeoeName"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:maxLength="30"
+                        android:hint="@string/hint_name"
+                        android:background="@drawable/input_box_off_01"/>
+                    <TextView
+                        android:text="이름을 입력해 주세요."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg02"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@color/color_text_08"
+                        android:textSize="15dp"
+                        android:lineSpacingExtra="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="야이디"/>
+
+                    <EditText
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/edtId"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:maxLength="30"
+                        android:hint="@string/hint_id2"
+                        android:background="@drawable/input_box_off_01"/>
+                    <TextView
+                        android:text="잘못된 아이디입니다."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg03"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@color/color_text_08"
+                        android:textSize="15dp"
+                        android:lineSpacingExtra="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호"/>
+
+                    <EditText
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/edtPwd"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:maxLength="15"
+                        android:hint="@string/hint_pwd4"
+                        android:background="@drawable/input_box_off_01"/>
+                    <TextView
+                        android:text="잘못된 비밀번호입니다."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg04"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@color/color_text_08"
+                        android:textSize="15dp"
+                        android:lineSpacingExtra="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호 확인"/>
+
+                    <EditText
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/edtPwd2"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:maxLength="15"
+                        android:hint="@string/hint_pwd5"
+                        android:background="@drawable/input_box_off_01"/>
+                    <TextView
+                        android:text="비밀번호를 다시 한 번 확인해주세요."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg05"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="6dp"
+                        android:text="휴대폰번호"
+                        android:textColor="@color/color_text_08"
+                        android:textSize="15dp" />
+
+                    <EditText
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/edtPhone"
+                        android:inputType="phone"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:maxLength="13"
+                        android:hint="@string/hint_phone3"
+                        android:background="@drawable/input_box_off_01"/>
+                    <TextView
+                        android:text="휴대폰 번호를 정확히 입력해 주세요."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg06"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="42.33dp"
+                        android:id="@+id/btnTerms01"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ivTerms01Check"
+                            android:background="@drawable/check_default"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:textSize="14dp"
+                            android:textColor="@color/color_text_04"
+                            android:layout_marginLeft="11dp"
+                            android:id="@+id/tvTerms01"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="이용약관에 동의합니다."/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="15dp"
+                        android:id="@+id/btnTerms02"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ivTerms02Check"
+                            android:background="@drawable/check_default"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:textSize="14dp"
+                            android:textColor="@color/color_text_04"
+                            android:layout_marginLeft="11dp"
+                            android:id="@+id/tvTerms02"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="개인정보보호정책에 동의합니다."/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="약관동의를 체크해 주세요."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg07"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="50.66dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_02"
+            android:text="@string/button_title_05"
+            android:textColor="@color/color_btn_title"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+</LinearLayout>

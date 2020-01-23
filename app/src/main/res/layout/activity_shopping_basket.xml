@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_for_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llayoutForTitle"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/llayoutForData"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:paddingTop="35dp"
+
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                   <LinearLayout
+                       android:gravity="center_vertical"
+                       android:id="@+id/btnAllCheck"
+                       android:layout_width="wrap_content"
+                       android:layout_height="25dp"
+                       android:orientation="horizontal">
+                       <ImageView
+                           android:id="@+id/ivCheck"
+                           android:background="@drawable/check_default"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                       <TextView
+                           android:textColor="@color/color_text_03"
+                           android:textSize="14dp"
+                           android:layout_marginLeft="11.66dp"
+                           android:text="전체선택"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                   </LinearLayout>
+                    <LinearLayout
+                        android:gravity="right|center_vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnDelete"
+                            android:layout_width="50dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/btn_delete_select"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:clipToPadding="false"
+                    android:layout_marginTop="14dp"
+                    android:paddingBottom="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btnAdd"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/btn_bg_03"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:text="0원"
+                        android:lines="1"
+                        android:textSize="15dp"
+                        android:textColor="@color/color_text_06"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnOrder"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:background="@color/btn_bg_02"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="주문하기"
+                        android:textSize="15dp"
+                        android:textColor="@color/color_text_09"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/llayoutForNoData">
+
+            <ImageView
+                android:background="@drawable/icon_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="22dp"
+                android:textSize="15dp"
+                android:textColor="@color/color_text_04"
+                android:text="장바구니에 담긴 상품이 없습니다."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

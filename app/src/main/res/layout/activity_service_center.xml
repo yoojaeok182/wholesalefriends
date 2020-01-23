@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/color_bg"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_for_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llayoutForTitle"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:scrollbarSize="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:descendantFocusability="blocksDescendants"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:paddingTop="29dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="29dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:text="고객센터 0H2-0000-0000"
+                    android:textSize="15dp"
+                    android:textColor="@color/color_text_08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textSize="13dp"
+                    android:layout_marginTop="15.66dp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/color_text_03"
+                    android:layout_height="wrap_content"
+                    android:text="AM 10:00  - PM 07:00 (*토,일,공휴일 휴무)"/>
+
+                <LinearLayout
+                    android:layout_marginTop="18.33dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:id="@+id/btnKakao"
+                        android:background="@drawable/btn_service_center_05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <ImageButton
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/btnEmail"
+                        android:background="@drawable/btn_service_center_05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/color_bg2"/>
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="29.33dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:text="자주 묻는 질문 FAQ"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_text_08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <LinearLayout
+                    android:layout_marginTop="13dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp">
+                        <LinearLayout
+
+                            android:id="@+id/btnFaq01"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/llayoutForFaq01"
+                                android:background="@drawable/btn_03"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvFaq01"
+                                    android:textSize="13dp"
+                                    android:textColor="@color/color_text_03"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="인증/직원"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:layout_marginLeft="-1dp"
+
+                            android:id="@+id/btnFaq02"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/llayoutForFaq02"
+                                android:background="@drawable/btn_03"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvFaq02"
+                                    android:textSize="13dp"
+                                    android:textColor="@color/color_text_03"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="주문"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:layout_marginLeft="-1dp"
+
+                            android:id="@+id/btnFaq03"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/llayoutForFaq03"
+                                android:background="@drawable/btn_03"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvFaq03"
+                                    android:textSize="13dp"
+                                    android:textColor="@color/color_text_03"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="상품등록/판매"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="-1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp">
+                        <LinearLayout
+
+                            android:id="@+id/btnFaq04"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/llayoutForFaq04"
+                                android:background="@drawable/btn_03"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvFaq04"
+                                    android:textSize="13dp"
+                                    android:textColor="@color/color_text_03"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="거래처관리"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:layout_marginLeft="-1dp"
+
+                            android:id="@+id/btnFaq05"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/llayoutForFaq05"
+                                android:background="@drawable/btn_03"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvFaq05"
+                                    android:textSize="13dp"
+                                    android:textColor="@color/color_text_03"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="고객관리"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:layout_marginLeft="-1dp"
+
+                            android:id="@+id/btnFaq06"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/llayoutForFaq06"
+                                android:background="@drawable/btn_03"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvFaq06"
+                                    android:textSize="13dp"
+                                    android:textColor="@color/color_text_03"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="광고상품"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_color_01"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

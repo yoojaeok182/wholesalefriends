@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ucrop_photobox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ucrop_color_toolbar"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ucrop_label_edit_photo"
+            android:textColor="@color/ucrop_color_toolbar_widget" />
+
+    </android.support.v7.widget.Toolbar>-->
+
+    <LinearLayout
+        android:id="@+id/llayoutToolbar"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/btnClose"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:background="@drawable/back_ucrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tvToolbarTitle"
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ucrop_label_edit_photo"
+            android:textColor="#000000" />
+
+        <RelativeLayout
+            android:id="@+id/btnRotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/ivRotate"
+                android:background="@drawable/ucrop_ic_angle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btnDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/ivDone"
+                android:background="@drawable/ucrop_ic_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/ucrop_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/wrapper_controls"
+        android:layout_below="@+id/llayoutToolbar"
+        android:background="@color/ucrop_color_crop_background">
+
+        <ImageView
+            android:id="@+id/image_view_logo"
+            android:layout_width="@dimen/ucrop_default_crop_logo_size"
+            android:layout_height="@dimen/ucrop_default_crop_logo_size"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ucrop_vector_ic_crop"
+            tools:background="@drawable/ucrop_vector_ic_crop"
+            tools:ignore="ContentDescription,MissingPrefix" />
+
+        <com.yalantis.ucrop.view.UCropView
+            android:id="@+id/ucrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0" />
+
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/llayoutForTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_for_title"/>
+
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:paddingTop="35dp"
+                android:paddingBottom="35dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+
+                    android:layout_marginTop="14.66dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="45.33dp"
+                    android:id="@+id/edtAddr1"
+                    android:padding="13dp"
+                    android:lines="1"
+                    android:textSize="13dp"
+                    android:textColor="@color/color_input_01"
+                    android:textColorHint="@color/hint_input_01"
+                    android:maxLength="30"
+                    android:hint="주소입력"
+                    android:background="@drawable/input_box_off_01"/>
+
+                <EditText
+
+                    android:layout_marginTop="14.66dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="45.33dp"
+                    android:id="@+id/edtAddr2"
+                    android:padding="13dp"
+                    android:lines="1"
+                    android:textSize="13dp"
+                    android:textColor="@color/color_input_01"
+                    android:textColorHint="@color/hint_input_01"
+                    android:hint="상세주소 입력"
+                    android:background="@drawable/input_box_off_01"/>
+                <TextView
+                    android:text="주소를 정확히 입력해 주세요.​"
+                    android:visibility="gone"
+                    android:textSize="9dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tvErrorMsg01"
+                    android:textColor="@color/color_text_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:id="@+id/llayoutForSite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <EditText
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/edtSiteName"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:hint="사이트명을 입력"
+                        android:background="@drawable/input_box_off_01"/>
+                    <TextView
+                        android:text="사이트명을 입력해주세요."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg02"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+
+                        android:layout_marginTop="14.66dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45.33dp"
+                        android:id="@+id/edSiteUrl"
+                        android:padding="13dp"
+                        android:lines="1"
+                        android:textSize="13dp"
+                        android:textColor="@color/color_input_01"
+                        android:textColorHint="@color/hint_input_01"
+                        android:hint="사이트 주소를 입력"
+                        android:background="@drawable/input_box_off_01"/>
+                    <TextView
+                        android:text="사이트 주소를 입력해주세요."
+                        android:visibility="gone"
+                        android:textSize="9dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvErrorMsg03"
+                        android:textColor="@color/color_text_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="50.66dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_02"
+            android:text="@string/button_title_04"
+            android:textColor="@color/color_btn_title"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+</LinearLayout>

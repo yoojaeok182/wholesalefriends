@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "658879085802",
+    "firebase_url": "https://divination-935f7.firebaseio.com",
+    "project_id": "wholesalefriends-935f7",
+    "storage_bucket": "wholesalefriends-935f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658879085802:android:fd01c3ae73b921ea",
+        "android_client_info": {
+          "package_name": "com.wholesale.wholesalefriends"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658879085802-jes453mlkhbarnu5a4g6foukul81fk22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wholesale.wholesalefriends",
+            "certificate_hash": "7f50376660d34b7823f0c98dee9f8b6bbe1aaac6"
+          }
+        },
+        {
+          "client_id": "658879085802-khg1lk5g4d6saspmcj2tj071442sdpuu.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "658879085802-rsgr35cf5835efpbcd3ig67n36tdca91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN-GwCNM_UfvMWK427EB1trmDXFlo4Zdw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

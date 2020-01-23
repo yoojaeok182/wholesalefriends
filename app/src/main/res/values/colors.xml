@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="color_translate">#00000000</color>
+    <color name="color_30_translate">#4D000000</color>
+    <color name="color_50_translate">#80000000</color>
+
+    <color name="color_bg">#ffffff</color>
+    <color name="color_bg2">#f2f4f5</color>
+    <color name="color_bg3">#ecf0f1</color>
+    <color name="color_bg4">#f3f4f6</color>
+
+    <color name="color_000000">#000000</color>
+
+    <color name="dialog_bg">#C4FFFFFF</color>
+    <color name="color_point_enable">#00796D</color>
+
+
+    <color name="color_box_line">#cccccc</color>
+    <color name="color_box_line2">#00796D</color>
+    <color name="color_box_line3">#FF3951</color>
+    <color name="color_box_line4">#dddddd</color>
+    <color name="color_box_line5">#1d988b</color>
+    <color name="color_box_line6">#666666</color>
+    <color name="color_box_line8">#e86960</color>
+    <color name="color_box_line9">#aaaaaa</color>
+
+    <color name="color_box">#ffffff</color>
+    <color name="color_box2">#00ada0</color>
+    <color name="color_box3">#999999</color>
+    <color name="color_box4">#f2f4f5</color>
+    <color name="color_box5">#666666</color>
+    <color name="color_box6">#1d988b</color>
+    <color name="color_box7">#f3f4f6</color>
+    <color name="color_box8">#f9f9f9</color>
+    <color name="color_box9">#e86960</color>
+    <color name="color_box10">#444444</color>
+    <color name="color_box12">#AD000000</color>
+
+    <color name="color_box11">#e8e8e8e8</color>
+
+    <color name="color_btn_title">#ffffff</color>
+
+    <color name="color_wheel_view_no_select">#666666</color>
+    <color name="color_wheel_view_select">#666666</color>
+
+    <color name="btn_bg_01">#999999</color>
+    <color name="btn_bg_02">#00ada0</color>
+    <color name="btn_bg_03">#dddddd</color>
+    <color name="btn_bg_04">#aaaaaa</color>
+
+
+    <color name="hint_input_01">#888888</color>
+
+    <color name="color_input_01">#222222</color>
+
+
+    <color name="btn__text_color_01">#888888</color>
+
+    <color name="line_color_01">#dddddd</color>
+    <color name="line_color_02">#A8A8A8</color>
+    <color name="line_color_03">#222222</color>
+    <color name="line_color_04">#444444</color>
+    <color name="line_color_05">#e86960</color>
+    <color name="line_color_06">#eeeeee</color>
+    <color name="line_color_07">#666666</color>
+    <color name="line_color_08">#888888</color>
+
+    <color name="color_text_01">#aaaaaa</color>
+    <color name="color_text_02">#000000</color>
+    <color name="color_text_03">#888888</color>
+    <color name="color_text_04">#666666</color>
+    <color name="color_text_05">#fffefe</color>
+    <color name="color_text_06">#444444</color>
+    <color name="color_text_07">#e86960</color>
+    <color name="color_text_08">#222222</color>
+    <color name="color_text_09">#ffffff</color>
+    <color name="color_text_10">#00ada0</color>
+    <color name="color_text_11">#999999</color>
+    <color name="color_text_12">#db0000</color>
+
+    <color name="color_ffffff">#ffffff</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_aaaaaa">#aaaaaa</color>
+</resources>

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                app:expanded="true"
+                android:background="@color/color_bg"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp"/>
+
+                    <LinearLayout
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/tvBannerName"
+                            android:textSize="13dp"
+                            android:textColor="@color/color_text_08"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvBannerIndex"
+                                android:textSize="12dp"
+                                android:textColor="@color/color_text_08"
+                                android:layout_width="wrap_content"
+                                android:text="0"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:text="/0"
+                                android:id="@+id/tvBannerTotalIndex"
+                                android:textSize="12dp"
+                                android:textColor="@color/color_text_03"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/color_bg2"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="87dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:id="@+id/btnMenu01"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:background="@drawable/btn_home_menu01_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="@color/btn_textcolor_03_select"
+                                android:layout_marginTop="7.66dp"
+                                android:text="티셔츠"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="44.33dp"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:id="@+id/btnMenu02"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:background="@drawable/btn_home_menu02_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="@color/btn_textcolor_03_select"
+                                android:layout_marginTop="7.66dp"
+                                android:text="바지류"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="44.33dp"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:id="@+id/btnMenu03"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:background="@drawable/btn_home_menu03_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="@color/btn_textcolor_03_select"
+                                android:layout_marginTop="7.66dp"
+                                android:text="상하세트"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="44.33dp"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:id="@+id/btnMenu04"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:background="@drawable/btn_home_menu04_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="@color/btn_textcolor_03_select"
+                                android:layout_marginTop="7.66dp"
+                                android:text="원피스"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="44.33dp"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:id="@+id/btnMenu05"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:background="@drawable/btn_home_menu05_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="@color/btn_textcolor_03_select"
+                                android:layout_marginTop="7.66dp"
+                                android:text="아우터"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="44.33dp"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:duplicateParentState="true"
+                            android:orientation="vertical"
+                            android:id="@+id/btnMenu06"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:background="@drawable/btn_home_menu06_select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="@color/btn_textcolor_03_select"
+                                android:layout_marginTop="7.66dp"
+                                android:text="전체보기"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/color_bg2"/>
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="127dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/btnStoreBanner01"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivPhoto01"
+                                android:scaleType="center"
+                                android:layout_width="85.66dp"
+                                android:layout_height="35dp"/>
+
+                            <TextView
+                                android:layout_marginTop="15dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_text_08"
+                                android:textSize="13dp"
+
+                                android:lines="1"
+                                android:id="@+id/tvPhotoName01"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_marginTop="11dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_text_04"
+                                android:textSize="13dp"
+
+                                android:lines="2"
+                                android:id="@+id/tvPhotoInfo01"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="1dp"
+
+                            android:layout_height="80.33dp"/>
+
+                        <LinearLayout
+                            android:id="@+id/btnStoreBanner02"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivPhoto02"
+                                android:scaleType="center"
+                                android:layout_width="85.66dp"
+                                android:layout_height="35dp"/>
+
+                            <TextView
+                                android:layout_marginTop="15dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_text_08"
+                                android:textSize="13dp"
+
+                                android:id="@+id/tvPhotoName02"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_marginTop="11dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_text_10"
+                                android:textSize="13dp"
+                                android:text="도매프렌즈 추천!"
+                                android:id="@+id/tvPhotoInfo02"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/color_bg2"/>
+                </LinearLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <LinearLayout
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="31dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="오늘의 신상"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_text_08"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="14dp"
+                        android:id="@+id/recyclerView"
+                        android:clipToPadding="false"
+                        android:paddingBottom="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnUp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_up"/>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

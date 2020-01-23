@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+       <ImageView
+           android:id="@+id/ivLeftDummy"
+           android:layout_width="20dp"
+           android:layout_height="wrap_content"/>
+
+       <RelativeLayout
+           android:paddingRight="7.33dp"
+           android:id="@+id/rootContainer"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ivPhoto"
+                android:scaleType="centerCrop"
+                android:layout_width="90.33dp"
+                android:layout_height="90.33dp" />
+
+            <TextView
+                android:textSize="13dp"
+                android:textColor="@color/color_text_09"
+                android:layout_width="25.66dp"
+                android:layout_height="25.66dp"
+                android:id="@+id/tvNum"
+                android:background="@color/color_box9"/>
+
+        </RelativeLayout>
+
+       </RelativeLayout>
+       <ImageView
+           android:id="@+id/ivRightDummy"
+           android:layout_width="20dp"
+           android:layout_height="wrap_content"/>
+   </LinearLayout>
+
+</LinearLayout>

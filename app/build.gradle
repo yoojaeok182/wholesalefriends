@@ -1,0 +1,249 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    useLibrary 'org.apache.http.legacy'
+    flavorDimensions "default"
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    /*applicationVariants.all { variant ->
+        variant.outputs.all {
+            output ->
+                def df = new SimpleDateFormat("yyMMdd")
+                df.setTimeZone(TimeZone.getDefault())
+                def file = output.outputFile
+                def fileName = file.name.replace("app", df.format(new Date()) + "-" + variant.applicationId + "-" + variant.versionName + "(" + variant.versionCode + ")");
+                outputFileName = fileName
+        }
+    }*/
+
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = variant.applicationId
+            def SEP = "-"
+            def flavor = "wholesale_friends"
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName
+            def version_code = variant.versionCode
+            def date = new Date()
+            def formattedDate = date.format('yyMMdd')
+
+            def newApkName = formattedDate + SEP+project + SEP + version + "(" + version_code + ")" + flavor + SEP + buildType+  ".apk"
+            outputFileName = new File(newApkName)
+        }
+    }
+    flavorDimensions "default"
+
+    defaultConfig {
+        applicationId "com.wholesale.wholesalefriends"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+
+        // 블러 처리 - 달톡별톡
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true    // Enable RS support
+
+        ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+
+        release {
+            zipAlignEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        // dex의 크기를 늘리기 위한 설정(2^16개 초과)
+        jumboMode = true
+        // 앱 구동 시 자바 할당 힙을 지정
+        javaMaxHeapSize "4g"
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+repositories {
+    mavenCentral()
+    google()
+    maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+configurations.all {
+    resolutionStrategy {
+        // 동일 모듈에 대한 버전 충돌시 즉시 오류 발생하고 실패.
+        failOnVersionConflict()
+        // 동적 버전 탐색을 캐시
+        cacheDynamicVersionsFor 0, 'seconds'
+        // 변하는 모듈(Changing Module)을 캐시
+        cacheChangingModulesFor 0, 'seconds'
+//        all*.exclude group: 'com.squareup.okio'
+
+    }
+    /*resolutionStrategy.dependencySubstitution {
+        substitute module('org.apache.commons:commons-io:1.3.2') with module('commons-io:commons-io:1.3.2')
+    }*/
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    implementation('androidx.multidex:multidex:2.0.0') {
+        force = true
+    }
+
+    implementation('androidx.legacy:legacy-support-v4:1.0.0-beta01') {
+        force = true
+    }
+
+    implementation('androidx.annotation:annotation:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.appcompat:appcompat:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.recyclerview:recyclerview:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.fragment:fragment:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.legacy:legacy-support-core-utils:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.legacy:legacy-support-core-ui:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.core:core:1.0.0-beta01') {
+        force = true
+    }
+    implementation('com.google.android.material:material:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.exifinterface:exifinterface:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.cardview:cardview:1.0.0-beta01') {
+        force = true
+    }
+    implementation('com.google.android.exoplayer:exoplayer:r2.4.4') {
+        force = true
+    }
+    implementation('androidx.browser:browser:1.0.0-beta01') {
+        force = true
+    }
+    implementation('androidx.vectordrawable:vectordrawable-animated:1.1.0') {
+        force = true
+    }
+
+    implementation('androidx.vectordrawable:vectordrawable:1.0.0') {
+        force = true
+    }
+    implementation('androidx.interpolator:interpolator:1.0.0') {
+        force = true
+    }
+
+    implementation('androidx.collection:collection:1.1.0') {
+        force = true
+    }
+//    푸시
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
+    implementation('com.google.firebase:firebase-core:16.0.7') {
+
+        force = true
+    }
+
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation('com.google.android.gms:play-services-auth:16.0.1') {
+        force = true
+    }
+    implementation('com.google.firebase:firebase-analytics:16.3.0') {
+        force = true
+    }
+    implementation('com.google.firebase:firebase-analytics-impl:16.3.0') {
+        force = true
+    }
+    implementation('com.google.firebase:firebase-analytics-impl:16.3.0') {
+        force = true
+    }
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.wang.avi:library:2.1.3'
+
+    implementation 'com.squareup:otto:1.3.7'
+
+    // 카카오링크 sdk를 사용하기 위해 필요.
+    implementation group: project.KAKAO_SDK_GROUP, name: 'kakaolink', version: project.KAKAO_SDK_VERSION
+    // 카카오스토리 sdk를 사용하기 위해 필요.
+    implementation group: 'com.kakao.sdk', name: 'kakaostory', version: project.KAKAO_SDK_VERSION
+    //페이스북 최신 라이브러리 등록
+
+    implementation 'io.reactivex:rxjava:1.+'
+    implementation('io.reactivex.rxjava2:rxjava:2.1.9') {
+        force = true
+    }
+    implementation 'com.github.mmin18:realtimeblurview:1.1.2' // 배경 블러 처리
+
+    implementation 'com.github.chrisbanes:PhotoView:latest.release'
+
+    implementation project(path: ':tedpermission')
+    implementation('com.github.bumptech.glide:glide:4.10.0') {
+        exclude group: "com.android.support"
+        force = true
+    }
+
+//    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+
+    implementation ('com.squareup.okhttp3:okhttp:3.11.0'){
+        force = true
+    }
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation project(':imagepicker')
+    implementation project(':androidtagview')
+    implementation project(':cropcustom')
+    implementation (project(':ucrop')){
+        exclude module: 'okhttp'
+    }
+
+    implementation 'com.github.mabbas007:TagsEditText:1.0.5'
+
+}
+
+// ADD THIS AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'
