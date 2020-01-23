@@ -326,6 +326,10 @@ public class JoinStep6Activity extends GroupActivity {
                     if(!jsonObject.isNull("level")){
                         level = jsonObject.getInt("level");
                     }
+                    if(!jsonObject.isNull("store_id")){
+                        int  store_id = jsonObject.getInt("store_id");
+                        SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.store_id,store_id);
+                    }
                     Intent intent = null;
                     if(store_type!=null &&store_type ==2){
                         intent = new Intent(JoinStep6Activity.this, MainActivity.class);

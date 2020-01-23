@@ -9,6 +9,7 @@ public class LoginData implements Serializable {
     private String store_name;
     private boolean isCheck;
 
+
     public boolean isCheck() {
         return isCheck;
     }

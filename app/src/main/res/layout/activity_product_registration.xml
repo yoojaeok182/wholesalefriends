@@ -294,7 +294,7 @@
 
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -356,8 +356,10 @@
                     android:layout_marginTop="20dp"
                     android:stateListAnimator="@null"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_category"/>
+                    android:layout_height="45dp"
+                    android:text="카테고리 선택하기"
+                    android:textColor="@color/color_text_08"
+                    android:background="@drawable/btn_08"/>
             </LinearLayout>
 
             <ImageView
@@ -366,7 +368,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -440,7 +442,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -473,6 +475,7 @@
                     android:hint="직접입력 띄어쓰기로 구분"
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
+                    android:textSize="13dp"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/input_box_off_01"
@@ -483,345 +486,345 @@
                     TagsEditText:tagsTextSize="13dp"
                     TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>
 
-              <LinearLayout
-                  android:layout_marginTop="20dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
                     <LinearLayout
-                        android:gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content">
-                        <Button
-                            android:id="@+id/btnColor01"
-                            android:layout_width="64.33dp"
-                            android:layout_height="24.33dp"
-                            android:background="@drawable/btn_color_1_select"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor01"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_1_select"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor02"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_2_select"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor03"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_3_select"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor04"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_4_select"/>
+                        </LinearLayout>
                     </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor02"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_2_select"/>
-                      </LinearLayout>
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor03"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_3_select"/>
-                      </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor05"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_5_select"/>
+                        </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor04"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_4_select"/>
-                      </LinearLayout>
-                  </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor06"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_6_select"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor07"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_7_select"/>
+                        </LinearLayout>
 
-                  <LinearLayout
-                      android:layout_marginTop="10dp"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <LinearLayout
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor05"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_5_select"/>
-                      </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor08"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_8_select"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor09"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_9_select"/>
+                        </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor06"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_6_select"/>
-                      </LinearLayout>
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor07"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_7_select"/>
-                      </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor10"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_10_select"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor11"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_11_select"/>
+                        </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor08"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_8_select"/>
-                      </LinearLayout>
-                  </LinearLayout>
-                  <LinearLayout
-                      android:layout_marginTop="10dp"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <LinearLayout
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor09"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_9_select"/>
-                      </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor12"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_12_select"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor10"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_10_select"/>
-                      </LinearLayout>
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor11"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_11_select"/>
-                      </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor13"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_13_select"/>
+                        </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor12"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_12_select"/>
-                      </LinearLayout>
-                  </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor14"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_14_select"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor15"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_15_select"/>
+                        </LinearLayout>
 
-                  <LinearLayout
-                      android:layout_marginTop="10dp"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <LinearLayout
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor13"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_13_select"/>
-                      </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor16"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_16_select"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor14"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_14_select"/>
-                      </LinearLayout>
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor15"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_15_select"/>
-                      </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor17"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_17_select"/>
+                        </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor16"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_16_select"/>
-                      </LinearLayout>
-                  </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor18"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_18_select"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor19"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_19_select"/>
+                        </LinearLayout>
 
-                  <LinearLayout
-                      android:layout_marginTop="10dp"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <LinearLayout
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor17"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_17_select"/>
-                      </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor20"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_20_select"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor21"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_21_select"/>
+                        </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor18"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_18_select"/>
-                      </LinearLayout>
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor19"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_19_select"/>
-                      </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor22"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_22_select"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor23"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_23_select"/>
+                        </LinearLayout>
 
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor20"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_20_select"/>
-                      </LinearLayout>
-                  </LinearLayout>
-                  <LinearLayout
-                      android:layout_marginTop="10dp"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <LinearLayout
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor21"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_21_select"/>
-                      </LinearLayout>
-
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor22"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_22_select"/>
-                      </LinearLayout>
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor23"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_23_select"/>
-                      </LinearLayout>
-
-                      <LinearLayout
-                          android:layout_marginLeft="10dp"
-                          android:gravity="center"
-                          android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
-                          <Button
-                              android:id="@+id/btnColor24"
-                              android:layout_width="64.33dp"
-                              android:layout_height="24.33dp"
-                              android:background="@drawable/btn_color_24_select"/>
-                      </LinearLayout>
-                  </LinearLayout>
-              </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/btnColor24"
+                                android:layout_width="64.33dp"
+                                android:layout_height="24.33dp"
+                                android:background="@drawable/btn_color_24_select"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -832,7 +835,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -857,7 +860,7 @@
 
                 </LinearLayout>
 
-                <EditText
+                <mabbas007.tagsedittext.TagsEditText
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
                     android:hint="직접입력 띄어쓰기로 구분"
@@ -869,7 +872,13 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/input_box_off_01"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"/>
+                    android:layout_height="45dp"
+                    TagsEditText:allowSpaceInTag="true"
+                    TagsEditText:tagsCloseImageRight="@drawable/tag_close"
+                    TagsEditText:tagsBackground="@drawable/btn_tag_01"
+                    TagsEditText:tagsTextColor="@color/color_text_08"
+                    TagsEditText:tagsTextSize="13dp"
+                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>
                 <LinearLayout
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
@@ -1094,7 +1103,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -1119,7 +1128,7 @@
 
                 </LinearLayout>
 
-                <EditText
+                <mabbas007.tagsedittext.TagsEditText
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
                     android:hint="직접입력 띄어쓰기로 구분"
@@ -1131,7 +1140,13 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/input_box_off_01"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"/>
+                    android:layout_height="45dp"
+                    TagsEditText:allowSpaceInTag="true"
+                    TagsEditText:tagsCloseImageRight="@drawable/tag_close"
+                    TagsEditText:tagsBackground="@drawable/btn_tag_01"
+                    TagsEditText:tagsTextColor="@color/color_text_08"
+                    TagsEditText:tagsTextSize="13dp"
+                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>
                 <LinearLayout
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
@@ -1316,7 +1331,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -1331,7 +1346,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:text="소재 선택 및 입력(선택)"
+                        android:text="옷감 정보(선택)"
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:textColor="@color/color_text_08"
@@ -1367,7 +1382,7 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick01"
-                                android:layout_width="88.33dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_01_select"/>
                         </LinearLayout>
@@ -1380,7 +1395,7 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick02"
-                                android:layout_width="88.33dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_02_select"/>
                         </LinearLayout>
@@ -1392,7 +1407,7 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick03"
-                                android:layout_width="88.33dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_03_select"/>
                         </LinearLayout>
@@ -1420,7 +1435,7 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick04"
-                                android:layout_width="88.33dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_04_select"/>
                         </LinearLayout>
@@ -1433,7 +1448,7 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick05"
-                                android:layout_width="88.33dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_05_select"/>
                         </LinearLayout>
@@ -1445,7 +1460,7 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick06"
-                                android:layout_width="88.33dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_06_select"/>
                         </LinearLayout>
@@ -1473,12 +1488,13 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick07"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_07_select"/>
                         </LinearLayout>
 
                         <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_marginLeft="10dp"
                             android:gravity="center"
                             android:layout_width="0dp"
@@ -1486,11 +1502,12 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick08"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_08_select"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_marginLeft="10dp"
                             android:gravity="center"
                             android:layout_width="0dp"
@@ -1498,11 +1515,12 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick09"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_09_select"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_marginLeft="10dp"
                             android:gravity="right"
                             android:layout_width="0dp"
@@ -1510,7 +1528,7 @@
                             android:layout_height="wrap_content">
                             <Button
                                 android:id="@+id/btnThinick10"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
                                 android:background="@drawable/btn_thickness_10_select"/>
                         </LinearLayout>
@@ -1566,7 +1584,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingBottom="31dp"
                 android:paddingTop="31dp"
                 android:paddingLeft="20dp"
@@ -1581,7 +1599,7 @@
                     android:textSize="15dp"
                     android:textColor="@color/color_text_08"
                     android:textStyle="bold"
-                    android:text="세탁정보"/>
+                    android:text="세탁정보(필수)"/>
 
 
 
@@ -1592,6 +1610,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo01"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -1603,6 +1622,7 @@
                             android:background="@drawable/icon_handwash"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo01"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1612,6 +1632,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo02"
+
                         android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1624,6 +1646,7 @@
                             android:background="@drawable/icon_dry"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo02"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1633,6 +1656,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo03"
+
                         android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1645,6 +1670,7 @@
                             android:background="@drawable/icon_water"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo03"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1654,6 +1680,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo04"
+
                         android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1666,6 +1694,7 @@
                             android:background="@drawable/icon_alone"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo04"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1681,6 +1710,8 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo05"
+
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -1692,6 +1723,7 @@
                             android:background="@drawable/icon_wool"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo05"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1701,6 +1733,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo06"
+
                         android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1713,6 +1747,7 @@
                             android:background="@drawable/icon_bleach"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo06"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1722,6 +1757,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo07"
+
                         android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1734,6 +1771,7 @@
                             android:background="@drawable/icon_ironing"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo07"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1743,6 +1781,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnWashingInfo08"
                         android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1755,6 +1794,7 @@
                             android:background="@drawable/icon_washer"/>
 
                         <TextView
+                            android:id="@+id/tvWashingInfo08"
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1771,7 +1811,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -1796,344 +1836,344 @@
 
                 </LinearLayout>
 
-               <LinearLayout
-                   android:layout_marginTop="20dp"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:orientation="vertical">
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="horizontal">
-                       <LinearLayout
-                           android:id="@+id/btnRadio01"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btnRadio01"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio01"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio01"/>
 
-                           <TextView
-                               android:text="로맨틱"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                       <LinearLayout
+                            <TextView
+                                android:text="로맨틱"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                        <LinearLayout
 
-                           android:id="@+id/btnRadio02"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                            android:id="@+id/btnRadio02"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio02"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio02"/>
 
-                           <TextView
-                               android:text="시크"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
+                            <TextView
+                                android:text="시크"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
 
-                       <LinearLayout
-                           android:id="@+id/btnRadio03"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/btnRadio03"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio03"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio03"/>
 
-                           <TextView
-                               android:text="럭셔리"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                   </LinearLayout>
+                            <TextView
+                                android:text="럭셔리"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
-                   <LinearLayout
-                       android:layout_marginTop="15dp"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="horizontal">
-                       <LinearLayout
-                           android:id="@+id/btnRadio04"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btnRadio04"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio04"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio04"/>
 
-                           <TextView
-                               android:text="미시"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                       <LinearLayout
+                            <TextView
+                                android:text="미시"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                        <LinearLayout
 
-                           android:id="@+id/btnRadio05"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                            android:id="@+id/btnRadio05"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio05"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio05"/>
 
-                           <TextView
-                               android:text="마담"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
+                            <TextView
+                                android:text="마담"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
 
-                       <LinearLayout
-                           android:id="@+id/btnRadio06"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/btnRadio06"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio06"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio06"/>
 
-                           <TextView
-                               android:text="오피스"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                   </LinearLayout>
+                            <TextView
+                                android:text="오피스"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
-                   <LinearLayout
-                       android:layout_marginTop="15dp"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="horizontal">
-                       <LinearLayout
-                           android:id="@+id/btnRadio07"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btnRadio07"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio07"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio07"/>
 
-                           <TextView
-                               android:text="캐쥬얼"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                       <LinearLayout
+                            <TextView
+                                android:text="캐쥬얼"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                        <LinearLayout
 
-                           android:id="@+id/btnRadio08"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                            android:id="@+id/btnRadio08"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio08"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio08"/>
 
-                           <TextView
-                               android:text="섹시"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
+                            <TextView
+                                android:text="섹시"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
 
-                       <LinearLayout
-                           android:id="@+id/btnRadio09"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/btnRadio09"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio09"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio09"/>
 
-                           <TextView
-                               android:text="어반/모던"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                   </LinearLayout>
+                            <TextView
+                                android:text="어반/모던"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
-                   <LinearLayout
-                       android:layout_marginTop="15dp"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="horizontal">
-                       <LinearLayout
-                           android:id="@+id/btnRadio10"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btnRadio10"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio10"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio10"/>
 
-                           <TextView
-                               android:text="유니크"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                       <LinearLayout
+                            <TextView
+                                android:text="유니크"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                        <LinearLayout
 
-                           android:id="@+id/btnRadio11"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                            android:id="@+id/btnRadio11"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio11"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio11"/>
 
-                           <TextView
-                               android:text="명품스타일"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
+                            <TextView
+                                android:text="명품스타일"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
 
-                       <LinearLayout
-                           android:id="@+id/btnRadio12"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/btnRadio12"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio12"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio12"/>
 
-                           <TextView
-                               android:text="연애인"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                   </LinearLayout>
+                            <TextView
+                                android:text="연애인"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
-                   <LinearLayout
-                       android:layout_marginTop="15dp"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="horizontal">
-                       <LinearLayout
-                           android:id="@+id/btnRadio13"
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btnRadio13"
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                           <ImageView
-                               android:background="@drawable/btn_radio"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:id="@+id/ivRadio13"/>
+                            <ImageView
+                                android:background="@drawable/btn_radio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ivRadio13"/>
 
-                           <TextView
-                               android:text="심플/베이직"
-                               android:layout_marginLeft="5dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:textSize="13dp"
-                               android:textColor="@color/color_text_03"/>
-                       </LinearLayout>
-                       <LinearLayout
+                            <TextView
+                                android:text="심플/베이직"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:textColor="@color/color_text_03"/>
+                        </LinearLayout>
+                        <LinearLayout
 
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
 
-                       </LinearLayout>
+                        </LinearLayout>
 
-                       <LinearLayout
-                           android:gravity="center_vertical"
-                           android:layout_width="0dp"
-                           android:layout_weight="1"
-                           android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
-                       </LinearLayout>
-                   </LinearLayout>
-               </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -2144,7 +2184,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+               android:visibility="visible"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -2189,6 +2229,7 @@
                 </LinearLayout>
 
                 <EditText
+                    android:id="@+id/edtDescript"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -2299,7 +2340,7 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:background="@drawable/btn_radio"
+                            android:background="@drawable/btn_radio_on"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/ivOpenTypeRadio01"/>
@@ -2422,7 +2463,7 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:background="@drawable/btn_radio"
+                            android:background="@drawable/btn_radio_on"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/ivNationalRadio01"/>
@@ -2502,6 +2543,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/btnKakaoStory"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

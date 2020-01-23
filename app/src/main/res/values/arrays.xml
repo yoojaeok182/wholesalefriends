@@ -14,5 +14,63 @@
         <item>거리매장​</item>
         <item>자체제작업체​</item>
     </string-array>
-    
+
+    <string-array name="color_code_name">
+        <item>블랙</item>
+        <item>화이트</item>
+        <item>베이지​</item>
+        <item>그레이​</item>
+        <item>다크그레이​</item>
+        <item>아이보리​</item>
+        <item>소라​</item>
+        <item>카키​</item>
+        <item>네이비​</item>
+        <item>옐로우​</item>
+        <item>핑크​</item>
+        <item>브라운​</item>
+        <item>연청​</item>
+        <item>진청​</item>
+        <item>청​</item>
+        <item>카멜​</item>
+        <item>벽돌​</item>
+        <item>레드​</item>
+        <item>와인​</item>
+        <item>바이올렛​</item>
+        <item>그린​</item>
+        <item>다홍​</item>
+        <item>블루​</item>
+        <item>라임​</item>
+
+    </string-array>
+
+    <string-array name="size_code_name">
+        <item>S~M​</item>
+        <item>S~L​</item>
+        <item>S~XL​</item>
+        <item>FREE​</item>
+        <item>S​</item>
+        <item>M​</item>
+        <item>L​</item>
+        <item>XL​</item>
+        <item>2XL​</item>
+        <item>55​</item>
+        <item>66​</item>
+        <item>77​</item>
+        <item>88​</item>
+
+    </string-array>
+    <string-array name="material_code_name">
+        <item>면​</item>
+        <item>폴리에스테르​</item>
+        <item>나일론​</item>
+        <item>레이온​</item>
+        <item>울​</item>
+        <item>아크릴​</item>
+        <item>린넨​</item>
+        <item>스판​</item>
+        <item>폴리우레탄​</item>
+        <item>가죽​</item>
+        <item>캐시미어​</item>
+        <item>모달​</item>
+    </string-array>
 </resources>

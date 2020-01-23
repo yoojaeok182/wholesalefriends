@@ -20,6 +20,7 @@ public class Constant {
         String category_code = "category_code";
         String product_id = "product_id";
         String product_name = "product_name";
+        String store_id="store_id";
 
     }
    public interface DOMAIN{

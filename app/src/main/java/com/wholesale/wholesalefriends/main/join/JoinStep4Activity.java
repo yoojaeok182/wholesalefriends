@@ -35,6 +35,7 @@ import com.bumptech.glide.Glide;
 import com.soundcloud.android.crop.Crop;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.ImageEditActivity;
+import com.wholesale.wholesalefriends.main.LoginActivity;
 import com.wholesale.wholesalefriends.main.Main2Activity;
 import com.wholesale.wholesalefriends.main.MainActivity;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
@@ -543,6 +544,10 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                     }
                     if(!jsonObject.isNull("level")){
                         level = jsonObject.getInt("level");
+                    }
+                    if(!jsonObject.isNull("store_id")){
+                        int  store_id = jsonObject.getInt("store_id");
+                        SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.store_id,store_id);
                     }
                     Intent intent = null;
                     if(store_type!=null &&store_type ==2){
