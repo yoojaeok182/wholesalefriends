@@ -50,7 +50,6 @@ import mabbas007.tagsedittext.utils.ResourceUtils;
  * Needs a lot of work
  * BETA
  */
-@SuppressLint("AppCompatCustomView")
 public class TagsEditText extends AutoCompleteTextView {
 
     public static final String NEW_LINE = "\n";
