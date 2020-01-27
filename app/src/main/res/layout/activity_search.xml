@@ -44,7 +44,7 @@
                             android:id="@+id/ckAll"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/check_default"/>
+                            android:background="@drawable/check_on"/>
 
                         <TextView
                             android:layout_marginLeft="10dp"
@@ -114,13 +114,13 @@
 
 
                     <EditText
+                        android:imeOptions="actionSearch"
                         android:background="@color/color_translate"
                         android:hint="무엇을 찾고 계신가요?"
-                        android:text="무엇을 찾고 계신가요?"
                         android:textSize="12dp"
                         android:textColor="@color/color_text_08"
                         android:textColorHint="@color/color_text_03"
-                        android:id="@+id/tvCategorySearch"
+                        android:id="@+id/edtSearch"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
@@ -228,13 +228,25 @@
                             android:text="건"/>
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="20dp"
-                        android:id="@+id/recyclerView"
-                        android:clipToPadding="false"
-                        android:paddingBottom="50dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                   <RelativeLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <androidx.recyclerview.widget.RecyclerView
+                           android:layout_marginTop="20dp"
+                           android:id="@+id/recyclerView"
+                           android:clipToPadding="false"
+                           android:paddingBottom="50dp"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"/>
+
+                       <androidx.recyclerview.widget.RecyclerView
+                           android:layout_marginTop="20dp"
+                           android:id="@+id/recyclerViewShop"
+                           android:clipToPadding="false"
+                           android:paddingBottom="50dp"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"/>
+                   </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>

@@ -44,6 +44,7 @@ import com.wholesale.wholesalefriends.main.data.ImageFile;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.SharedPreference;
+import com.wholesale.wholesalefriends.module.view.CircleImageView;
 import com.yalantis.ucrop.UCrop;
 
 import net.yazeed44.imagepicker.model.ImageEntry;
@@ -78,7 +79,8 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
 
     private RelativeLayout btnBack;
     private TextView tvTitle;
-    private ImageView ivPhoto;
+    private CircleImageView ivPhoto;
+
     private ImageView ivPhotoCamera;
     private EditText edtStoreName;
     private TextView tvErrorMsg01;
@@ -211,6 +213,8 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                 selectPhotoDialog();
             }
         });
+
+
         ivTerms01Check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,11 +225,23 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
         ivTerms02Check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ivTerms01Check.setBackgroundResource(R.drawable.check_on);
+                ivTerms02Check.setBackgroundResource(R.drawable.check_on);
                 isChecked02 = true;
             }
         });
 
+        btnTerms01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivTerms01Check.performClick();
+            }
+        });
+        btnTerms02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivTerms02Check.performClick();
+            }
+        });
         tvTerms01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

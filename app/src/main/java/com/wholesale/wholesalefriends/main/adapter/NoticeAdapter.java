@@ -32,7 +32,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         void itemClick(int pos, NoticeListData data);
     }
 
-    public void setMeetingPlaceListener(ListSelectItemListener listSelectItemListener) {
+    public void setListSelectItemListener(ListSelectItemListener listSelectItemListener) {
         this.listSelectItemListener = listSelectItemListener;
 
     }
@@ -55,7 +55,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_category_store, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_notice, parent, false);
         return new ViewHolder(v);
     }
 
@@ -64,24 +64,28 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
         NoticeListData data = arrayList.get(position);
         if (data != null) {
-          /*  Glide.with(ctx).load(data.getPhoto()).into(holder.ivPhoto);
-
-            holder.tvName.setText(data.getStore_name());
-            holder.tvStoreNumber.setVisibility(View.GONE);
+            holder.tvTitle.setText(data.getTitle());
+            holder.tvContent.setText(data.getContent());
+            if(data.isNew()){
+                holder.tvNew.setVisibility(View.VISIBLE);
+            }else{
+                holder.tvNew.setVisibility(View.GONE);
+            }
 
             holder.rootContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(pervPosition !=position){
-
-                        arrayList.get(pervPosition).setCheck(false);
+                    if(holder.llayoutForContent.getVisibility()== View.VISIBLE){
+                        holder.icArrow.setBackgroundResource(R.drawable.icon_droparrow);
+                        holder.llayoutForContent.setVisibility(View.GONE);
+                    }else{
+                        holder.icArrow.setBackgroundResource(R.drawable.icon_uparrow);
+                        holder.llayoutForContent.setVisibility(View.VISIBLE);
                     }
-                    data.setCheck(true);
-
-                    if(listMeetingPlaceListener!=null) listMeetingPlaceListener.itemClick(position,data);
-                    pervPosition = position;
                 }
-            });*/
+            });
+
+
         }
     }
 
@@ -91,20 +95,24 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView ivPhoto;
-        private TextView tvName;
-        private TextView tvStoreNumber;
-        private ImageView ivCheck;
+        private TextView tvRegDate;
+        private TextView tvTitle;
+        private TextView tvContent;
+        private ImageView icArrow;
         private LinearLayout rootContainer;
+        private LinearLayout llayoutForContent;
 
+        private TextView tvNew;
         public ViewHolder(View convertView) {
             super(convertView);
 
-            ivPhoto = convertView.findViewById(R.id.ivPhoto);
-            tvName = convertView.findViewById(R.id.tvName);
-            tvStoreNumber = convertView.findViewById(R.id.tvStoreNumber);
-            ivCheck = convertView.findViewById(R.id.ivCheck);
+            tvNew = convertView.findViewById(R.id.tvNew);
+            tvRegDate = convertView.findViewById(R.id.tvRegDate);
+            tvTitle = convertView.findViewById(R.id.tvTitle);
+            tvContent = convertView.findViewById(R.id.tvContent);
+            icArrow = convertView.findViewById(R.id.icArrow);
             rootContainer = convertView.findViewById(R.id.rootContainer);
+            llayoutForContent = convertView.findViewById(R.id.llayoutForContent);
         }
 
     }

@@ -541,6 +541,81 @@ public class API {
 
     }
 
+
+    public static void productList(Context context, String page, String category,String is_sale,String store_id,
+                                   String keyword,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadProductList("product/list",page,category,is_sale,store_id);
+            hp.setOnProductList(new Retrofit.OnProductList() {
+                @Override
+                public void onResponse(Retrofit.ContributorProductList c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+
+                        ProductResponse productResponse = c.list;
+                        JSONObject object = new JSONObject();
+                        object.put("total",productResponse.getTotal());
+                        object.put("curent_page",productResponse.getCurent_page());
+                        object.put("last_page",productResponse.getLast_page());
+                        object.put("from",productResponse.getFrom());
+                        object.put("to",productResponse.getTo());
+                        object.put("next_page_url",productResponse.getNext_page_url());
+                        object.put("prev_page_url",productResponse.getPrev_page_url());
+                        object.put("per_page",productResponse.getPer_page());
+
+                        List<ProductListData> list = productResponse.getData();
+                        JSONArray jsonArray = new JSONArray();
+
+                        if(list!=null && list.size()>0){
+                            for(int i=0; i<list.size();i++){
+                                ProductListData data = list.get(i);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("id",data.getId());
+                                object1.put("image",data.getImage());
+                                object1.put("image_count",data.getImage_count());
+                                object1.put("name",data.getName());
+                                object1.put("price", data.getPrice());
+                                object1.put("store_name", data.getStore_name());
+                                object1.put("store_id", data.getStore_id());
+                                object1.put("like", data.getLike());
+                                object1.put("created_at", data.getCreated_at());
+
+                                jsonArray.put(object1);
+                            }
+                            object.put("data",jsonArray);
+                        }
+                        jsonObject.put("list",object);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
     public static void bestProductList(Context context,int page, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -734,6 +809,77 @@ public class API {
     }
 
     public static void storeLList(Context context, String page, String building_id,String user_id, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadStoreList("product/storeList",page,building_id,user_id);
+            hp.setOnStoreList(new Retrofit.OnStoreList() {
+                @Override
+                public void onResponse(Retrofit.ContributorStoreViewList c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+
+                        StoreListResponse response = c.list;
+                        JSONObject object = new JSONObject();
+                        object.put("total",response.getTotal());
+                        object.put("curent_page",response.getCurent_page());
+                        object.put("last_page",response.getLast_page());
+                        object.put("from",response.getFrom());
+                        object.put("to",response.getTo());
+                        object.put("next_page_url",response.getNext_page_url());
+                        object.put("prev_page_url",response.getPrev_page_url());
+                        object.put("per_page",response.getPer_page());
+
+                        List<StoreListData> list = response.getData();
+                        JSONArray jsonArray = new JSONArray();
+
+                        if(list!=null && list.size()>0){
+                            for(int i=0; i<list.size();i++){
+                                StoreListData data = list.get(i);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("id",data.getId());
+                                object1.put("image",data.getImage());
+                                object1.put("store_name",data.getStore_name());
+                                object1.put("favorites",data.getFavorites());
+                                object1.put("created_at", data.getCreated_at());
+                                object1.put("store_name", data.getStore_name());
+                                object1.put("is_new", data.getIs_new());
+                                jsonArray.put(object1);
+                            }
+                            object.put("data",jsonArray);
+                        }
+                        jsonObject.put("list",object);
+
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    public static void storeLList(Context context, String page, String building_id,String user_id,String keyword, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
             hp.uploadStoreList("product/storeList",page,building_id,user_id);

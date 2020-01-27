@@ -71,6 +71,8 @@ public class ImageEditActivity extends GroupActivity {
         imageFiles = (ArrayList<ImageFile>) intent.getSerializableExtra("image");
         arrImage = new ArrayList<>();
 
+
+
         boolean isOverSize = false;
         isNodata = false;
         ArrayList<ImageBitmap> temp = new ArrayList<>();
@@ -90,6 +92,9 @@ public class ImageEditActivity extends GroupActivity {
         if(temp.size() > 0) {
             for (int i = temp.size() - 1; i >= 0; i--) {
                 arrImage.add(temp.get(i));
+                if(isProfile){
+                    arrImage.get(i).setCheck(true);
+                }
             }
         } else {
             isNodata = true;
@@ -106,11 +111,10 @@ public class ImageEditActivity extends GroupActivity {
                     for (int i = arrImage.size() - 1; i >= 0; i--) {
                         if (arrImage.get(i).isCheck()) {
                             String resizePath = "";
-                            if (!arrImage.get(i).isGif()) {
-                                resizePath = BitmapUtil.saveImage(arrImage.get(i).getBitmap());
-                            }
+                            resizePath = BitmapUtil.saveImage(arrImage.get(i).getBitmap());
                             arrImage.get(i).setResizePath(resizePath);
                             imageFiles.get(i).setResizePath(resizePath);
+                           // imageFiles.get(i).setBitmap(arrImage.get(i).getBitmap());
                         } else {
                             imageFiles.remove(i);
                         }

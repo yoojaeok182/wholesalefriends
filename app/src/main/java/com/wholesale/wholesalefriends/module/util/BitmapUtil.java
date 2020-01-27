@@ -24,12 +24,12 @@ public class BitmapUtil {
 
         FileOutputStream stream = null;
         try {
-            String folderPath = Constant.PICTURE_DIR;
+            String folderPath = Constant.PICTURE_DIR2;
             File folder = new File(folderPath);
             if (!folder.exists()) {
                 folder.mkdirs();
             }
-            File file = new File((folderPath + "/bridge" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
+            File file = new File((folderPath + "/wholesalestore" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
             stream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             return file.getAbsolutePath();

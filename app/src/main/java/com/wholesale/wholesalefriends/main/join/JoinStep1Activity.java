@@ -80,15 +80,17 @@ public class JoinStep1Activity extends GroupActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = null;
-                if(nMode == 0){
+                if(nMode == 1){
                      intent = new Intent(JoinStep1Activity.this,JoinStep2Activity.class);
 
 
-                }else{
+                }else if(nMode==2){
                      intent = new Intent(JoinStep1Activity.this,RetailJoinStep02Activity.class);
                 }
-                intent.putExtra("store_type",nMode);
-                startActivity(intent);
+               if(intent!=null) {
+                   intent.putExtra("store_type", nMode);
+                   startActivity(intent);
+               }
             }
         });
     }
@@ -100,12 +102,12 @@ public class JoinStep1Activity extends GroupActivity {
         mIvCheck02.setBackgroundResource(R.drawable.check_default);
         switch (pos){
             case 0:
-                nMode  = 0;
+                nMode  = 1;
                 mBtnJoin01.setBackgroundResource(R.drawable.box_on_01);
                 mIvCheck01.setBackgroundResource(R.drawable.check_on);
                 break;
             case 1:
-                nMode  = 1;
+                nMode  = 2;
                 mBtnJoin02.setBackgroundResource(R.drawable.box_on_01);
                 mIvCheck02.setBackgroundResource(R.drawable.check_on);
                 break;

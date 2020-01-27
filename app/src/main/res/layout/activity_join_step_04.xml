@@ -45,7 +45,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <com.wholesale.wholesalefriends.module.view.CircleImageView
                                 android:background="@drawable/icon_storephoto"
                                 android:id="@+id/ivPhoto"
                                 android:scaleType="matrix"

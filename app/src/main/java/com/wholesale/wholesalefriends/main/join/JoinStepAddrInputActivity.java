@@ -212,7 +212,10 @@ public class JoinStepAddrInputActivity extends GroupActivity {
         String strSiteUrl = edSiteUrl.getText().toString();
 
         if(store_type ==2){
-            if ((strAddr1 != null && strAddr1.length() == 0) || (strAddr2 != null && strAddr2.length() == 0) ) {
+
+
+            if ((strAddr1 != null && strAddr1.length() == 0) || (strAddr2 != null && strAddr2.length() == 0) || (strSiteName != null && strSiteName.length() == 0) ||
+                    (strSiteUrl != null && strSiteUrl.length() == 0)) {
                 btnOk.setBackgroundResource(R.drawable.btn_02);
                 btnOk.setEnabled(false);
             } else {
@@ -220,8 +223,7 @@ public class JoinStepAddrInputActivity extends GroupActivity {
                 btnOk.setBackgroundResource(R.drawable.btn_02_on);
             }
         }else{
-            if ((strAddr1 != null && strAddr1.length() == 0) || (strAddr2 != null && strAddr2.length() == 0) || (strSiteName != null && strSiteName.length() == 0) ||
-                    (strSiteUrl != null && strSiteUrl.length() == 0)) {
+            if ((strAddr1 != null && strAddr1.length() == 0) || (strAddr2 != null && strAddr2.length() == 0) ) {
                 btnOk.setBackgroundResource(R.drawable.btn_02);
                 btnOk.setEnabled(false);
             } else {
