@@ -118,16 +118,15 @@ public class API {
                 }
             }else if(store_type ==2){
                 if(level ==1){
-                    hp.join2("register",store_type+"",level+"",name,id,password,mobile,store_name,store_onoﬀ,store_site,store_site_url,store_addr,store_photo);
+                    hp.join2("register",store_type+"",level+"",name,id,password,mobile,store_name,store_onoﬀ+"",store_site,store_site_url,store_addr,store_photo);
                 }else{
                     hp.join3("register",store_type+"",level+"",name,id,password,mobile,store_id);
                 }
             }
 
-            hp.setOnLoginListener(new Retrofit.OnLoginListener() {
-
+            hp.setOnJoinListener(new Retrofit.OnJoinListener() {
                 @Override
-                public void onResponse(Retrofit.ContributorLogin c) {
+                public void onResponse(Retrofit.ContributorJoin c) {
                     try {
                         Message msg = new Message();
                         JSONObject jsonObject = new JSONObject();
@@ -142,11 +141,17 @@ public class API {
                         jsonObject.put("error",c.error);
                         jsonObject.put("user_id",c.user_id);
 
+                       /* try{
+                            jsonObject.put("store_type",c.store_type);
+                            jsonObject.put("level",c.level);
+                        }catch (Throwable e){
+                            e.printStackTrace();
+                        }*/
 
                         msg.obj = jsonObject;
 
                         if(jsonObject.getBoolean("result")){
-                          if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
                         }else{
                             if(errorHandler!=null) errorHandler.sendMessage(msg);
                         }
@@ -159,8 +164,10 @@ public class API {
                 @Override
                 public void onFailure(Throwable t) {
                     Toast.makeText(context,"회원가입 실패",Toast.LENGTH_SHORT).show();
+
                 }
             });
+
         }catch (Throwable e){e.printStackTrace();}
 
        /* RetrofitModel hp = new RetrofitModel(MyApplication.get_instance().getApplicationContext());

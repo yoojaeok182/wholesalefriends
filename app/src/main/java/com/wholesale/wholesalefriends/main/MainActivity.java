@@ -44,11 +44,14 @@ public class MainActivity extends GroupActivity {
     private RetailCustomerFragment retailCustomerFragment;
     private RetailNoticeFragment retailNoticeFragment;
 
+    public static boolean isFirstRun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        isFirstRun = true;
         ivLogo = findViewById(R.id.ivLogo);
         tvTitle = findViewById(R.id.tvTitle);
         btnSearch = findViewById(R.id.btnSearch);

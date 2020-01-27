@@ -3,13 +3,13 @@ package com.wholesale.wholesalefriends.main.data;
 import java.util.List;
 
 public class BestProductListResponse {
-    private List<BestProductListData> list;
+    private BestProductResponse list;
 
-    public List<BestProductListData> getList() {
-        return list;
+    public void setList(BestProductResponse list) {
+        this.list = list;
     }
 
-    public void setList(List<BestProductListData> list) {
-        this.list = list;
+    public BestProductResponse getList() {
+        return list;
     }
 }

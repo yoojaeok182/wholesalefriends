@@ -24,6 +24,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.DetailProductActivity;
+import com.wholesale.wholesalefriends.main.MainActivity;
 import com.wholesale.wholesalefriends.main.ProductListActivity;
 import com.wholesale.wholesalefriends.main.adapter.BannerPageAdapter;
 import com.wholesale.wholesalefriends.main.adapter.HomeMain01ListAdapter;
@@ -78,6 +79,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
 
 
+    private boolean isShowVisible;
 
     public static HomeMainViewPager01Fragment newInstance(Context context) {
         ctx = context;
@@ -214,9 +216,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
             }
         });
 
-        bannerList();
-        bannerList2();
-        loadList(1,"","","");
+
         return view;
     }
 
@@ -239,6 +239,34 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(MainActivity.isFirstRun&&isShowVisible){
+            MainActivity.isFirstRun = false;
+            bannerList();
+            bannerList2();
+            loadList(1,"","","");
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            if(homeMain01ListAdapter!=null){
+                bannerList();
+                bannerList2();
+                loadList(1,"","","");
+            }else{
+                isShowVisible = isVisibleToUser;
+
+            }
+        }
+    }
+
     private void bannerList() {
         API.banerList(ctx, 2 + "", resultHandler, errHandler);
     }
@@ -260,26 +288,27 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
                 if(jsonObject.getBoolean("result")){
                     ProductListResponse productListResponse = new Gson().fromJson(jsonObject.toString(), ProductListResponse.class);
-                    if(productListResponse!=null && productListResponse.getList().size()>0){
+                    if(productListResponse!=null && productListResponse.getList().getData().size()>0){
 
                         if(isSwipeRefresh){
                             homeMain01ListAdapter.clear();
-                            homeMain01ListAdapter.addAll(productListResponse.getList());
+                            homeMain01ListAdapter.addAll(productListResponse.getList().getData());
+
                             isSwipeRefresh = false;
                         }else{
                             if(homeMain01ListAdapter.getItemCount()>0){
                                 int nowSize = homeMain01ListAdapter.getItemCount();
-                                for(int i=nowSize; i<nowSize+productListResponse.getList().size();i++){
-                                    homeMain01ListAdapter.add(productListResponse.getList().get(i-nowSize),i);
+                                for(int i=nowSize; i<nowSize+productListResponse.getList().getData().size();i++){
+                                    homeMain01ListAdapter.add(productListResponse.getList().getData().get(i-nowSize),i);
                                 }
                             }else{
-                                for(int i=0; i<productListResponse.getList().size();i++){
-                                    homeMain01ListAdapter.add(productListResponse.getList().get(i),i);
+                                for(int i=0; i<productListResponse.getList().getData().size();i++){
+                                    homeMain01ListAdapter.add(productListResponse.getList().getData().get(i),i);
                                 }
                             }
                         }
 
-                        if(productListResponse.getList().size() >= Constant.PAGE_GO){
+                        if(productListResponse.getList().getData().size() >= Constant.PAGE_GO){
                             isExistMore = true;
                         }else{
                             isExistMore = false;
@@ -380,7 +409,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
                                 BannerLIstData data = listBanner.get(position);
                                 if (data != null) {
                                     tvBannerName.setText(data.getStore_addr());
-                                    tvBannerIndex.setText((position + 1) + "");
+                                    tvBannerIndex.setText((position + 1) + "/");
                                 }
                             }
 
@@ -391,12 +420,12 @@ public class HomeMainViewPager01Fragment extends Fragment {
                         });
                         viewPager.setAdapter(bannerPageAdapter);
                     } else {
-                        tvBannerIndex.setText((0) + "");
+                        tvBannerIndex.setText((0) + "/");
                         tvBannerTotalIndex.setText((0) + "");
                     }
 
                 } else {
-                    tvBannerIndex.setText((0) + "");
+                    tvBannerIndex.setText((0) + "/");
                     tvBannerTotalIndex.setText((0) + "");
                 }
             } catch (Throwable e) {
@@ -410,7 +439,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
                         final CommonAlertDialog dg = new CommonAlertDialog(ctx, false, true);

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -102,12 +104,21 @@ public class JoinStepAddrInputActivity extends GroupActivity {
         llayoutForSite.setVisibility(View.GONE);
         if(store_type ==2){
             tvTitle.setText("소매 회원가입");
-            if(nWholesaleMode ==1){
-                llayoutForSite.setVisibility(View.VISIBLE);
-            }
+            llayoutForSite.setVisibility(View.VISIBLE);
 
         }else{
             tvTitle.setText("도매 회원가입");
+
+            edtAddr2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    if(i == EditorInfo.IME_ACTION_DONE){
+                       hideKeyboardFrom(JoinStepAddrInputActivity.this,edtAddr2);
+
+                    }
+                    return false;
+                }
+            });
         }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -119,30 +130,26 @@ public class JoinStepAddrInputActivity extends GroupActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(checkInput()){
-                            Intent intent = new Intent(JoinStepAddrInputActivity.this, JoinStep4Activity.class);
-                            intent.putExtra("store_type", store_type);
-                            intent.putExtra("store_id", store_id);
-                            intent.putExtra("store", strStore);
-                            intent.putExtra("floor", strFloor);
-                            intent.putExtra("roomNo", strRoomNo);
-                            intent.putExtra("wholesale", nWholesaleMode);
-                            intent.putExtra("level", level);
-                            intent.putExtra("store_addr", edtAddr1.getText().toString()+" "+edtAddr2.getText().toString());
+                if(checkInput()){
+                    Intent intent = new Intent(JoinStepAddrInputActivity.this, JoinStep4Activity.class);
+                    intent.putExtra("store_type", store_type);
+                    intent.putExtra("store_id", store_id);
+                    intent.putExtra("store", strStore);
+                    intent.putExtra("floor", strFloor);
+                    intent.putExtra("roomNo", strRoomNo);
+                    intent.putExtra("wholesale", nWholesaleMode);
+                    intent.putExtra("level", level);
+                    intent.putExtra("store_addr", edtAddr1.getText().toString()+" "+edtAddr2.getText().toString());
 
 
-                            if(store_type ==2 && nWholesaleMode ==1){
-                                intent.putExtra("site_name", edtSiteName.getText().toString());
-                                intent.putExtra("site_url", edSiteUrl.getText().toString());
-                            }
-                            startActivity(intent);
-                        }
+                    if(store_type ==2 ){
+                        intent.putExtra("site_name", edtSiteName.getText().toString());
+                        intent.putExtra("site_url", edSiteUrl.getText().toString());
+                        intent.putExtra("store_onoﬀ", store_onoﬀ);
 
                     }
-                });
+                    startActivity(intent);
+                }
 
             }
         });
@@ -175,6 +182,9 @@ public class JoinStepAddrInputActivity extends GroupActivity {
                 checkRegistBtn();
             }
         });
+
+
+
         edtSiteName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

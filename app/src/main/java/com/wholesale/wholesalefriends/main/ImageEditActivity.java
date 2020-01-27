@@ -139,11 +139,9 @@ public class ImageEditActivity extends GroupActivity {
                 @Override public void onPageSelected(int position) {
                     imagePosition = position;
                     if (arrImage.get(position).isCheck()) {
-                        ivCheck[position].setBackgroundResource(R.drawable.icon_check2_on);
                         tvImageNumber[position].setVisibility(View.VISIBLE);
                         tvImageNumber[position].setText(getCheckNumber(position));
                     } else {
-                        ivCheck[position].setBackgroundResource(R.drawable.icon_check2);
                         tvImageNumber[position].setVisibility(View.GONE);
                     }
                 }
@@ -348,12 +346,12 @@ public class ImageEditActivity extends GroupActivity {
                 @Override public void onClick(View v) {
                     if (arrImage.get(position).isCheck()) {
                         arrImage.get(position).setCheck(false);
-                        ivCheck[position].setBackgroundResource(R.drawable.icon_check2);
+                        ivCheck[position].setBackgroundResource(R.drawable.top_bg_num);
                         tvImageNumber[position].setVisibility(View.GONE);
                         tvCount.setText(getCheckCount());
                     } else {
                         arrImage.get(position).setCheck(true);
-                        ivCheck[position].setBackgroundResource(R.drawable.icon_check2_on);
+                        ivCheck[position].setBackgroundResource(R.drawable.top_bg_num);
                         tvImageNumber[position].setVisibility(View.VISIBLE);
                         tvImageNumber[position].setText(getCheckNumber(position));
                         tvCount.setText(getCheckCount());
@@ -362,11 +360,11 @@ public class ImageEditActivity extends GroupActivity {
             });
 
             if (arrImage.get(position).isCheck()) {
-                ivCheck[position].setBackgroundResource(R.drawable.icon_check2_on);
+                ivCheck[position].setBackgroundResource(R.drawable.top_bg_num);
                 tvImageNumber[position].setVisibility(View.VISIBLE);
                 tvImageNumber[position].setText(getCheckNumber(position));
             } else {
-                ivCheck[position].setBackgroundResource(R.drawable.icon_check2);
+                ivCheck[position].setBackgroundResource(R.drawable.top_bg_num);
                 tvImageNumber[position].setVisibility(View.GONE);
             }
 

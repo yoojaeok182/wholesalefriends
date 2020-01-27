@@ -44,7 +44,9 @@ public class IntroActivity extends GroupActivity {
 
                 if(msg.what == 0){   // Message id 가 0 이면
                     SharedPreference.putSharedPreference(IntroActivity.this, Pref.permission_check_complet,"Y");
-                    if(SharedPreference.getIntSharedPreference(IntroActivity.this,Constant.CommonKey.user_no)!=0){
+                    String user_no = SharedPreference.getSharedPreference(IntroActivity.this, Constant.CommonKey.user_no);
+                    int nUserNo = user_no!=null&&user_no.length()>0?Integer.valueOf(user_no):0;
+                    if(nUserNo!=0){
                         String id = SharedPreference.getSharedPreference(IntroActivity.this, Constant.CommonKey.user_id);
                         String pwd = SharedPreference.getSharedPreference(IntroActivity.this, Constant.CommonKey.user_pwd);
 
@@ -121,6 +123,7 @@ public class IntroActivity extends GroupActivity {
                         intent = new Intent(IntroActivity.this,Main2Activity.class);
                     }
                     startActivity(intent);
+                    finish();
                 }
             }catch (Throwable e){
                 e.printStackTrace();

@@ -27,7 +27,7 @@ public class DetailProductViewAdapter extends PagerAdapter {
 
     public DetailProductViewAdapter(Context ctx, ArrayList<ProductViewImageData> list) {
         context = ctx;
-        mInflater = LayoutInflater.from(MyApplication.get_instance().getApplicationContext());
+        mInflater = LayoutInflater.from(ctx);
         listBannerList = list;
     }
 

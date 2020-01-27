@@ -246,7 +246,7 @@ public class RetailCategoryFragment extends Fragment {
 
     private void loadStoreList(int page,String building_id){
         categoryStoreListAdapter.setnCurrentPage(page);
-        API.storeLList(getActivity(),page+"",building_id, SharedPreference.getIntSharedPreference(getActivity(),Constant.CommonKey.user_no)+"",resultListHandler,errHandler);
+        API.storeLList(getActivity(),page+"",building_id, SharedPreference.getSharedPreference(getActivity(),Constant.CommonKey.user_no)+"",resultListHandler,errHandler);
     }
 
 

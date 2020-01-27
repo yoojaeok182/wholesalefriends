@@ -111,26 +111,26 @@ public class HomeMainViewPager02Fragment extends Fragment {
 
                 if(jsonObject.getBoolean("result")){
                     BestProductListResponse productListResponse = new Gson().fromJson(jsonObject.toString(), BestProductListResponse.class);
-                    if(productListResponse!=null && productListResponse.getList().size()>0){
+                    if(productListResponse!=null && productListResponse.getList().getData().size()>0){
 
                         if(isSwipeRefresh){
                             homeMain02ListAdapter.clear();
-                            homeMain02ListAdapter.addAll(productListResponse.getList());
+                            homeMain02ListAdapter.addAll(productListResponse.getList().getData());
                             isSwipeRefresh = false;
                         }else{
                             if(homeMain02ListAdapter.getItemCount()>0){
                                 int nowSize = homeMain02ListAdapter.getItemCount();
-                                for(int i=nowSize; i<nowSize+productListResponse.getList().size();i++){
-                                    homeMain02ListAdapter.add(productListResponse.getList().get(i-nowSize),i);
+                                for(int i=nowSize; i<nowSize+productListResponse.getList().getData().size();i++){
+                                    homeMain02ListAdapter.add(productListResponse.getList().getData().get(i-nowSize),i);
                                 }
                             }else{
-                                for(int i=0; i<productListResponse.getList().size();i++){
-                                    homeMain02ListAdapter.add(productListResponse.getList().get(i),i);
+                                for(int i=0; i<productListResponse.getList().getData().size();i++){
+                                    homeMain02ListAdapter.add(productListResponse.getList().getData().get(i),i);
                                 }
                             }
                         }
 
-                        if(productListResponse.getList().size() >= Constant.PAGE_GO){
+                        if(productListResponse.getList().getData().size() >= Constant.PAGE_GO){
                             isExistMore = true;
                         }else{
                             isExistMore = false;

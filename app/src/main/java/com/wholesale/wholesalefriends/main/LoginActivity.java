@@ -115,6 +115,7 @@ public class LoginActivity extends GroupActivity {
                        intent = new Intent(LoginActivity.this,Main2Activity.class);
                    }
                    startActivity(intent);
+                   finish();
                }
            }catch (Throwable e){
                e.printStackTrace();

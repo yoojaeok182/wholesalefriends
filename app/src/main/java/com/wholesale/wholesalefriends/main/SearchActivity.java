@@ -341,28 +341,28 @@ public class SearchActivity extends GroupActivity {
                 llayoutFOrSearch.setVisibility(View.GONE);
                 if(jsonObject.getBoolean("result")){
                     ProductListResponse productListResponse = new Gson().fromJson(jsonObject.toString(), ProductListResponse.class);
-                    if(productListResponse!=null && productListResponse.getList().size()>0){
+                    if(productListResponse!=null && productListResponse.getList().getData().size()>0){
                         llayoutForRecommKeword.setVisibility(View.GONE);
 
                         llayoutFOrSearch.setVisibility(View.VISIBLE);
                         if(isSwipeRefresh){
                             homeMain01ListAdapter.clear();
-                            homeMain01ListAdapter.addAll(productListResponse.getList());
+                            homeMain01ListAdapter.addAll(productListResponse.getList().getData());
                             isSwipeRefresh = false;
                         }else{
                             if(homeMain01ListAdapter.getItemCount()>0){
                                 int nowSize = homeMain01ListAdapter.getItemCount();
-                                for(int i=nowSize; i<nowSize+productListResponse.getList().size();i++){
-                                    homeMain01ListAdapter.add(productListResponse.getList().get(i-nowSize),i);
+                                for(int i=nowSize; i<nowSize+productListResponse.getList().getData().size();i++){
+                                    homeMain01ListAdapter.add(productListResponse.getList().getData().get(i-nowSize),i);
                                 }
                             }else{
-                                for(int i=0; i<productListResponse.getList().size();i++){
-                                    homeMain01ListAdapter.add(productListResponse.getList().get(i),i);
+                                for(int i=0; i<productListResponse.getList().getData().size();i++){
+                                    homeMain01ListAdapter.add(productListResponse.getList().getData().get(i),i);
                                 }
                             }
                         }
 
-                        if(productListResponse.getList().size() >= Constant.PAGE_GO){
+                        if(productListResponse.getList().getData().size() >= Constant.PAGE_GO){
                             isExistMore = true;
                         }else{
                             isExistMore = false;

@@ -61,10 +61,15 @@ public class Main2Activity extends GroupActivity {
     private TextView tvMenu03;
     private TextView tvMenu04;
 
+    public static boolean isFirstRun;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        isFirstRun = true;
+
         btnMenu = findViewById(R.id.btnMenu);
         ivLogo = findViewById(R.id.ivLogo);
         tvTitle = findViewById(R.id.tvTitle);

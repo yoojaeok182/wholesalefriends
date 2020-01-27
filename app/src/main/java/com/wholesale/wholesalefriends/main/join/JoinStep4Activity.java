@@ -15,6 +15,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -26,12 +27,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.soundcloud.android.crop.Crop;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.ImageEditActivity;
@@ -276,6 +282,10 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
             tvTitle.setText("소매 회원가입");
         }
 
+        edtId.setFilters(new InputFilter[] {com.wholesale.wholesalefriends.module.util.Util.filter1});
+
+
+
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -292,29 +302,30 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
                             if (dg.isOk()) {
-                                String ceoName = edtCeoeName.getText().toString();
-                                String strId = edtId.getText().toString();
-                                String strPwd = edtPwd.getText().toString();
-                                String strStoreName = edtStoreName.getText().toString();
-                                String strStoreRegistNumber = edtStoreRegistNumber.getText().toString();
-                                String strPhoneNumber = edtPhoneNumber.getText().toString();
+                                String ceoName = edtCeoeName.getText().toString().trim();
+                                String strId = edtId.getText().toString().trim();
+                                String strPwd = edtPwd.getText().toString().trim();
+                                String strStoreName = edtStoreName.getText().toString().trim();
+                                String strStoreRegistNumber = edtStoreRegistNumber.getText().toString().trim();
+                                String strPhoneNumber = edtPhoneNumber.getText().toString().trim();
 
                                 if (store_type == 1) {
                                     //도매
                                     API.join(JoinStep4Activity.this, store_type,  level,  ceoName,  strId,  strPwd,
                                             strPhoneNumber,  strStoreName,  strStoreRegistNumber,  store_id+"",
-                                             store_addr,  store_photo,  null,
-                                            null, null,  null,  resultHandler, errHandler );
+                                             store_addr,  store_photo,  "",
+                                            "", "",  "",  resultHandler, errHandler );
                                 } else {
                                     //소매
                                     API.join(JoinStep4Activity.this, store_type,  level,  ceoName,  strId,  strPwd,
                                             strPhoneNumber,  strStoreName,  strStoreRegistNumber,  store_id+"",
                                             store_addr,  store_photo,  store_onoﬀ+"",
-                                            strSiteName, strSiteUrl,  null,  resultHandler, errHandler );
+                                            strSiteName, strSiteUrl,  "",  resultHandler, errHandler );
                                 }
                             }
                         }
                     });
+                    dg.show();
                 }
             }
         });
@@ -464,13 +475,13 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
     }
 
     private boolean checkInput() {
-        String ceoName = edtCeoeName.getText().toString();
-        String strId = edtId.getText().toString();
-        String strPwd = edtPwd.getText().toString();
-        String strPwd2 = edtPwd2.getText().toString();
-        String strStoreName = edtStoreName.getText().toString();
-        String strStoreRegistNumber = edtStoreRegistNumber.getText().toString();
-        String strPhoneNumber = edtPhoneNumber.getText().toString();
+        String ceoName = edtCeoeName.getText().toString().trim();
+        String strId = edtId.getText().toString().trim();
+        String strPwd = edtPwd.getText().toString().trim();
+        String strPwd2 = edtPwd2.getText().toString().trim();
+        String strStoreName = edtStoreName.getText().toString().trim();
+        String strStoreRegistNumber = edtStoreRegistNumber.getText().toString().trim();
+        String strPhoneNumber = edtPhoneNumber.getText().toString().trim();
         tvErrorMsg01.setVisibility(View.GONE);
         tvErrorMsg02.setVisibility(View.GONE);
         tvErrorMsg03.setVisibility(View.GONE);
@@ -489,17 +500,17 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
             return false;
         }
 
-        if ((strId != null && strId.length() == 0)) {
+        if ((strId != null && strId.length() == 0)||(strId.length()<4)) {
             tvErrorMsg03.setVisibility(View.VISIBLE);
             return false;
         }
 
-        if ((strPwd != null && strPwd.length() == 0)) {
+        if ((strPwd != null && strPwd.length() == 0)||strPwd.length()<6) {
             tvErrorMsg04.setVisibility(View.VISIBLE);
             return false;
         }
 
-        if ((strPwd2 != null && strPwd2.length() == 0)) {
+        if ((strPwd2 != null && strPwd2.length() == 0)||strPwd.length()<6) {
             tvErrorMsg05.setVisibility(View.VISIBLE);
             return false;
         }
@@ -553,25 +564,33 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_no,jsonObject.getString("user_id"));
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_id,edtId.getText().toString());
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_pwd,edtPwd.getText().toString());
-                    Integer store_type = null;
+                    /*Integer store_type = null;
                     Integer level = null;
                     if(!jsonObject.isNull("store_type")){
                         store_type = jsonObject.getInt("store_type");
+                    }else
+                    {
                     }
                     if(!jsonObject.isNull("level")){
                         level = jsonObject.getInt("level");
-                    }
+                    }*/
                     if(!jsonObject.isNull("store_id")){
                         int  store_id = jsonObject.getInt("store_id");
                         SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.store_id,store_id);
                     }
                     Intent intent = null;
-                    if(store_type!=null &&store_type ==2){
+                    if(store_type ==2){
                         intent = new Intent(JoinStep4Activity.this, MainActivity.class);
                     }else{
                         intent = new Intent(JoinStep4Activity.this, Main2Activity.class);
                     }
                     startActivity(intent);
+
+                    if(JoinStep1Activity.getInstance()!=null)JoinStep1Activity.getInstance().finish();
+                    if(JoinStep2Activity.getInstance()!=null)JoinStep2Activity.getInstance().finish();
+                    if(JoinStep3Activity.getInstance()!=null)JoinStep3Activity.getInstance().finish();
+                    if(JoinStep4Activity.getInstance()!=null)JoinStep4Activity.getInstance().finish();
+                    if(JoinStepAddrInputActivity.getInstance()!=null)JoinStepAddrInputActivity.getInstance().finish();
                 }
             }catch (Throwable e){
                 e.printStackTrace();
@@ -584,7 +603,7 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
             try{
                 JSONObject jsonObject = (JSONObject)msg.obj;
 
-                if(jsonObject.getBoolean("result")){
+                if(!jsonObject.getBoolean("result")){
 
                     if(jsonObject.getString("error")!=null && jsonObject.getString("error").length()>0){
                         final CommonAlertDialog dg = new CommonAlertDialog(JoinStep4Activity.this,false,true);
@@ -774,8 +793,20 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                     if (imageFiles != null && imageFiles.size() > 0) {
                         for (int i = 0; i < imageFiles.size(); i++) {
                             profileList.add(imageFiles.get(i));
-                            Glide.with(JoinStep4Activity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                            Glide.with(JoinStep4Activity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                    store_photo = resource;
+                                    return false;
+                                }
+                            }).into(ivPhoto);
                         }
+
                     }
                     break;
 

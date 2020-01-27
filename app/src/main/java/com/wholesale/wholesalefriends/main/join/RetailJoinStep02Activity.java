@@ -78,34 +78,28 @@ public class RetailJoinStep02Activity extends GroupActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(store_onoﬀ == -1){
+                if(store_onoﬀ == -1){
 
-                            CommonAlertDialog dg = new CommonAlertDialog(RetailJoinStep02Activity.this,false,false);
-                            dg.setMessage("매장 종류를 선택해주세요.");
-                            dg.show();
-                            return;
-                        }
+                    CommonAlertDialog dg = new CommonAlertDialog(RetailJoinStep02Activity.this,false,false);
+                    dg.setMessage("매장 종류를 선택해주세요.");
+                    dg.show();
+                    return;
+                }
 
-                        if(level == 1){ //대펴
-                            Intent intent = new Intent(RetailJoinStep02Activity.this,JoinStepAddrInputActivity.class);
-                            intent.putExtra("store_type", store_type);
-                            intent.putExtra("store_onoﬀ", store_onoﬀ);
-                            intent.putExtra("level", level);
+                if(level == 1){ //대펴
+                    Intent intent = new Intent(RetailJoinStep02Activity.this,JoinStepAddrInputActivity.class);
+                    intent.putExtra("store_type", store_type);
+                    intent.putExtra("store_onoﬀ", store_onoﬀ);
+                    intent.putExtra("level", level);
 
-                            startActivity(intent);
-                        }else{
-                            Intent intent = new Intent(RetailJoinStep02Activity.this,JoinStep5Activity.class);
-                            intent.putExtra("level", level);
-                            intent.putExtra("store_type",store_type);
-                            startActivity(intent);
-                        }
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(RetailJoinStep02Activity.this,JoinStep5Activity.class);
+                    intent.putExtra("level", level);
+                    intent.putExtra("store_type",store_type);
+                    startActivity(intent);
+                }
 
-
-                    }
-                });
 
             }
         });
@@ -147,23 +141,23 @@ public class RetailJoinStep02Activity extends GroupActivity {
     }
     private void setTopSelect(int pos){
         btnTobMenu01.setBackgroundResource(R.drawable.box_off_01);
-        btnTobMenu01.setBackgroundResource(R.drawable.box_off_01);
-        ivCheck01.setBackgroundResource(R.drawable.check_default);
-        ivCheck02.setBackgroundResource(R.drawable.check_default);
+        btnTopMenu02.setBackgroundResource(R.drawable.box_off_01);
+        ivTopMenuCheck01.setBackgroundResource(R.drawable.check_default);
+        ivTopMenuCheck02.setBackgroundResource(R.drawable.check_default);
         ivTopMenu01.setBackgroundResource(R.drawable.icon_internet);
         ivTopMenu02.setBackgroundResource(R.drawable.icon_offline);
         switch (pos){
             case 0:
                 store_onoﬀ  = 1;
                 ivTopMenu01.setBackgroundResource(R.drawable.icon_internet_on);
-                btnJoin01.setBackgroundResource(R.drawable.box_on_01);
-                ivCheck01.setBackgroundResource(R.drawable.check_on);
+                btnTobMenu01.setBackgroundResource(R.drawable.box_on_01);
+                ivTopMenuCheck01.setBackgroundResource(R.drawable.check_on);
                 break;
             case 1:
                 store_onoﬀ  = 2;
                 ivTopMenu02.setBackgroundResource(R.drawable.icon_offline_on);
-                btnJoin02.setBackgroundResource(R.drawable.box_on_01);
-                ivCheck02.setBackgroundResource(R.drawable.check_on);
+                btnTopMenu02.setBackgroundResource(R.drawable.box_on_01);
+                ivTopMenuCheck02.setBackgroundResource(R.drawable.check_on);
                 break;
         }
     }

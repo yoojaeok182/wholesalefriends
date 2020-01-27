@@ -23,7 +23,6 @@
             android:layout_weight="1"
             android:scrollbarSize="2dp">
             <LinearLayout
-                android:descendantFocusability="blocksDescendants"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
@@ -81,6 +80,8 @@
                     android:background="@color/color_bg2"/>
 
                 <LinearLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:paddingTop="30.66dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -98,6 +99,8 @@
 
                     <EditText
 
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
                         android:layout_marginTop="14.66dp"
                         android:layout_width="match_parent"
                         android:layout_height="45.33dp"
@@ -131,7 +134,8 @@
                         android:text="대표자 이름"/>
 
                     <EditText
-
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
                         android:layout_marginTop="14.66dp"
                         android:layout_width="match_parent"
                         android:layout_height="45.33dp"
@@ -164,7 +168,9 @@
                         android:text="야이디"/>
 
                     <EditText
-
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
                         android:layout_marginTop="14.66dp"
                         android:layout_width="match_parent"
                         android:layout_height="45.33dp"
@@ -174,7 +180,7 @@
                         android:textSize="13dp"
                         android:textColor="@color/color_input_01"
                         android:textColorHint="@color/hint_input_01"
-                        android:maxLength="30"
+                        android:maxLength="16"
                         android:hint="@string/hint_id2"
                         android:background="@drawable/input_box_off_01"/>
 
@@ -199,7 +205,9 @@
                         android:text="비밀번호"/>
 
                     <EditText
-
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
                         android:layout_marginTop="14.66dp"
                         android:layout_width="match_parent"
                         android:layout_height="45.33dp"
@@ -209,7 +217,7 @@
                         android:textSize="13dp"
                         android:textColor="@color/color_input_01"
                         android:textColorHint="@color/hint_input_01"
-                        android:maxLength="15"
+                        android:maxLength="16"
                         android:hint="@string/hint_pwd4"
                         android:background="@drawable/input_box_off_01"/>
                     <TextView
@@ -233,7 +241,9 @@
                         android:text="비밀번호 확인"/>
 
                     <EditText
-
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
                         android:layout_marginTop="14.66dp"
                         android:layout_width="match_parent"
                         android:layout_height="45.33dp"
@@ -243,7 +253,7 @@
                         android:textSize="13dp"
                         android:textColor="@color/color_input_01"
                         android:textColorHint="@color/hint_input_01"
-                        android:maxLength="15"
+                        android:maxLength="16"
                         android:hint="@string/hint_pwd5"
                         android:background="@drawable/input_box_off_01"/>
                     <TextView
@@ -266,7 +276,8 @@
                         android:text="사업자등록번호"/>
 
                     <EditText
-
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="14.66dp"
                         android:layout_width="match_parent"
@@ -300,7 +311,8 @@
                         android:text="휴대폰 번호"/>
 
                     <EditText
-
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
                         android:layout_marginTop="14.66dp"
                         android:layout_width="match_parent"
                         android:layout_height="45.33dp"
@@ -346,7 +358,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginBottom="30dp"
                         android:layout_marginTop="15dp"
                         android:id="@+id/btnTerms02"
                         android:layout_width="match_parent"
@@ -369,6 +380,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:layout_marginBottom="30dp"
                         android:text="약관동의를 체크해 주세요."
                         android:visibility="gone"
                         android:textSize="9dp"

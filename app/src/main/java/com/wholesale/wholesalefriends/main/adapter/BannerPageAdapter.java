@@ -25,7 +25,7 @@ public class BannerPageAdapter extends PagerAdapter {
 
     public BannerPageAdapter(Context ctx, ArrayList<BannerLIstData> list) {
         context = ctx;
-        mInflater = LayoutInflater.from(MyApplication.get_instance().getApplicationContext());
+        mInflater = LayoutInflater.from(ctx);
         listBannerList = list;
     }
 

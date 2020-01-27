@@ -46,7 +46,7 @@ public class RetailHomeFragment extends Fragment {
         llayoutTopLine03 =view. findViewById(R.id.llayoutTopLine03);
         viewPager = view.findViewById(R.id.viewPager);
 
-        homeMainPageAdapter = new HomeMainPageAdapter(getChildFragmentManager(), getActivity());
+        homeMainPageAdapter = new HomeMainPageAdapter(getFragmentManager(), getActivity());
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -63,6 +63,7 @@ public class RetailHomeFragment extends Fragment {
         });
         viewPager.setAdapter(homeMainPageAdapter);
 
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setCurrentItem(0);
 
         llayoutTopLine01.setOnClickListener(new View.OnClickListener() {

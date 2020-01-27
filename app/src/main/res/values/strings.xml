@@ -65,7 +65,7 @@
     <string name="hint_pwd" translatable="false">비밀번호</string>
     <string name="hint_pwd2" translatable="false">변경할 비밀번호를 입력하세요.</string>
     <string name="hint_pwd3" translatable="false">비밀번호를 다시 입력해주세요.</string>
-    <string name="hint_pwd4" translatable="false">영문,숫자 6~15자</string>
+    <string name="hint_pwd4" translatable="false">영문,숫자 6~16자</string>
     <string name="hint_pwd5" translatable="false">비밀번호 확인</string>
 
     <string name="hint_phone" translatable="false">010-0000-0000</string>

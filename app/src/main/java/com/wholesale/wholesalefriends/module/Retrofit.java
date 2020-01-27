@@ -19,6 +19,7 @@ import com.wholesale.wholesalefriends.main.data.RecomWordData;
 import com.wholesale.wholesalefriends.main.data.StoreListResponse;
 import com.wholesale.wholesalefriends.main.data.StoreSearchData;
 import com.wholesale.wholesalefriends.main.dialog.LoadingDialog;
+import com.wholesale.wholesalefriends.module.util.LogUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -98,7 +99,7 @@ public class Retrofit {
                  * REST API 등록
                  */
                 @Part("id") RequestBody id,
-                @Part("pwd") RequestBody pwd, @Url String apiUrl
+                @Part("pw") RequestBody pwd, @Url String apiUrl
         );
     }
 
@@ -451,7 +452,7 @@ public class Retrofit {
             UploadJoin1Interface uploadInterface = mRetrofit.create(UploadJoin1Interface.class);
             File file = createTempFile(mContext, bm);
             RequestBody mFile= RequestBody.create(MediaType.parse("image/*"), file);
-            fileToUpload = MultipartBody.Part.createFormData("upload_file[1]", file.getName(), mFile);
+            fileToUpload = MultipartBody.Part.createFormData("store_photo", file.getName(), mFile);
             call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,p7,p8,p9,p10, fileToUpload,Constant.DOMAIN.api+method+"/");
         }else{
             UploadJoin1_noBitmapInterface uploadInterface = mRetrofit.create(UploadJoin1_noBitmapInterface.class);
@@ -477,7 +478,9 @@ public class Retrofit {
         });
     }
 
-    public void join2(String method,String store_type, String level,String name,String id, String password,String mobile,String store_name,String store_onoff,String store_site,String store_site_url,String store_addr, Bitmap bm){
+    public void join2(String method,String store_type, String level,String name,String id, String password,String mobile,
+                      String store_name,String store_onoff,
+                      String store_site,String store_site_url,String store_addr, Bitmap bm){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), store_type);
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), level);
         RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), name);
@@ -485,10 +488,11 @@ public class Retrofit {
         RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), password);
         RequestBody p6 = RequestBody.create(MediaType.parse("text/plain"), mobile);
         RequestBody p7 = RequestBody.create(MediaType.parse("text/plain"), store_name);
-        RequestBody p8 = RequestBody.create(MediaType.parse("text/plain"), store_onoff);
-        RequestBody p9 = RequestBody.create(MediaType.parse("text/plain"), store_site);
-        RequestBody p10 = RequestBody.create(MediaType.parse("text/plain"), store_site_url);
-        RequestBody p11 = RequestBody.create(MediaType.parse("text/plain"), store_addr);
+        RequestBody p8 = RequestBody.create(MediaType.parse("text/plain"), store_addr);
+        RequestBody p9 = RequestBody.create(MediaType.parse("text/plain"), store_onoff);
+        RequestBody p10 = RequestBody.create(MediaType.parse("text/plain"), store_site);
+        RequestBody p11 = RequestBody.create(MediaType.parse("text/plain"), store_site_url);
+
 
 
         MultipartBody.Part fileToUpload = null;
@@ -497,20 +501,26 @@ public class Retrofit {
             UploadJoin2Interface uploadInterface = mRetrofit.create(UploadJoin2Interface.class);
             File file = createTempFile(mContext, bm);
             RequestBody mFile= RequestBody.create(MediaType.parse("image/*"), file);
-            fileToUpload = MultipartBody.Part.createFormData("upload_file[1]", file.getName(), mFile);
+            fileToUpload = MultipartBody.Part.createFormData("store_photo", file.getName(), mFile);
             call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,p7,p8,p9,p10,p11, fileToUpload, Constant.DOMAIN.api+method+"/");
+
+
         }else{
             UploadJoin2_noBitmapInterface uploadInterface = mRetrofit.create(UploadJoin2_noBitmapInterface.class);
             call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,  Constant.DOMAIN.api+method+"/");
         }
 
 
+        LogUtil.d("url: "+ Constant.DOMAIN.url+Constant.DOMAIN.api+method+"/?store_type="+store_type+"&level="+level
+                +"&name="+name+"&id="+id+"&password="+password+"&mobile="+mobile+"&store_name="+store_name+"&store_addr="+store_addr
+                +"&store_onoff="+store_onoff+"&store_site="+store_site+"&store_site_url="+store_site_url);
 
 
         call.enqueue(new Callback<ContributorJoin>() {
             @Override
             public void onResponse(Call<ContributorJoin> call,
                                    Response<ContributorJoin> response) {
+
                 if(dg!=null)dg.dismiss();
                 onJoinListener.onResponse((ContributorJoin)response.body());
             }

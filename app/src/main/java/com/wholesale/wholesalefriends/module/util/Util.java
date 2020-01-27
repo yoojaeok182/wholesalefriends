@@ -81,6 +81,31 @@ public class Util {
     public static boolean isPurchaceOk = false;
 
 
+    public static InputFilter filter1= new InputFilter() {
+
+        public CharSequence filter(CharSequence source, int start, int end,
+
+                                   Spanned dest, int dstart, int dend) {
+
+
+
+            Pattern ps = Pattern.compile("^[a-zA-Z0-9]+$");
+
+            if (!ps.matcher(source).matches()) {
+
+                return "";
+
+            }
+
+            return null;
+
+        }
+
+    };
+
+
+
+
     public static String getFormattedPrice(Integer price){
         String formatteredStringPrice =price +"";
         try{
