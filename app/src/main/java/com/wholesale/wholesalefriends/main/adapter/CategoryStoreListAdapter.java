@@ -17,12 +17,13 @@ import com.wholesale.wholesalefriends.main.data.BuildingListData;
 import com.wholesale.wholesalefriends.main.data.CategoryStoreListData;
 import com.wholesale.wholesalefriends.main.data.StoreListData;
 import com.wholesale.wholesalefriends.main.data.StoreSearchListData;
+import com.wholesale.wholesalefriends.module.util.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryStoreListAdapter extends RecyclerView.Adapter<CategoryStoreListAdapter.ViewHolder> {
-    private Context ctx;
+    private static Context ctx;
     private LayoutInflater inflater;
     private List<StoreListData> arrayList = null;
     private int nCurrentPage = 1;
@@ -110,6 +111,11 @@ public class CategoryStoreListAdapter extends RecyclerView.Adapter<CategoryStore
             tvStoreNumber = convertView.findViewById(R.id.tvStoreNumber);
             ivCheck = convertView.findViewById(R.id.ivCheck);
             rootContainer = convertView.findViewById(R.id.rootContainer);
+
+           /* int margin =  ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2);
+            int clumWidth = ctx.getResources().getDimensionPixelSize(R.dimen.column_width2);
+            ImageUtil.requestImageView(ctx,clumWidth,rootContainer,ivPhoto,margin,margin);*/
+
         }
 
     }

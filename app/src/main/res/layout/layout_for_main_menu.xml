@@ -27,11 +27,13 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/ivMenu01"
                     android:background="@drawable/btn_main_menu_01_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/tvMenu01"
                     android:layout_marginTop="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
                 android:gravity="center"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/ivMenu02"
                     android:background="@drawable/btn_main_menu_02_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -56,7 +59,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:id="@+id/tvMenu02"
                     android:textColor="@color/btn_textcolor_01_select"
                     android:textSize="10dp"
                     android:text="카테고리"/>
@@ -70,6 +73,7 @@
                 android:gravity="center"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/ivMenu03"
                     android:background="@drawable/btn_main_menu_03_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -78,7 +82,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:id="@+id/tvMenu03"
                     android:textColor="@color/btn_textcolor_01_select"
                     android:textSize="10dp"
                     android:text="거래처리스트"/>
@@ -92,6 +96,7 @@
                 android:gravity="center"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/ivMenu04"
                     android:background="@drawable/btn_main_menu_04_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -100,7 +105,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:id="@+id/tvMenu04"
                     android:textColor="@color/btn_textcolor_01_select"
                     android:textSize="10dp"
                     android:text="공지사항"/>

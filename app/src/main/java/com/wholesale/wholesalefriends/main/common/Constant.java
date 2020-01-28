@@ -18,6 +18,8 @@ public class Constant {
         String user_id = "user_id";
         String user_pwd = "user_pwd";
         String category_code = "category_code";
+        String category_name = "category_name";
+
         String product_id = "product_id";
         String product_name = "product_name";
         String store_id="store_id";

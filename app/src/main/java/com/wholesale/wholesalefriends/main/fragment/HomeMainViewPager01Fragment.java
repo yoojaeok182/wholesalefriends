@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
@@ -30,6 +31,7 @@ import com.wholesale.wholesalefriends.main.adapter.BannerPageAdapter;
 import com.wholesale.wholesalefriends.main.adapter.HomeMain01ListAdapter;
 import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.data.BannerLIstData;
+import com.wholesale.wholesalefriends.main.data.BannerList2Response;
 import com.wholesale.wholesalefriends.main.data.BannerListResponse;
 import com.wholesale.wholesalefriends.main.data.CategoryListResponse;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
@@ -49,8 +51,8 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
     private HomeMain01ListAdapter homeMain01ListAdapter = null;
     private ArrayList<ProductListData> listDatas = new ArrayList<>();
-   private boolean isSwipeRefresh = false;
-   private boolean isExistMore = false;
+    private boolean isSwipeRefresh = false;
+    private boolean isExistMore = false;
 
 
     private ViewPager viewPager;
@@ -79,6 +81,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
 
 
+    private RequestManager requestManager;
     private boolean isShowVisible;
 
     public static HomeMainViewPager01Fragment newInstance(Context context) {
@@ -121,6 +124,8 @@ public class HomeMainViewPager01Fragment extends Fragment {
         tvPhotoInfo02 = view.findViewById(R.id.tvPhotoInfo02);
         appBarLayout = view.findViewById(R.id.appBarLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
+
+        requestManager = Glide.with(getActivity());
         homeMain01ListAdapter = new HomeMain01ListAdapter(getActivity(), listDatas);
         homeMain01ListAdapter.setAdapterListener(new HomeMain01ListAdapter.AdapterListener() {
             @Override
@@ -156,6 +161,8 @@ public class HomeMainViewPager01Fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                appBarLayout.setExpanded(true);
+                recyclerView.smoothScrollToPosition(0);
             }
         });
 
@@ -216,7 +223,9 @@ public class HomeMainViewPager01Fragment extends Fragment {
             }
         });
 
-
+        bannerList();
+        bannerList2();
+        loadList(1,"","","");
         return view;
     }
 
@@ -228,9 +237,10 @@ public class HomeMainViewPager01Fragment extends Fragment {
             CategoryListResponse response = AppData.getInstance().getCategoryListResponse();
             if(response!=null &&response.getList().size()>0){
                 for(int i=0; i<response.getList().size();i++){
-                    if(menuName.indexOf(response.getList().get(i).getName())>-1){
+                    if(response.getList().get(i).getName().indexOf(menuName)>-1){
                         Intent intent = new Intent(ctx, ProductListActivity.class);
                         intent.putExtra(Constant.CommonKey.category_code,response.getList().get(i).getCode()+"");
+                        intent.putExtra(Constant.CommonKey.category_name,response.getList().get(i).getName()+"");
                         startActivity(intent);
                     }
                 }
@@ -244,28 +254,8 @@ public class HomeMainViewPager01Fragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(MainActivity.isFirstRun&&isShowVisible){
-            MainActivity.isFirstRun = false;
-            bannerList();
-            bannerList2();
-            loadList(1,"","","");
-        }
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-            if(homeMain01ListAdapter!=null){
-                bannerList();
-                bannerList2();
-                loadList(1,"","","");
-            }else{
-                isShowVisible = isVisibleToUser;
-
-            }
-        }
-    }
 
     private void bannerList() {
         API.banerList(ctx, 2 + "", resultHandler, errHandler);
@@ -332,7 +322,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
                 if (jsonObject.getBoolean("result")) {
-                    BannerListResponse bannerListResponse = new Gson().fromJson(jsonObject.toString(), BannerListResponse.class);
+                    BannerList2Response bannerListResponse = new Gson().fromJson(jsonObject.toString(), BannerList2Response.class);
                     if (bannerListResponse != null && bannerListResponse.getList().size() > 0) {
                         switch (bannerListResponse.getList().size()) {
                             case 1:
@@ -393,11 +383,13 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
                     if (bannerListResponse != null && bannerListResponse.getList().size() > 0) {
                         tvBannerIndex.setText((1) + "");
-                        tvBannerTotalIndex.setText((bannerListResponse.getList().size()) + "");
+                        tvBannerTotalIndex.setText("/"+(bannerListResponse.getList().size()) + "");
                         listBanner.clear();
                         listBanner.addAll(bannerListResponse.getList());
 
-                        bannerPageAdapter = new BannerPageAdapter(ctx, listBanner);
+
+
+                        BannerPageAdapter bannerPageAdapter = new BannerPageAdapter(ctx, listBanner);
                         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -418,15 +410,21 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
                             }
                         });
+                        BannerLIstData data = listBanner.get(0);
+                        if (data != null) {
+                            tvBannerName.setText(data.getStore_addr());
+                        }
                         viewPager.setAdapter(bannerPageAdapter);
+                        viewPager.setCurrentItem(0);
+                        bannerPageAdapter.notifyDataSetChanged();
                     } else {
-                        tvBannerIndex.setText((0) + "/");
-                        tvBannerTotalIndex.setText((0) + "");
+                        tvBannerIndex.setText((0) + "");
+                        tvBannerTotalIndex.setText("/"+(0) + "");
                     }
 
                 } else {
-                    tvBannerIndex.setText((0) + "/");
-                    tvBannerTotalIndex.setText((0) + "");
+                    tvBannerIndex.setText((0) + "");
+                    tvBannerTotalIndex.setText("/"+(0) + "");
                 }
             } catch (Throwable e) {
                 e.printStackTrace();

@@ -91,7 +91,7 @@ public class LoginActivity extends GroupActivity {
                JSONObject jsonObject = (JSONObject)msg.obj;
 
                if(jsonObject.getBoolean("result")){
-                   SharedPreference.putSharedPreference(LoginActivity.this, Constant.CommonKey.user_no,jsonObject.getString("user_id"));
+                   SharedPreference.putSharedPreference(LoginActivity.this, Constant.CommonKey.user_no,jsonObject.getInt("user_id"));
                    SharedPreference.putSharedPreference(LoginActivity.this, Constant.CommonKey.user_id,mEdtId.getText().toString());
                    SharedPreference.putSharedPreference(LoginActivity.this, Constant.CommonKey.user_pwd,mEdtPwd.getText().toString());
                    Integer store_type = null;

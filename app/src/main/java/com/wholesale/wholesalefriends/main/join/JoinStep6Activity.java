@@ -315,7 +315,7 @@ public class JoinStep6Activity extends GroupActivity {
                 JSONObject jsonObject = (JSONObject)msg.obj;
 
                 if(jsonObject.getBoolean("result")){
-                    SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.user_no,jsonObject.getString("user_id"));
+                    SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.user_no,jsonObject.getInt("user_id"));
                     SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.user_id,edtId.getText().toString());
                     SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.user_pwd,edtPwd.getText().toString());
                     Integer store_type = null;

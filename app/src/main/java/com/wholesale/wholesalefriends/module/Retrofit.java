@@ -8,6 +8,7 @@ import android.os.Handler;
 import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.data.BannerLIstData;
 import com.wholesale.wholesalefriends.main.data.BestProductListData;
+import com.wholesale.wholesalefriends.main.data.BestProductResponse;
 import com.wholesale.wholesalefriends.main.data.BuildSearchData;
 import com.wholesale.wholesalefriends.main.data.BuildingListData;
 import com.wholesale.wholesalefriends.main.data.CategoryLIstData;
@@ -51,16 +52,18 @@ public class Retrofit {
     private Context mContext;
     private retrofit2.Retrofit mRetrofit;
     private LoadingDialog dg = null;
-    public Retrofit(Context context){
+    private boolean isShowLoading;
+    public Retrofit(Context context,boolean isLoading){
         mContext = context;
 
+        isShowLoading = isLoading;
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         if(dg != null&& dg.isShowing())dg.dismiss();
         dg = new LoadingDialog(mContext);
-        if(dg!=null)dg.show();
+        if(dg!=null && isShowLoading)dg.show();
         String url = "";
         url = Constant.DOMAIN.url;
 
@@ -71,7 +74,27 @@ public class Retrofit {
                 .build();
 
     }
+    public Retrofit(Context context){
+        mContext = context;
 
+        isShowLoading = true;
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        if(dg != null&& dg.isShowing())dg.dismiss();
+        dg = new LoadingDialog(mContext);
+        if(dg!=null && isShowLoading)dg.show();
+        String url = "";
+        url = Constant.DOMAIN.url;
+
+        mRetrofit = new retrofit2.Retrofit.Builder()
+                .baseUrl( url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+    }
     private interface UploadInterface{
         @Multipart
         @POST
@@ -250,7 +273,6 @@ public class Retrofit {
     }
 
     private interface UploadCategoryListInterface{
-        @Multipart
         @POST
         Call<ContributorCategoryList> upload(
                 /**
@@ -302,6 +324,22 @@ public class Retrofit {
         );
     }
 
+    private interface UploadBestProductList2Interface{
+//        @Multipart
+        @POST
+        Call<ContributorBestProductList> upload(
+                /**
+                 * REST API 등록
+                 */
+//                @Part("page") RequestBody page,
+               /*
+                @Part("category") RequestBody category,
+                @Part("is_sale") RequestBody is_sale,
+                @Part("store_id") RequestBody store_id,*/
+                @Url String apiUrl
+        );
+    }
+
     private interface UploadProductViewInterface{
         @Multipart
         @POST
@@ -316,7 +354,7 @@ public class Retrofit {
     }
 
     private interface UploadStoreBuildingLIstInterface{
-        @Multipart
+//        @Multipart
         @POST
         Call<ContributorBuildingList> upload(
                 /**
@@ -422,12 +460,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorLogin> call,
                                    Response<ContributorLogin> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null && isShowLoading)dg.dismiss();
                 onloginlistener.onResponse((ContributorLogin)response.body());
             }
             @Override
             public void onFailure(Call<ContributorLogin> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onloginlistener.onFailure(t);
             }
         });
@@ -467,12 +505,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorJoin> call,
                                    Response<ContributorJoin> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onJoinListener.onResponse((ContributorJoin)response.body());
             }
             @Override
             public void onFailure(Call<ContributorJoin> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onJoinListener.onFailure(t);
             }
         });
@@ -521,12 +559,12 @@ public class Retrofit {
             public void onResponse(Call<ContributorJoin> call,
                                    Response<ContributorJoin> response) {
 
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onJoinListener.onResponse((ContributorJoin)response.body());
             }
             @Override
             public void onFailure(Call<ContributorJoin> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onJoinListener.onFailure(t);
             }
         });
@@ -551,12 +589,12 @@ public class Retrofit {
             public void onResponse(Call<ContributorJoin> call,
                                    Response<ContributorJoin> response) {
 
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onJoinListener.onResponse((ContributorJoin)response.body());
             }
             @Override
             public void onFailure(Call<ContributorJoin> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onJoinListener.onFailure(t);
             }
         });
@@ -578,12 +616,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorBuildSearch> call,
                                    Response<ContributorBuildSearch> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBuildingSearch.onResponse((ContributorBuildSearch)response.body());
             }
             @Override
             public void onFailure(Call<ContributorBuildSearch> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBuildingSearch.onFailure(t);
             }
         });
@@ -600,12 +638,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorStoreSearch> call,
                                    Response<ContributorStoreSearch> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onStoreSearch.onResponse((ContributorStoreSearch)response.body());
             }
             @Override
             public void onFailure(Call<ContributorStoreSearch> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onStoreSearch.onFailure(t);
             }
         });
@@ -627,12 +665,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorBannerList> call,
                                    Response<ContributorBannerList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBannerList.onResponse((ContributorBannerList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorBannerList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBannerList.onFailure(t);
             }
         });
@@ -644,6 +682,7 @@ public class Retrofit {
      */
     public void uploadCategoryList(String method){
 
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), "");
         UploadCategoryListInterface uploadInterface = mRetrofit.create(UploadCategoryListInterface.class);
         Call<ContributorCategoryList> call = uploadInterface.upload(Constant.DOMAIN.api+method+"/");
 
@@ -651,12 +690,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorCategoryList> call,
                                    Response<ContributorCategoryList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onCategoryList.onResponse((ContributorCategoryList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorCategoryList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onCategoryList.onFailure(t);
             }
         });
@@ -677,12 +716,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorCodeList> call,
                                    Response<ContributorCodeList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onCodeList.onResponse((ContributorCodeList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorCodeList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onCodeList.onFailure(t);
             }
         });
@@ -709,12 +748,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorProductList> call,
                                    Response<ContributorProductList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onProductList.onResponse((ContributorProductList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorProductList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onProductList.onFailure(t);
             }
         });
@@ -727,19 +766,19 @@ public class Retrofit {
     public void uploadBestProductList(String method,String page){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
 
-        UploadBestProductListInterface uploadInterface = mRetrofit.create(UploadBestProductListInterface.class);
-        Call<ContributorBestProductList> call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
+        UploadBestProductList2Interface uploadInterface = mRetrofit.create(UploadBestProductList2Interface.class);
+        Call<ContributorBestProductList> call = uploadInterface.upload(Constant.DOMAIN.api+method+"/");
 
         call.enqueue(new Callback<ContributorBestProductList>() {
             @Override
             public void onResponse(Call<ContributorBestProductList> call,
                                    Response<ContributorBestProductList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBestProductList.onResponse((ContributorBestProductList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorBestProductList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBestProductList.onFailure(t);
             }
         });
@@ -762,12 +801,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorProductView> call,
                                    Response<ContributorProductView> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onProductView.onResponse((ContributorProductView)response.body());
             }
             @Override
             public void onFailure(Call<ContributorProductView> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onProductView.onFailure(t);
             }
         });
@@ -786,12 +825,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorBuildingList> call,
                                    Response<ContributorBuildingList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBuildingList.onResponse((ContributorBuildingList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorBuildingList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onBuildingList.onFailure(t);
             }
         });
@@ -815,12 +854,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorStoreViewList> call,
                                    Response<ContributorStoreViewList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onStoreList.onResponse((ContributorStoreViewList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorStoreViewList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onStoreList.onFailure(t);
             }
         });
@@ -879,12 +918,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorProductAdd> call,
                                    Response<ContributorProductAdd> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onProductAdd.onResponse((ContributorProductAdd)response.body());
             }
             @Override
             public void onFailure(Call<ContributorProductAdd> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onProductAdd.onFailure(t);
             }
         });
@@ -909,12 +948,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorFavorites> call,
                                    Response<ContributorFavorites> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onFavorites.onResponse((ContributorFavorites)response.body());
             }
             @Override
             public void onFailure(Call<ContributorFavorites> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onFavorites.onFailure(t);
             }
         });
@@ -935,12 +974,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorNoticeList> call,
                                    Response<ContributorNoticeList> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onNoticeList.onResponse((ContributorNoticeList)response.body());
             }
             @Override
             public void onFailure(Call<ContributorNoticeList> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onNoticeList.onFailure(t);
             }
         });
@@ -958,12 +997,12 @@ public class Retrofit {
             @Override
             public void onResponse(Call<ContributorRecomWord> call,
                                    Response<ContributorRecomWord> response) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onRecomWord.onResponse((ContributorRecomWord)response.body());
             }
             @Override
             public void onFailure(Call<ContributorRecomWord> call, Throwable t) {
-                if(dg!=null)dg.dismiss();
+                if(dg!=null&& isShowLoading)dg.dismiss();
                 onRecomWord.onFailure(t);
             }
         });
@@ -1041,7 +1080,7 @@ public class Retrofit {
     public static class ContributorBestProductList{
         public String result ="";
         public String error="";
-        public List<BestProductListData> list;
+        public BestProductResponse list;
     }
 
     public static class ContributorProductView{

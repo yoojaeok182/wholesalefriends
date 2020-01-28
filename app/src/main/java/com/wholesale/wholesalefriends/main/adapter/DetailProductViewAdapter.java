@@ -65,6 +65,7 @@ public class DetailProductViewAdapter extends PagerAdapter {
                 }
             });
         }
+        container.addView(v);
         return v;
     }
 

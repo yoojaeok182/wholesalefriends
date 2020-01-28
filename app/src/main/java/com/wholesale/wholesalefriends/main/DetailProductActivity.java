@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
@@ -117,6 +118,39 @@ public class DetailProductActivity extends GroupActivity {
         ivStoreLogo = findViewById(R.id.tvStoreName);
 //        tagGroup = findViewById(R.id.tagGroup);
 
+        tvTitle.setText(product_name);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                API.favorites(DetailProductActivity.this,SharedPreference.getIntSharedPreference(DetailProductActivity.this,Constant.CommonKey.user_no)+"",
+                        2+"",product_id+"",resultFavoriteHandler,errHandler);
+            }
+        });
+
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //TODO
+                Intent intent1 = new Intent(DetailProductActivity.this,ShoppingPaymentActivity.class);
+                startActivity(intent1);
+            }
+        });
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(edtInquire.getText().toString().trim().length() == 0){
+                    final CommonAlertDialog dg = new CommonAlertDialog(DetailProductActivity.this,false,false);
+                    dg.setMessage("문의하실 내용이 없습니다.\n입력해주세요.");
+                    dg.show();
+                    return;
+                }
+
+                //TODO
+            }
+        });
+
         loadData();
     }
 
@@ -190,12 +224,32 @@ public class DetailProductActivity extends GroupActivity {
         API.productVIew(this, product_id + "", SharedPreference.getIntSharedPreference(this, Constant.CommonKey.user_no) + "", resultHandler, errHandler);
     }
 
+    private Handler resultFavoriteHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            try {
+                JSONObject jsonObject = (JSONObject) msg.obj;
+
+                if (jsonObject.getBoolean("result")) {
+
+                    loadData();
+//                    Toast.makeText(DetailProductActivity.this,"관심 상품으로 등록하였습니다.",Toast.LENGTH_SHORT).show();
+
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+
     private Handler resultHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
                 list.clear();
+                viewPager.removeAllViews();
                 if (jsonObject.getBoolean("result")) {
                     ProductViewResponse response = new Gson().fromJson(jsonObject.toString(), ProductViewResponse.class);
                     if (response != null) {
@@ -249,6 +303,20 @@ public class DetailProductActivity extends GroupActivity {
                                                 }
                                             }).into(ivStoreLogo);
 
+
+                                    /*if(tag!=null && tag.length>0){
+                                        tagGroup.setVisibility(View.VISIBLE);
+                                        for(int i=0; i<tag.length;i++){
+                                            tagGroup.addTag("$"+tag[i]);
+                                        }
+                                    }else{
+                                        tagGroup.setVisibility(View.GONE);
+                                    }*/
+                                } else {
+                                    ivStoreLogo.setVisibility(View.GONE);
+                                }
+
+                                if(info.getKeyword()!=null && info.getKeyword().indexOf(",")>-1){
                                     String[] tag = info.getKeyword().split(",");
                                     LayoutInflater inflater=null;
                                     View header = inflater.inflate(R.layout.adapter_deatail_product_keyword,null);
@@ -263,18 +331,9 @@ public class DetailProductActivity extends GroupActivity {
                                     }else{
                                         llayoutForKeword.setVisibility(View.GONE);
                                     }
-                                    /*if(tag!=null && tag.length>0){
-                                        tagGroup.setVisibility(View.VISIBLE);
-                                        for(int i=0; i<tag.length;i++){
-                                            tagGroup.addTag("$"+tag[i]);
-                                        }
-                                    }else{
-                                        tagGroup.setVisibility(View.GONE);
-                                    }*/
-                                } else {
-                                    ivStoreLogo.setVisibility(View.GONE);
+                                }else{
+                                    llayoutForKeword.setVisibility(View.GONE);
                                 }
-
 
                             }
                         }
@@ -291,7 +350,7 @@ public class DetailProductActivity extends GroupActivity {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
                         final CommonAlertDialog dg = new CommonAlertDialog(DetailProductActivity.this, false, true);

@@ -6,6 +6,15 @@ public class ProductViewResponse {
 
     private List<ProductViewInfoData> info;
     private  List<ProductViewImageData> image;
+    private  ProductViewOptionData option;
+
+    public ProductViewOptionData getOption() {
+        return option;
+    }
+
+    public void setOption(ProductViewOptionData option) {
+        this.option = option;
+    }
 
     public List<ProductViewInfoData> getInfo() {
         return info;

@@ -31,6 +31,6 @@
 
         <include android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/layout_for_main_menu2"/>
+            layout="@layout/layout_for_main_menu"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

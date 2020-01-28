@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.wholesale.wholesalefriends.main.base.MyApplication;
 import com.wholesale.wholesalefriends.main.data.BannerLIstData;
 import com.wholesale.wholesalefriends.main.data.BestProductListData;
+import com.wholesale.wholesalefriends.main.data.BestProductResponse;
 import com.wholesale.wholesalefriends.main.data.BuildSearchData;
 import com.wholesale.wholesalefriends.main.data.BuildingListData;
 import com.wholesale.wholesalefriends.main.data.CategoryLIstData;
@@ -20,6 +21,9 @@ import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.main.data.ProductResponse;
 import com.wholesale.wholesalefriends.main.data.ProductViewImageData;
 import com.wholesale.wholesalefriends.main.data.ProductViewInfoData;
+import com.wholesale.wholesalefriends.main.data.ProductViewOptionColorData;
+import com.wholesale.wholesalefriends.main.data.ProductViewOptionData;
+import com.wholesale.wholesalefriends.main.data.ProductViewOptionSizeData;
 import com.wholesale.wholesalefriends.main.data.ProductViewResponse;
 import com.wholesale.wholesalefriends.main.data.RecomWordData;
 import com.wholesale.wholesalefriends.main.data.StoreListData;
@@ -367,10 +371,10 @@ public class API {
 
     }
 
-    public static void categoryList(Context context, Handler resultHandler, Handler errorHandler){
+    public static void categoryList(Context context, Handler resultHandler, Handler errorHandler,boolean isLoading){
         try{
-            Retrofit hp = new Retrofit( context);
-            hp.uploadCategoryList("categoryList");
+            Retrofit hp = new Retrofit( context,isLoading);
+            hp.uploadCategoryList("product/categoryList");
             hp.setOnCategoryList(new Retrofit.OnCategoryList() {
                 @Override
                 public void onResponse(Retrofit.ContributorCategoryList c) {
@@ -642,27 +646,39 @@ public class API {
 
                         jsonObject.put("error",c.error);
 
-                        List<BestProductListData> list = c.list;
+                        BestProductResponse productResponse = c.list;
+                        JSONObject object = new JSONObject();
+                        object.put("total",productResponse.getTotal());
+                        object.put("curent_page",productResponse.getCurent_page());
+                        object.put("last_page",productResponse.getLast_page());
+                        object.put("from",productResponse.getFrom());
+                        object.put("to",productResponse.getTo());
+                        object.put("next_page_url",productResponse.getNext_page_url());
+                        object.put("prev_page_url",productResponse.getPrev_page_url());
+                        object.put("per_page",productResponse.getPer_page());
+
+                        List<BestProductListData> list = productResponse.getData();
                         JSONArray jsonArray = new JSONArray();
 
                         if(list!=null && list.size()>0){
                             for(int i=0; i<list.size();i++){
                                 BestProductListData data = list.get(i);
-                                JSONObject object = new JSONObject();
-                                object.put("rank",data.getRank());
-                                object.put("id",data.getId());
-                                object.put("name",data.getName());
-                                object.put("image",data.getImage());
-                                object.put("imge_count",data.getImage_count());
-                                object.put("price", data.getPrice());
-                                object.put("store_name", data.getStore_name());
-                                object.put("store_id", data.getStore_id());
-                                object.put("like", data.getLike());
-                                object.put("created_at", data.getCreated_at());
-                                jsonArray.put(object);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("rank",data.getRank());
+                                object1.put("id",data.getId());
+                                object1.put("name",data.getName());
+                                object1.put("image",data.getImage());
+                                object1.put("imge_count",data.getImage_count());
+                                object1.put("price", data.getPrice());
+                                object1.put("store_name", data.getStore_name());
+                                object1.put("store_id", data.getStore_id());
+                                object1.put("like", data.getLike());
+                                object1.put("created_at", data.getCreated_at());
+                                jsonArray.put(object1);
                             }
-                            jsonObject.put("list",jsonArray);
+                            object.put("data",jsonArray);
                         }
+                        jsonObject.put("list",object);
 
                         Message msg = new Message();
                         msg.obj = jsonObject;
@@ -722,24 +738,51 @@ public class API {
                                 object1.put("favorites", data.getFavorites());
                                 jsonArray.put(object1);
                             }
-                            object.put("info",jsonArray);
+                            jsonObject.put("info",jsonArray);
+                        }
+                       ProductViewOptionData option = response.getOption();
+                        List<ProductViewOptionColorData> color = option.getColor();
+                        JSONArray jsonArray1 = new JSONArray();
+
+                        if(color!=null && color.size()>0){
+                            for(int i=0; i<color.size();i++){
+                                ProductViewOptionColorData data = color.get(i);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("code_value",data.getCode_value());
+                                object1.put("code_name",data.getCode_name());
+                                jsonArray1.put(object1);
+                            }
+                            object.put("color",jsonArray1);
                         }
 
+                        List<ProductViewOptionSizeData> size = option.getSize();
+                        JSONArray jsonArray2 = new JSONArray();
+
+                        if(size!=null && size.size()>0){
+                            for(int i=0; i<size.size();i++){
+                                ProductViewOptionSizeData data = size.get(i);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("code_value",data.getCode_value());
+                                object1.put("code_name",data.getCode_name());
+                                jsonArray2.put(object1);
+                            }
+                            object.put("size",jsonArray2);
+                        }
+                        jsonObject.put("option",object);
 
                         List<ProductViewImageData> list1 = response.getImage();
-                        JSONArray jsonArray1 = new JSONArray();
+                        JSONArray jsonArray3 = new JSONArray();
 
                         if(list!=null && list.size()>0){
                             for(int i=0; i<list.size();i++){
                                 ProductViewImageData data = list1.get(i);
                                 JSONObject object1 = new JSONObject();
                                 object1.put("url",data.getUrl());
-                                jsonArray1.put(object1);
+                                jsonArray3.put(object1);
                             }
-                            object.put("image",jsonArray1);
+                            jsonObject.put("image",jsonArray3);
                         }
 
-                        jsonObject.put("data",object);
                         Message msg = new Message();
                         msg.obj = jsonObject;
                         if(jsonObject.getBoolean("result")){
@@ -764,7 +807,7 @@ public class API {
     public static void buildingList(Context context, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
-            hp.uploadBuildingList("product/buildingLIst");
+            hp.uploadBuildingList("product/buildingList");
             hp.setOnBuildingList(new Retrofit.OnBuildingList() {
                 @Override
                 public void onResponse(Retrofit.ContributorBuildingList c) {
@@ -835,16 +878,14 @@ public class API {
                         jsonObject.put("error",c.error);
 
                         StoreListResponse response = c.list;
-                        JSONObject object = new JSONObject();
-                        object.put("total",response.getTotal());
-                        object.put("curent_page",response.getCurent_page());
-                        object.put("last_page",response.getLast_page());
-                        object.put("from",response.getFrom());
-                        object.put("to",response.getTo());
-                        object.put("next_page_url",response.getNext_page_url());
-                        object.put("prev_page_url",response.getPrev_page_url());
-                        object.put("per_page",response.getPer_page());
-
+                        jsonObject.put("total",response.getTotal());
+                        jsonObject.put("curent_page",response.getCurent_page());
+                        jsonObject.put("last_page",response.getLast_page());
+                        jsonObject.put("from",response.getFrom());
+                        jsonObject.put("to",response.getTo());
+                        jsonObject.put("next_page_url",response.getNext_page_url());
+                        jsonObject.put("prev_page_url",response.getPrev_page_url());
+                        jsonObject.put("per_page",response.getPer_page());
                         List<StoreListData> list = response.getData();
                         JSONArray jsonArray = new JSONArray();
 
@@ -861,9 +902,8 @@ public class API {
                                 object1.put("is_new", data.getIs_new());
                                 jsonArray.put(object1);
                             }
-                            object.put("data",jsonArray);
+                            jsonObject.put("data",jsonArray);
                         }
-                        jsonObject.put("list",object);
 
                         Message msg = new Message();
                         msg.obj = jsonObject;

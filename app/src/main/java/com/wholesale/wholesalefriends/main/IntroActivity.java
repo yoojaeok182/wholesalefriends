@@ -36,16 +36,15 @@ public class IntroActivity extends GroupActivity {
         setContentView(R.layout.activity_intro);
 
         initSetting();
-        loadCategoryList();
         permissionCheck(new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
+                loadCategoryList();
 
                 if(msg.what == 0){   // Message id 가 0 이면
                     SharedPreference.putSharedPreference(IntroActivity.this, Pref.permission_check_complet,"Y");
-                    String user_no = SharedPreference.getSharedPreference(IntroActivity.this, Constant.CommonKey.user_no);
-                    int nUserNo = user_no!=null&&user_no.length()>0?Integer.valueOf(user_no):0;
+                    int nUserNo = SharedPreference.getIntSharedPreference(IntroActivity.this, Constant.CommonKey.user_no);
                     if(nUserNo!=0){
                         String id = SharedPreference.getSharedPreference(IntroActivity.this, Constant.CommonKey.user_id);
                         String pwd = SharedPreference.getSharedPreference(IntroActivity.this, Constant.CommonKey.user_pwd);
@@ -81,7 +80,7 @@ public class IntroActivity extends GroupActivity {
     }
 
     private void loadCategoryList(){
-        API.categoryList(IntroActivity.this,resultCategoryHandler,null);
+        API.categoryList(IntroActivity.this,resultCategoryHandler,null,false);
     }
 
     private Handler resultCategoryHandler = new Handler(){
@@ -107,7 +106,7 @@ public class IntroActivity extends GroupActivity {
                 JSONObject jsonObject = (JSONObject)msg.obj;
 
                 if(jsonObject.getBoolean("result")){
-                    SharedPreference.putSharedPreference(IntroActivity.this, Constant.CommonKey.user_no,jsonObject.getString("user_id"));
+                    SharedPreference.putSharedPreference(IntroActivity.this, Constant.CommonKey.user_no,jsonObject.getInt("user_id"));
                     Integer store_type = null;
                     Integer level = null;
                     if(!jsonObject.isNull("store_type")){

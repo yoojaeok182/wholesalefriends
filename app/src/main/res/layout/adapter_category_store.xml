@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -12,7 +13,7 @@
             android:gravity="center"
             android:id="@+id/rootContainer"
             android:layout_width="135.33dp"
-            android:layout_height="wrap_content"
+            android:layout_height="180dp"
             android:padding="20dp"
             android:orientation="vertical">
 

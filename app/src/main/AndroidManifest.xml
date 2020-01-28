@@ -48,7 +48,10 @@
         android:name=".main.join.JoinStep1Activity"
         android:label="@string/title_activity_main2"
         android:theme="@style/AppTheme.NoActionBar"></activity>
-
+        <activity
+            android:name=".main.ProductListActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".main.join.JoinStep2Activity"
             android:label="@string/title_activity_main2"

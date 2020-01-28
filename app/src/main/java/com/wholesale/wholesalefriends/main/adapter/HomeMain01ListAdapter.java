@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.module.util.Util;
@@ -26,6 +27,8 @@ public class HomeMain01ListAdapter extends RecyclerView.Adapter<HomeMain01ListAd
     private int nCurrentPage = 1;
 
     public AdapterListener adapterListener;
+
+    private RequestManager requestManager;
 
     public interface AdapterListener {
         void moreLoading(int page);
@@ -52,7 +55,12 @@ public class HomeMain01ListAdapter extends RecyclerView.Adapter<HomeMain01ListAd
 
     }
 
-
+    public HomeMain01ListAdapter(Context context, RequestManager manager, ArrayList<ProductListData> data) {
+        ctx = context;
+        inflater = LayoutInflater.from(ctx);
+        arrayList = data;
+        requestManager = manager;
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_product_item, parent, false);

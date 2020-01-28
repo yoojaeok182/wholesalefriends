@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.wholesale.wholesalefriends.R;
@@ -17,9 +19,7 @@ import com.wholesale.wholesalefriends.main.adapter.HomeMainPageAdapter;
 
 public class RetailHomeFragment extends Fragment {
 
-    private ViewPager viewPager;
 
-    private HomeMainPageAdapter homeMainPageAdapter;
     private TextView tvTobMenu01;
     private LinearLayout llayoutTopMenu01;
     private TextView tvTobMenu02;
@@ -29,6 +29,11 @@ public class RetailHomeFragment extends Fragment {
     private LinearLayout llayoutTopLine01;
     private LinearLayout llayoutTopLine02;
     private LinearLayout llayoutTopLine03;
+
+
+    private HomeMainViewPager01Fragment homeMainViewPager01Fragment;
+    private HomeMainViewPager02Fragment homeMainViewPager02Fragment;
+    private HomeMainViewPager03Fragment homeMainViewPager03Fragment;
 
     @Nullable
     @Override
@@ -44,47 +49,37 @@ public class RetailHomeFragment extends Fragment {
         llayoutTopLine01 =view. findViewById(R.id.llayoutTopLine01);
         llayoutTopLine02 = view.findViewById(R.id.llayoutTopLine02);
         llayoutTopLine03 =view. findViewById(R.id.llayoutTopLine03);
-        viewPager = view.findViewById(R.id.viewPager);
 
-        homeMainPageAdapter = new HomeMainPageAdapter(getFragmentManager(), getActivity());
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
 
-            @Override
-            public void onPageSelected(int i) {
-                setCurrentTab(i);
-            }
+        homeMainViewPager01Fragment = HomeMainViewPager01Fragment.newInstance(getActivity());
+        homeMainViewPager02Fragment  = HomeMainViewPager02Fragment.newInstance(getActivity());
+        homeMainViewPager03Fragment = HomeMainViewPager03Fragment.newInstance(getActivity());
 
-            @Override
-            public void onPageScrollStateChanged(int i) {
-            }
-        });
-        viewPager.setAdapter(homeMainPageAdapter);
 
-        viewPager.setOffscreenPageLimit(3);
-        viewPager.setCurrentItem(0);
-
-        llayoutTopLine01.setOnClickListener(new View.OnClickListener() {
+        llayoutTopMenu01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(0);
+                setCurrentTab(0);
+                updateTableFragment(0);
             }
         });
 
-        llayoutTopLine02.setOnClickListener(new View.OnClickListener() {
+        llayoutTopMenu02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(1);
+                setCurrentTab(1);
+                updateTableFragment(1);
             }
         });
-        llayoutTopLine03.setOnClickListener(new View.OnClickListener() {
+        llayoutTopMenu03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(2);
+                setCurrentTab(2);
+                updateTableFragment(2);
             }
         });
+        setCurrentTab(0);
+        updateTableFragment(0);
         return view;
 
     }
@@ -115,5 +110,39 @@ public class RetailHomeFragment extends Fragment {
                 break;
         }
 
+    }
+
+    public void updateTableFragment(int reqNewFragmentIndex) {
+
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+        switch (reqNewFragmentIndex) {
+            case 0:
+                if (!homeMainViewPager01Fragment.isAdded()) {
+                    fragmentTransaction.replace(R.id.layoutcontainer, homeMainViewPager01Fragment);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
+
+
+                break;
+            case 1:
+                if (!homeMainViewPager02Fragment.isAdded()) {
+                    fragmentTransaction.replace(R.id.layoutcontainer, homeMainViewPager02Fragment);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
+
+
+                break;
+            case 2:
+                if (!homeMainViewPager03Fragment.isAdded()) {
+                    fragmentTransaction.replace(R.id.layoutcontainer, homeMainViewPager03Fragment);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

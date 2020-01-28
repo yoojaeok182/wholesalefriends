@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
+import com.wholesale.wholesalefriends.main.DetailProductActivity;
 import com.wholesale.wholesalefriends.main.ProductListActivity;
 import com.wholesale.wholesalefriends.main.adapter.CategoryStoreListAdapter;
 import com.wholesale.wholesalefriends.main.common.Constant;
@@ -36,6 +37,7 @@ import com.wholesale.wholesalefriends.main.join.JoinStep3Activity;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.AppData;
 import com.wholesale.wholesalefriends.module.SharedPreference;
+import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -66,6 +68,7 @@ public class RetailCategoryFragment extends Fragment {
     private boolean isExistMore = false;
 
     private String building_id ="";
+    private int nFavoriteSelectPos;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -124,15 +127,21 @@ public class RetailCategoryFragment extends Fragment {
                         public void onDismiss(DialogInterface dialogInterface) {
                             if(dg.isOk()){
                                 //TODO
-                                categoryStoreListAdapter.getItem(pos).setFavorites("1");
-                                categoryStoreListAdapter.notifyDataSetChanged();
+                                nFavoriteSelectPos = pos;
+                                API.favorites(getActivity(),SharedPreference.getIntSharedPreference(getActivity(),Constant.CommonKey.user_no)+"",
+                                        1+"",data.getId()+"",resultFavoriteHandler,errHandler);
+
+
                             }
                         }
                     });
+                    dg.show();
                 }
 
             }
         });
+        recyclerView.addItemDecoration(new MarginDecoration(getActivity()));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(categoryStoreListAdapter);
 
         String[] items =getResources().getStringArray(R.array.store_view_item);
@@ -219,6 +228,7 @@ public class RetailCategoryFragment extends Fragment {
         loadStoreList(1,"");
     }
 
+
     private void clearData(){
         categoryStoreListAdapter.clear();
         isSwipeRefresh = true;
@@ -232,9 +242,10 @@ public class RetailCategoryFragment extends Fragment {
             CategoryListResponse response = AppData.getInstance().getCategoryListResponse();
             if(response!=null &&response.getList().size()>0){
                 for(int i=0; i<response.getList().size();i++){
-                    if(menuName.indexOf(response.getList().get(i).getName())>-1){
+                    if(response.getList().get(i).getName().indexOf(menuName)>-1){
                         Intent intent = new Intent(getActivity(), ProductListActivity.class);
                         intent.putExtra(Constant.CommonKey.category_code,response.getList().get(i).getCode()+"");
+                        intent.putExtra(Constant.CommonKey.category_name,response.getList().get(i).getName()+"");
                         startActivity(intent);
                     }
                 }
@@ -246,9 +257,25 @@ public class RetailCategoryFragment extends Fragment {
 
     private void loadStoreList(int page,String building_id){
         categoryStoreListAdapter.setnCurrentPage(page);
-        API.storeLList(getActivity(),page+"",building_id, SharedPreference.getSharedPreference(getActivity(),Constant.CommonKey.user_no)+"",resultListHandler,errHandler);
+        API.storeLList(getActivity(),page+"",building_id, SharedPreference.getIntSharedPreference(getActivity(),Constant.CommonKey.user_no)+"",resultListHandler,errHandler);
     }
 
+    private Handler resultFavoriteHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            try {
+                JSONObject jsonObject = (JSONObject) msg.obj;
+
+                if (jsonObject.getBoolean("result")) {
+
+                    clearData();
+                    loadStoreList(1,building_id+"");
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     private Handler resultHandler2 = new Handler(){
         @Override

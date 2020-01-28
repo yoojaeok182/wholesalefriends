@@ -561,7 +561,7 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                 JSONObject jsonObject = (JSONObject)msg.obj;
 
                 if(jsonObject.getBoolean("result")){
-                    SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_no,jsonObject.getString("user_id"));
+                    SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_no,jsonObject.getInt("user_id"));
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_id,edtId.getText().toString());
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_pwd,edtPwd.getText().toString());
                     /*Integer store_type = null;
