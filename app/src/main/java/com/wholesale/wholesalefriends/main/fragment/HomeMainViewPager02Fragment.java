@@ -13,21 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
-import com.wholesale.wholesalefriends.main.DetailProductActivity;
-import com.wholesale.wholesalefriends.main.adapter.BannerPageAdapter;
-import com.wholesale.wholesalefriends.main.adapter.HomeMain01ListAdapter;
+import com.wholesale.wholesalefriends.main.retail_market.DetailProductActivity;
 import com.wholesale.wholesalefriends.main.adapter.HomeMain02ListAdapter;
 import com.wholesale.wholesalefriends.main.common.Constant;
-import com.wholesale.wholesalefriends.main.data.BannerLIstData;
-import com.wholesale.wholesalefriends.main.data.BannerListResponse;
 import com.wholesale.wholesalefriends.main.data.BestProductListData;
 import com.wholesale.wholesalefriends.main.data.BestProductListResponse;
-import com.wholesale.wholesalefriends.main.data.ProductListData;
-import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
@@ -35,7 +28,6 @@ import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class HomeMainViewPager02Fragment extends Fragment {
 

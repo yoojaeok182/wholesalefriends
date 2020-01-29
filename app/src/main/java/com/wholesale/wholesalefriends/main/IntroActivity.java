@@ -6,23 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
 import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.data.CategoryListResponse;
-import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
+import com.wholesale.wholesalefriends.main.retail_market.MainActivity;
+import com.wholesale.wholesalefriends.main.wholesale_market.Main2Activity;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.AppData;
 import com.wholesale.wholesalefriends.module.SharedPreference;
 import com.wholesale.wholesalefriends.module.permission.PermissionCheckController;
 import com.wholesale.wholesalefriends.module.pref.Pref;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.Group;
 
 import org.json.JSONObject;
 
@@ -107,6 +104,10 @@ public class IntroActivity extends GroupActivity {
 
                 if(jsonObject.getBoolean("result")){
                     SharedPreference.putSharedPreference(IntroActivity.this, Constant.CommonKey.user_no,jsonObject.getInt("user_id"));
+                    if(!jsonObject.isNull("store_id")){
+                        int  store_id = jsonObject.getInt("store_id");
+                        SharedPreference.putSharedPreference(IntroActivity.this, Constant.CommonKey.store_id,store_id);
+                    }
                     Integer store_type = null;
                     Integer level = null;
                     if(!jsonObject.isNull("store_type")){
@@ -117,9 +118,9 @@ public class IntroActivity extends GroupActivity {
                     }
                     Intent intent = null;
                     if(store_type!=null &&store_type ==2){
-                        intent = new Intent(IntroActivity.this,MainActivity.class);
+                        intent = new Intent(IntroActivity.this, MainActivity.class);
                     }else{
-                        intent = new Intent(IntroActivity.this,Main2Activity.class);
+                        intent = new Intent(IntroActivity.this, Main2Activity.class);
                     }
                     startActivity(intent);
                     finish();

@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main;
+package com.wholesale.wholesalefriends.main.retail_market;
 
 import android.content.Intent;
 import android.os.Bundle;

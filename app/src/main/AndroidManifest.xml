@@ -30,11 +30,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".main.Main2Activity"
+            android:name=".main.wholesale_market.Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".main.MainActivity"
+            android:name=".main.retail_market.MainActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
@@ -49,7 +49,7 @@
         android:label="@string/title_activity_main2"
         android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".main.ProductListActivity"
+            android:name=".main.retail_market.ProductListActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
@@ -101,11 +101,11 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".main.DetailProductActivity"
+            android:name=".main.retail_market.DetailProductActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".main.MyPage1Activity"
+            android:name=".main.retail_market.MyPage1Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
@@ -118,7 +118,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".main.NoticeActivity"
+            android:name=".main.retail_market.NoticeActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
@@ -135,7 +135,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".main.SearchActivity"
+            android:name=".main.retail_market.SearchActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
@@ -145,16 +145,16 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".main.ShoppingBasketActivity"
+            android:name=".main.retail_market.ShoppingBasketActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".main.ShoppingPayment2Activity"
+            android:name=".main.retail_market.ShoppingPayment2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".main.ShoppingPaymentActivity"
+            android:name=".main.retail_market.ShoppingPaymentActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <uses-library
@@ -169,6 +169,46 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".main.retail_market.LicenseeCertificationActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".main.retail_market.ManageOfStaffActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".main.retail_market.MyInquireActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".main.retail_market.RecentProductListActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".main.retail_market.AlarmHistoryActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".main.retail_market.AlarmReceiveSettingActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".main.retail_market.TermsActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
 
 
         <provider

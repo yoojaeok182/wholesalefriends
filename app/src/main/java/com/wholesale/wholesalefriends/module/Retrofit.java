@@ -7,10 +7,11 @@ import android.os.Handler;
 
 import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.data.BannerLIstData;
-import com.wholesale.wholesalefriends.main.data.BestProductListData;
 import com.wholesale.wholesalefriends.main.data.BestProductResponse;
 import com.wholesale.wholesalefriends.main.data.BuildSearchData;
 import com.wholesale.wholesalefriends.main.data.BuildingListData;
+import com.wholesale.wholesalefriends.main.data.CartGroupListResponse;
+import com.wholesale.wholesalefriends.main.data.CartListResponse;
 import com.wholesale.wholesalefriends.main.data.CategoryLIstData;
 import com.wholesale.wholesalefriends.main.data.CodeListData;
 import com.wholesale.wholesalefriends.main.data.NoticeListResponse;
@@ -95,13 +96,13 @@ public class Retrofit {
                 .build();
 
     }
-    private interface UploadInterface{
+    /*private interface UploadInterface{
         @Multipart
         @POST
         Call<Contributor> upload(
-                /**
+                *//**
                  * REST API 등록
-                 */
+                 *//*
                 @Part("method") RequestBody method,
                 @Part("mem_no") RequestBody memNo,
                 @Part("from_method") RequestBody from_method,
@@ -112,7 +113,7 @@ public class Retrofit {
 
                 @Part MultipartBody.Part file,
                 @Url String apiUrl);
-    }
+    }*/
 
     private interface UploadLoginInterface{
         @Multipart
@@ -308,6 +309,22 @@ public class Retrofit {
         );
     }
 
+    private interface UploadProductListSearchInterface{
+        @Multipart
+        @POST
+        Call<ContributorProductList> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("page") RequestBody page,
+                @Part("category") RequestBody category,
+                @Part("is_sale") RequestBody is_sale,
+                @Part("store_id") RequestBody store_id,
+                @Part("keyword") RequestBody keyword,
+                @Url String apiUrl
+        );
+    }
+
     private interface UploadBestProductListInterface{
         @Multipart
         @POST
@@ -424,8 +441,9 @@ public class Retrofit {
         );
     }
 
+
     private interface UploadNoticeInterface{
-        @Multipart
+//        @Multipart
         @POST
         Call<ContributorNoticeList> upload(
                 /**
@@ -437,7 +455,7 @@ public class Retrofit {
     }
 
     private interface UploadRecommWordInterface{
-        @Multipart
+//        @Multipart
         @POST
         Call<ContributorRecomWord> upload(
                 /**
@@ -446,6 +464,127 @@ public class Retrofit {
                @Url String apiUrl
         );
     }
+
+    private interface UploadQnaWriteInterface{
+        @Multipart
+        @POST
+        Call<ContributorQnaWrite> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("p_id") RequestBody  p_id,
+                @Part("content") RequestBody content ,@Url String apiUrl
+
+        );
+    }
+    private interface UploadCartAddInterface{
+        @Multipart
+        @POST
+        Call<ContributorCartAdd> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("store_id") RequestBody store_id,
+                @Part("p_id") RequestBody  p_id,
+                @Part("p_option_1") RequestBody  p_option_1 ,
+                @Part("p_option_2") RequestBody  p_option_2  ,
+                @Part("amount") RequestBody  amount,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadCartListInterface{
+        @Multipart
+        @POST
+        Call<ContributorCartList> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadCartAmountModifyInterface{
+        @Multipart
+        @POST
+        Call<ContributorCartAmountModify> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("store_id") RequestBody store_id,
+                @Part("c_id") RequestBody c_id,
+                @Part("amount") RequestBody amount,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadCartListDeleteInterface{
+        @Multipart
+        @POST
+        Call<ContributorCartListDelete> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("c_id") RequestBody c_id,
+                @Part("amount") RequestBody amount,
+                @Url String apiUrl
+        );
+    }
+
+    public void uploadCartAdd(String method, String user_id,String store_id, String p_id,String p_option_1,String p_option_2,String amount,boolean _isLoading){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), p_id);
+        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), p_option_1);
+        RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), p_option_2);
+        RequestBody p6 = RequestBody.create(MediaType.parse("text/plain"), amount);
+
+        UploadCartAddInterface uploadInterface = mRetrofit.create(UploadCartAddInterface.class);
+        Call<ContributorCartAdd> call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorCartAdd>() {
+            @Override
+            public void onResponse(Call<ContributorCartAdd> call,
+                                   Response<ContributorCartAdd> response) {
+                if(dg!=null && isShowLoading)dg.dismiss();
+                onCartAdd.onResponse((ContributorCartAdd)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorCartAdd> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onCartAdd.onFailure(t);
+            }
+        });
+    }
+
+    public void uploadQnaWrite(String method,String p_id, String user_id,String content,boolean _isLoading){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), p_id);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), content);
+
+        UploadQnaWriteInterface uploadInterface = mRetrofit.create(UploadQnaWriteInterface.class);
+        Call<ContributorQnaWrite> call = uploadInterface.upload(p1, p2,p3,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorQnaWrite>() {
+            @Override
+            public void onResponse(Call<ContributorQnaWrite> call,
+                                   Response<ContributorQnaWrite> response) {
+                if(dg!=null && isShowLoading)dg.dismiss();
+                onQnaWrite.onResponse((ContributorQnaWrite)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorQnaWrite> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onQnaWrite.onFailure(t);
+            }
+        });
+    }
+
     /**
      * API에 맞추어 메소드 작성
      */
@@ -759,6 +898,31 @@ public class Retrofit {
         });
     }
 
+    public void uploadProductListSearch(String method,String page, String category,String is_sale,String store_id,String keyword){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), category);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), is_sale);
+        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), keyword);
+
+        UploadProductListSearchInterface uploadInterface = mRetrofit.create(UploadProductListSearchInterface.class);
+        Call<ContributorProductList> call = uploadInterface.upload(p1, p2,p3,p4,p5,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorProductList>() {
+            @Override
+            public void onResponse(Call<ContributorProductList> call,
+                                   Response<ContributorProductList> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onProductList.onResponse((ContributorProductList)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorProductList> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onProductList.onFailure(t);
+            }
+        });
+    }
+
     /**
      * 9. 베스트 상품목록
      * @param method
@@ -965,8 +1129,6 @@ public class Retrofit {
      * @param page
      */
     public void uploadNotice(String method,String page){
-        RequestBody p1 = null;
-        if(page!=null&& page.length()>0)p1 = RequestBody.create(MediaType.parse("text/plain"), page);
         UploadNoticeInterface uploadInterface = mRetrofit.create(UploadNoticeInterface.class);
         Call<ContributorNoticeList> call = uploadInterface.upload(Constant.DOMAIN.api+method+"/");
 
@@ -1008,6 +1170,75 @@ public class Retrofit {
         });
     }
 
+
+
+    public void uploadCartList(String method, String user_id){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        UploadCartListInterface uploadInterface = mRetrofit.create(UploadCartListInterface.class);
+        Call<ContributorCartList> call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorCartList>() {
+            @Override
+            public void onResponse(Call<ContributorCartList> call,
+                                   Response<ContributorCartList> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onCartList.onResponse((ContributorCartList)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorCartList> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onCartList.onFailure(t);
+            }
+        });
+    }
+
+    public void uploadCartAmountMod(String method, String user_id,String store_id, String c_id,String amount,boolean _isLoading){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), c_id);
+        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), amount);
+
+        UploadCartAmountModifyInterface uploadInterface = mRetrofit.create(UploadCartAmountModifyInterface.class);
+        Call<ContributorCartAmountModify> call = uploadInterface.upload(p1, p2,p3,p4,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorCartAmountModify>() {
+            @Override
+            public void onResponse(Call<ContributorCartAmountModify> call,
+                                   Response<ContributorCartAmountModify> response) {
+                if(dg!=null && isShowLoading)dg.dismiss();
+                onCartAmountMod.onResponse((ContributorCartAmountModify)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorCartAmountModify> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onCartAmountMod.onFailure(t);
+            }
+        });
+    }
+
+
+    public void uploadCartListDelete(String method, String user_id, String c_id,String amount,boolean _isLoading){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), c_id);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), amount);
+
+        UploadCartListDeleteInterface uploadInterface = mRetrofit.create(UploadCartListDeleteInterface.class);
+        Call<ContributorCartListDelete> call = uploadInterface.upload(p1, p2,p3,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorCartListDelete>() {
+            @Override
+            public void onResponse(Call<ContributorCartListDelete> call,
+                                   Response<ContributorCartListDelete> response) {
+                if(dg!=null && isShowLoading)dg.dismiss();
+                onCartListDelete.onResponse((ContributorCartListDelete)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorCartListDelete> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onCartListDelete.onFailure(t);
+            }
+        });
+    }
     /**
      * RESPONSE PARAM 등록
      */
@@ -1123,6 +1354,87 @@ public class Retrofit {
         public String error="";
         public List<RecomWordData>list;
     }
+
+    public static class ContributorQnaWrite{
+        public String result ="";
+        public String error="";
+        public String qna_id ="";
+    }
+    public static class ContributorCartAdd{
+        public String result ="";
+        public String error="";
+        public String user_id ="";
+    }
+
+    public static class ContributorCartList{
+        public String result ="";
+        public String error="";
+        public Integer total=0;
+        public List<CartGroupListResponse> list;
+    }
+
+    public static class ContributorCartAmountModify{
+        public String result ="";
+        public String error="";
+        public String user_id ="";
+    }
+
+    public static class ContributorCartListDelete{
+        public String result ="";
+        public String error="";
+        public String user_id ="";
+    }
+
+    private OnCartList onCartList;
+    public void setOnCartList(OnCartList listener){
+        onCartList = listener;
+    }
+
+    public static interface OnCartList{
+        public void onResponse(ContributorCartList c);
+        public void onFailure(Throwable t);
+    }
+
+    private onCartAmountMod onCartAmountMod;
+    public void setonCartAmountMod(onCartAmountMod listener){
+        onCartAmountMod = listener;
+    }
+
+    public static interface onCartAmountMod{
+        public void onResponse(ContributorCartAmountModify c);
+        public void onFailure(Throwable t);
+    }
+
+    private OnCartListDelete onCartListDelete;
+    public void setOnCartListDelete(OnCartListDelete listener){
+        onCartListDelete = listener;
+    }
+
+    public static interface OnCartListDelete{
+        public void onResponse(ContributorCartListDelete c);
+        public void onFailure(Throwable t);
+    }
+
+    private OnCartAdd onCartAdd;
+    public void setOnCartAdd(OnCartAdd listener){
+        onCartAdd = listener;
+    }
+
+    public static interface OnCartAdd{
+        public void onResponse(ContributorCartAdd c);
+        public void onFailure(Throwable t);
+    }
+
+    private OnQnaWrite onQnaWrite;
+    public void setOnQnaWrite(OnQnaWrite listener){
+        onQnaWrite = listener;
+    }
+
+    public static interface OnQnaWrite{
+        public void onResponse(ContributorQnaWrite c);
+        public void onFailure(Throwable t);
+    }
+
 
     private OnBuildingSearch onBuildingSearch;
     public void setOnBuildingSearch(OnBuildingSearch listener){

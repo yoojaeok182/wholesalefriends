@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
-import com.wholesale.wholesalefriends.main.DetailProductActivity;
-import com.wholesale.wholesalefriends.main.adapter.HomeMain02ListAdapter;
+import com.wholesale.wholesalefriends.main.retail_market.DetailProductActivity;
 import com.wholesale.wholesalefriends.main.adapter.HomeMain03ListAdapter;
 import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
@@ -29,7 +28,6 @@ import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class HomeMainViewPager03Fragment extends Fragment {
 

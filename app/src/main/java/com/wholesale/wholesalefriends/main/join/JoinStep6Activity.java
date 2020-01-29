@@ -16,9 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wholesale.wholesalefriends.R;
-import com.wholesale.wholesalefriends.main.LoginActivity;
-import com.wholesale.wholesalefriends.main.Main2Activity;
-import com.wholesale.wholesalefriends.main.MainActivity;
+import com.wholesale.wholesalefriends.main.wholesale_market.Main2Activity;
+import com.wholesale.wholesalefriends.main.retail_market.MainActivity;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
 import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;

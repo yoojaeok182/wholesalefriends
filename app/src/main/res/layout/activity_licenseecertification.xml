@@ -4,14 +4,12 @@
     android:background="@color/color_bg"
     android:layout_height="match_parent">
 
-    <include layout="@layout/layout_for_title"
+    <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/llayoutForTitle"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:clipToPadding="false"
+        layout="@layout/layout_for_title"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 </LinearLayout>

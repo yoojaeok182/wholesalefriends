@@ -1,6 +1,7 @@
-package com.wholesale.wholesalefriends.main;
+package com.wholesale.wholesalefriends.main.retail_market;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
 
-public class ShoppingPaymentActivity extends GroupActivity {
+public class ShoppingPayment2Activity extends GroupActivity {
 
 
     private RelativeLayout btnBack;
@@ -31,7 +32,7 @@ public class ShoppingPaymentActivity extends GroupActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_payment);
+        setContentView(R.layout.activity_shopping_payment2);
         btnBack = findViewById(R.id.btnBack);
         tvTitle = findViewById(R.id.tvTitle);
         ivCheck01 = findViewById(R.id.ivCheck01);
@@ -46,5 +47,14 @@ public class ShoppingPaymentActivity extends GroupActivity {
         tvPurchase02 = findViewById(R.id.tvPurchase02);
         btnPurchase02 = findViewById(R.id.btnPurchase02);
         btnSave = findViewById(R.id.btnSave);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        tvTitle.setText("기본 결제방법");
     }
 }

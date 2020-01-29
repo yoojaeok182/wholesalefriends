@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main;
+package com.wholesale.wholesalefriends.main.retail_market;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +22,6 @@ import com.wholesale.wholesalefriends.main.adapter.CategoryStoreListAdapter;
 import com.wholesale.wholesalefriends.main.adapter.HomeMain01ListAdapter;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
 import com.wholesale.wholesalefriends.main.common.Constant;
-import com.wholesale.wholesalefriends.main.data.NoticeListResponse;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.data.RecommWordResponse;
@@ -56,6 +55,7 @@ public class SearchActivity extends GroupActivity {
     private LinearLayout llayoutForRecommKeword;
     private RecyclerView recyclerView;
     private LinearLayout llayoutFOrSearch;
+    private  TextView tvSearchCount;
 
     private RecyclerView recyclerViewShop;
     private HomeMain01ListAdapter homeMain01ListAdapter = null;
@@ -69,6 +69,7 @@ public class SearchActivity extends GroupActivity {
     private ArrayList<StoreListData>list= new ArrayList<>();
 
 
+    private RelativeLayout btnSearch;
 
 
     private String strKeyword ="";
@@ -93,10 +94,10 @@ public class SearchActivity extends GroupActivity {
         llayoutForRecommKeword = findViewById(R.id.llayoutForRecommKeword);
         recyclerView = findViewById(R.id.recyclerView);
         llayoutFOrSearch = findViewById(R.id.llayoutFOrSearch);
-
+        btnSearch = findViewById(R.id.btnSearch);
         recyclerViewShop = findViewById(R.id.recyclerViewShop);
-
-        checkType(0);
+        tvSearchCount = findViewById(R.id.tvSearchCount);
+        checkType(1);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +125,28 @@ public class SearchActivity extends GroupActivity {
             @Override
             public void onClick(View view) {
                 checkType(2);
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(edtSearch.getText().toString()!=null && edtSearch.getText().toString().length()>0){
+
+                    strKeyword = edtSearch.getText().toString();
+                }else{
+                    strKeyword ="";
+                }
+
+                if(isCheckAll){
+                    clearProductData();
+                    loadList(1,"","",",",strKeyword);
+                }else if(isCheckProduct){
+                    clearProductData();
+                    loadList(1,"","",",",strKeyword);
+                }else if(isCheckShop){
+                    clearShopData();
+                    loadStoreList(1,strKeyword);
+                }
             }
         });
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -275,7 +298,7 @@ public class SearchActivity extends GroupActivity {
     }
     private void loadList(int page,String category,String is_sale,String store_id,String keyword) {
         homeMain01ListAdapter.setnCurrentPage(page);
-        API.productList(SearchActivity.this,page+"",category,is_sale,store_id,keyword,resultProductListHandler,errHandler);
+        API.productList(SearchActivity.this,page+"",category,is_sale,store_id,keyword,resultProductListHandler,errHandler1);
     }
 
     private void loadStoreList(int page,String strKeyword){
@@ -294,6 +317,7 @@ public class SearchActivity extends GroupActivity {
                 llayoutFOrSearch.setVisibility(View.GONE);
                 if(jsonObject.getBoolean("result")){
                     StoreListResponse productListResponse = new Gson().fromJson(jsonObject.toString(), StoreListResponse.class);
+                    tvSearchCount.setText(productListResponse.getTotal()+"");
                     if(productListResponse!=null && productListResponse.getData().size()>0){
                         llayoutForRecommKeword.setVisibility(View.GONE);
                         llayoutFOrSearch.setVisibility(View.VISIBLE);
@@ -343,11 +367,11 @@ public class SearchActivity extends GroupActivity {
                     ProductListResponse productListResponse = new Gson().fromJson(jsonObject.toString(), ProductListResponse.class);
                     if(productListResponse!=null && productListResponse.getList().getData().size()>0){
                         llayoutForRecommKeword.setVisibility(View.GONE);
-
                         llayoutFOrSearch.setVisibility(View.VISIBLE);
                         if(isSwipeRefresh){
                             homeMain01ListAdapter.clear();
                             homeMain01ListAdapter.addAll(productListResponse.getList().getData());
+
                             isSwipeRefresh = false;
                         }else{
                             if(homeMain01ListAdapter.getItemCount()>0){
@@ -400,8 +424,7 @@ public class SearchActivity extends GroupActivity {
                         for(int i= 0 ; i<recommWordResponse.getList().size() ; i++){
                             tagGroup.addTag(recommWordResponse.getList().get(i).getWord());
                         }
-
-
+                        tagGroup.setIsTagViewClickable(true);
                         tagGroup.setOnTagClickListener(new TagView.OnTagClickListener() {
                             @Override
                             public void onTagClick(int position, String text) {
@@ -472,7 +495,7 @@ public class SearchActivity extends GroupActivity {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
                         final CommonAlertDialog dg = new CommonAlertDialog(SearchActivity.this, false, true);

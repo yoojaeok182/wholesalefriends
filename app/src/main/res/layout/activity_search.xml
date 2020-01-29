@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/color_bg"
     android:layout_height="match_parent">
 
     <include layout="@layout/layout_for_title"
@@ -34,6 +35,7 @@
                     android:gravity="center_vertical">
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/btnCkAll"
                         android:gravity="center_vertical"
                         android:layout_width="0dp"
@@ -66,7 +68,7 @@
                             android:id="@+id/ckProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/check_default"/>
+                            android:background="@drawable/check_on"/>
 
                         <TextView
                             android:layout_marginLeft="10dp"
@@ -108,7 +110,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:paddingLeft="14.66dp"
-                    android:paddingRight="14.66dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -123,14 +124,24 @@
                         android:id="@+id/edtSearch"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"/>
 
-                    <ImageView
-                        android:layout_marginLeft="14dp"
-                        android:background="@drawable/icon_search"
+                    <RelativeLayout
+                        android:id="@+id/btnSearch"
+                        android:paddingRight="14.66dp"
+                        android:paddingLeft="14.66dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent">
+                        <ImageView
+
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/icon_search"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
             <ImageView
@@ -147,7 +158,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/llayoutForRecommKeword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -168,27 +179,26 @@
                         android:layout_height="wrap_content">
 
                         <co.lujun.androidtagview.TagContainerLayout
-                                  android:id="@+id/tagGroup"
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
+                            android:id="@+id/tagGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
 
-                                  app:container_background_color="@color/color_translate"
-                                  app:container_border_color="@color/color_translate"
-                                  app:container_gravity="left"
-                                  app:horizontal_interval="10dp"
-                                  app:tag_background_color="@color/color_translate"
-                                  app:tag_border_color="@color/color_box_line"
-                                  app:tag_border_width="1dp"
-                                  app:tag_clickable="false"
-                                  app:tag_horizontal_padding="15dp"
-                                  app:tag_text_color="@color/color_text_03"
-                                  app:tag_text_size="12dp"
-                                  app:tag_theme="none"
-                                  app:tag_vertical_padding="4dp"
-                                  app:vertical_interval="10dp"
-                                  android:layout_margin="0dp"
-                                  android:padding="10dp"
-                                  />
+                            app:container_background_color="@color/color_translate"
+                            app:container_border_color="@color/color_translate"
+                            app:container_gravity="left"
+                            app:horizontal_interval="10dp"
+                            app:tag_background_color="@color/color_translate"
+                            app:tag_border_color="@color/color_box_line"
+                            app:tag_border_width="1dp"
+                            app:tag_clickable="true"
+                            app:tag_horizontal_padding="15dp"
+                            app:tag_text_color="@color/color_text_03"
+                            app:tag_text_size="12dp"
+                            app:tag_theme="none"
+                            app:tag_vertical_padding="4dp"
+                            app:vertical_interval="10dp"
+                            android:layout_margin="0dp"
+                            />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -211,6 +221,7 @@
                             android:text="검색 결과"/>
 
                         <TextView
+                            android:id="@+id/tvSearchCount"
                             android:layout_marginLeft="4dp"
                             android:textStyle="bold"
                             android:textSize="15dp"
@@ -228,25 +239,25 @@
                             android:text="건"/>
                     </LinearLayout>
 
-                   <RelativeLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
-                       <androidx.recyclerview.widget.RecyclerView
-                           android:layout_marginTop="20dp"
-                           android:id="@+id/recyclerView"
-                           android:clipToPadding="false"
-                           android:paddingBottom="50dp"
-                           android:layout_width="match_parent"
-                           android:layout_height="match_parent"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/recyclerView"
+                            android:clipToPadding="false"
+                            android:paddingBottom="50dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
 
-                       <androidx.recyclerview.widget.RecyclerView
-                           android:layout_marginTop="20dp"
-                           android:id="@+id/recyclerViewShop"
-                           android:clipToPadding="false"
-                           android:paddingBottom="50dp"
-                           android:layout_width="match_parent"
-                           android:layout_height="match_parent"/>
-                   </RelativeLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/recyclerViewShop"
+                            android:clipToPadding="false"
+                            android:paddingBottom="50dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>

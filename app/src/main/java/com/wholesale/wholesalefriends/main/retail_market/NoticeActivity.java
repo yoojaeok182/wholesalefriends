@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main;
+package com.wholesale.wholesalefriends.main.retail_market;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -127,11 +127,11 @@ public class NoticeActivity extends GroupActivity {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
                         final CommonAlertDialog dg = new CommonAlertDialog(NoticeActivity.this, false, true);
-                        dg.setTitle("계정 정보 확인");
+                        dg.setTitle("공지사항");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();
 

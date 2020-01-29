@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.data.NoticeListData;
+import com.wholesale.wholesalefriends.main.data.ProductViewOptionColorData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
+public class ProductOptionColorAdapter extends RecyclerView.Adapter<ProductOptionColorAdapter.ViewHolder> {
     private Context ctx;
     private LayoutInflater inflater;
-    private List<NoticeListData> arrayList = null;
+    private List<ProductViewOptionColorData> arrayList = null;
     private int nCurrentPage = 1;
     private int pervPosition;
 
@@ -28,8 +29,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
 
     public interface ListSelectItemListener {
-        void moreLoading(int page);
-        void itemClick(int pos, NoticeListData data);
+        void itemClick(int pos,int prevPos, ProductViewOptionColorData data);
     }
 
     public void setListSelectItemListener(ListSelectItemListener listSelectItemListener) {
@@ -45,7 +45,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         this.nCurrentPage = nCurrentPage;
     }
 
-    public NoticeAdapter(Context context, ArrayList<NoticeListData> data) {
+    public ProductOptionColorAdapter(Context context, ArrayList<ProductViewOptionColorData> data) {
         ctx = context;
         inflater = LayoutInflater.from(ctx);
         arrayList = data;
@@ -55,34 +55,26 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_notice, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_product_option_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        NoticeListData data = arrayList.get(position);
+        ProductViewOptionColorData data = arrayList.get(position);
         if (data != null) {
-            holder.tvTitle.setText(data.getTitle());
-            holder.tvContent.setText(data.getContent());
-            if(data.isNew()){
-                holder.tvNew.setVisibility(View.VISIBLE);
-            }else{
-                holder.tvNew.setVisibility(View.GONE);
-            }
+            holder.tvItem.setText(data.getCode_name());
 
-            holder.tvRegDate.setText(data.getCreated_at());
-            holder.rootContainer.setOnClickListener(new View.OnClickListener() {
+            holder.btnSelectItem.setBackgroundResource(R.drawable.btn_select_01_select);
+            if(data.isSelect()){
+                holder.btnSelectItem.setBackgroundResource(R.drawable.roundbox_02);
+            }
+            holder.btnSelectItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(holder.llayoutForContent.getVisibility()== View.VISIBLE){
-                        holder.icArrow.setBackgroundResource(R.drawable.icon_droparrow);
-                        holder.llayoutForContent.setVisibility(View.GONE);
-                    }else{
-                        holder.icArrow.setBackgroundResource(R.drawable.icon_uparrow);
-                        holder.llayoutForContent.setVisibility(View.VISIBLE);
-                    }
+                    if(listSelectItemListener!=null)listSelectItemListener.itemClick(position,pervPosition,data);
+                    pervPosition = position;
                 }
             });
 
@@ -96,29 +88,19 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvRegDate;
-        private TextView tvTitle;
-        private TextView tvContent;
-        private ImageView icArrow;
-        private LinearLayout rootContainer;
-        private LinearLayout llayoutForContent;
+        private TextView tvItem;
+        private LinearLayout btnSelectItem;
 
-        private TextView tvNew;
         public ViewHolder(View convertView) {
             super(convertView);
 
-            tvNew = convertView.findViewById(R.id.tvNew);
-            tvRegDate = convertView.findViewById(R.id.tvRegDate);
-            tvTitle = convertView.findViewById(R.id.tvTitle);
-            tvContent = convertView.findViewById(R.id.tvContent);
-            icArrow = convertView.findViewById(R.id.icArrow);
-            rootContainer = convertView.findViewById(R.id.rootContainer);
-            llayoutForContent = convertView.findViewById(R.id.llayoutForContent);
+            tvItem = convertView.findViewById(R.id.tvItem);
+            btnSelectItem = convertView.findViewById(R.id.btnSelectItem);
         }
 
     }
 
-    public NoticeListData getItem(int position) {
+    public ProductViewOptionColorData getItem(int position) {
         return arrayList.get(position);
     }
 
@@ -127,16 +109,16 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         return arrayList.size();
     }
 
-    public List<NoticeListData> getItems() {
+    public List<ProductViewOptionColorData> getItems() {
         return arrayList;
     }
 
-    public void add(NoticeListData item, int position) {
+    public void add(ProductViewOptionColorData item, int position) {
         arrayList.add(position, item);
         notifyDataSetChanged();
     }
 
-    public void addAll(List<NoticeListData> items) {
+    public void addAll(List<ProductViewOptionColorData> items) {
         this.arrayList = items;
         notifyDataSetChanged();
     }
@@ -146,13 +128,13 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void remove(NoticeListData item) {
+    public void remove(ProductViewOptionColorData item) {
         int position = arrayList.indexOf(item);
         arrayList.remove(item);
         notifyDataSetChanged();
     }
 
-    public void set(int pos, NoticeListData item) {
+    public void set(int pos, ProductViewOptionColorData item) {
         arrayList.set(pos, item);
         notifyDataSetChanged();
     }

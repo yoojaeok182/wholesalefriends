@@ -4,7 +4,15 @@ public class ProductViewOptionSizeData {
     String code_value;
     String code_name;
 
+    private boolean isSelect;
 
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
     public String getCode_value() {
         return code_value;
     }

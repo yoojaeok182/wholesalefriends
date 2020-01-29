@@ -1,5 +1,6 @@
-package com.wholesale.wholesalefriends.main;
+package com.wholesale.wholesalefriends.main.retail_market;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wholesale.wholesalefriends.R;
+import com.wholesale.wholesalefriends.main.ServiceCenterActivity;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
 
 public class MyPage1Activity extends GroupActivity implements View.OnClickListener {
@@ -31,6 +33,7 @@ public class MyPage1Activity extends GroupActivity implements View.OnClickListen
     private LinearLayout btnMenu05;
     private LinearLayout btnMenu06;
     private LinearLayout btnMenu07;
+    private ImageButton btnNotice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +58,12 @@ public class MyPage1Activity extends GroupActivity implements View.OnClickListen
         btnMenu06 = findViewById(R.id.btnMenu06);
         btnMenu07 = findViewById(R.id.btnMenu07);
 
+
         initBtn();
+        btnNotice = findViewById(R.id.btnNotice);
     }
 
-    private void initBtn(){
+    private void initBtn() {
 
         btnMyInfo.setOnClickListener(this);
         btnLogOut.setOnClickListener(this);
@@ -72,13 +77,27 @@ public class MyPage1Activity extends GroupActivity implements View.OnClickListen
         btnMenu05.setOnClickListener(this);
         btnMenu06.setOnClickListener(this);
         btnMenu07.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        btnNotice.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btnMyInfo:
+        switch (view.getId()) {
+            case R.id.btnBack:
+                finish();
                 break;
+            case R.id.btnNotice:
+            {
+                Intent intent = new Intent(MyPage1Activity.this, NoticeActivity.class);
+                startActivity(intent);
+            }
+
+            break;
+            case R.id.btnMyInfo:
+            {
+            }
+            break;
             case R.id.btnLogOut:
                 break;
             case R.id.btnOrderList:
@@ -87,21 +106,53 @@ public class MyPage1Activity extends GroupActivity implements View.OnClickListen
             case R.id.btnInterestProduct:
                 break;
             case R.id.btnService:
-                break;
-            case R.id.btnMenu01:
-                break;
+            {
+                Intent intent = new Intent(MyPage1Activity.this, ServiceCenterActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.btnMenu01: //사업자 인증
+            {
+                Intent intent = new Intent(MyPage1Activity.this, LicenseeCertificationActivity.class);
+                startActivity(intent);
+            }
+            break;
             case R.id.btnMenu02:
-                break;
+            {
+                Intent intent = new Intent(MyPage1Activity.this, ManageOfStaffActivity.class);
+                startActivity(intent);
+            }
+            break;
             case R.id.btnMenu03:
-                break;
+            {
+                Intent intent = new Intent(MyPage1Activity.this, MyInquireActivity.class);
+                startActivity(intent);
+            }
+            break;
             case R.id.btnMenu04:
-                break;
+            {
+                Intent intent = new Intent(MyPage1Activity.this, RecentProductListActivity.class);
+                startActivity(intent);
+            }
+            break;
             case R.id.btnMenu05:
-                break;
-            case R.id.btnMenu06:
-                break;
+            {
+                Intent intent = new Intent(MyPage1Activity.this, AlarmHistoryActivity.class);
+                startActivity(intent);
+
+            }
+            break;
+            case R.id.btnMenu06:{
+                Intent intent = new Intent(MyPage1Activity.this, AlarmReceiveSettingActivity.class);
+                startActivity(intent);
+            }
+            break;
             case R.id.btnMenu07:
-                break;
+            {
+                Intent intent = new Intent(MyPage1Activity.this, TermsActivity.class);
+                startActivity(intent);
+            }
+            break;
 
         }
     }
