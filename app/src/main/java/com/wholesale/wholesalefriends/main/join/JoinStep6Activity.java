@@ -348,7 +348,7 @@ public class JoinStep6Activity extends GroupActivity {
             try{
                 JSONObject jsonObject = (JSONObject)msg.obj;
 
-                if(jsonObject.getBoolean("result")){
+                if(!jsonObject.getBoolean("result")){
 
                     if(jsonObject.getString("error")!=null && jsonObject.getString("error").length()>0){
                         final CommonAlertDialog dg = new CommonAlertDialog(JoinStep6Activity.this,false,true);

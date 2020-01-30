@@ -325,14 +325,16 @@
                        android:layout_height="10dp"
                        android:background="@color/color_bg2"/>
                    <LinearLayout
-                       android:paddingLeft="20dp"
-                       android:paddingRight="20dp"
+                       android:paddingLeft="10dp"
+                       android:paddingRight="10dp"
                        android:paddingTop="31dp"
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
                        android:orientation="vertical">
 
                        <TextView
+                           android:paddingLeft="10dp"
+                           android:paddingRight="10dp"
                            android:text="오늘의 신상"
                            android:textSize="15dp"
                            android:textStyle="bold"
@@ -340,11 +342,14 @@
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"/>
 
-                       <androidx.recyclerview.widget.RecyclerView
+                       <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
+                           android:paddingLeft="10dp"
+                           android:paddingRight="10dp"
                            android:layout_marginTop="14dp"
                            android:id="@+id/recyclerView"
                            android:clipToPadding="false"
                            android:paddingBottom="20dp"
+                           android:columnWidth="@dimen/column_width4"
                            android:layout_width="match_parent"
                            android:layout_height="match_parent"/>
                    </LinearLayout>

@@ -47,6 +47,7 @@
                 android:padding="15dp"
                 android:lines="1"
                 android:textSize="13dp"
+                android:singleLine="true"
                 android:textColor="@color/color_input_01"
                 android:textColorHint="@color/hint_input_01"
                 android:maxLength="10"
@@ -55,6 +56,7 @@
 
 
             <EditText
+                android:singleLine="true"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

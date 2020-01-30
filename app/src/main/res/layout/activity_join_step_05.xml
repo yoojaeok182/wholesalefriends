@@ -23,7 +23,6 @@
             android:layout_weight="1"
             android:scrollbarSize="2dp">
             <LinearLayout
-                android:descendantFocusability="blocksDescendants"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
@@ -54,6 +53,7 @@
                             android:id="@+id/edtSearch"
                             android:layout_width="0dp"
                             android:imeOptions="actionSearch"
+                            android:singleLine="true"
                             android:layout_weight="1"
                             android:layout_height="match_parent"/>
                         <LinearLayout
@@ -142,13 +142,14 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
+
+                    <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
                         android:id="@+id/recyclerView"
                         android:clipToPadding="false"
+                        android:paddingBottom="20dp"
+                        android:columnWidth="@dimen/column_width2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
-
-
 
                 </LinearLayout>
 

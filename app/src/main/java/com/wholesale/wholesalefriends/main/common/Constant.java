@@ -17,17 +17,25 @@ public class Constant {
         String user_no = "user_no";
         String user_id = "user_id";
         String user_pwd = "user_pwd";
+        String store_id="store_id";
+
         String category_code = "category_code";
         String category_name = "category_name";
 
         String product_id = "product_id";
         String product_name = "product_name";
-        String store_id="store_id";
+        String intent_order_type = "intent_order_type";
 
+        String intent_p_id = "intent_p_id";
+        String intent_p_option_1  = "intent_p_option_1";
+        String intent_p_option_2  = "intent_p_option_2";
+        String intent_amount   = "intent_amount";
+
+        String intent_c_id   = "intent_c_id";
     }
-   public interface DOMAIN{
-       String url = "http://app.asadalin.com/";
-       String api = "api/";
+    public interface DOMAIN{
+        String url = "http://app.asadalin.com/";
+        String api = "api/";
     }
 
 }

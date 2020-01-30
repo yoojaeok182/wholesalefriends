@@ -54,7 +54,7 @@ public class MyInquireActivity extends GroupActivity {
                 if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
-                        final CommonAlertDialog dg = new CommonAlertDialog(MyInquireActivity.this, false, true);
+                        final CommonAlertDialog dg = new CommonAlertDialog(MyInquireActivity.this, false, false);
                         dg.setTitle("공지사항");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();

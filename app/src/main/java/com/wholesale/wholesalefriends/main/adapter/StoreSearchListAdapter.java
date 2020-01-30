@@ -16,12 +16,13 @@ import com.bumptech.glide.Glide;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.main.data.StoreSearchListData;
+import com.wholesale.wholesalefriends.module.util.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StoreSearchListAdapter extends RecyclerView.Adapter<StoreSearchListAdapter.ViewHolder> {
-    private Context ctx;
+    private static Context ctx;
     private LayoutInflater inflater;
     private List<StoreSearchListData> arrayList = null;
     private int nCurrentPage = 1;
@@ -67,10 +68,21 @@ public class StoreSearchListAdapter extends RecyclerView.Adapter<StoreSearchList
 
         StoreSearchListData data = arrayList.get(position);
         if (data != null) {
-            Glide.with(ctx).load(data.getPhoto()).into(holder.ivPhoto);
+            String photo ="";
+            if(data.getStore_photo().indexOf("http")>-1){
+                photo = data.getStore_photo();
+            }else{
+                photo = "http://app.asadalin.com/"+data.getStore_photo();
+            }
+            Glide.with(ctx).load(photo).into(holder.ivPhoto);
 
             holder.tvName.setText(data.getStore_name());
-            holder.tvStoreNumber.setVisibility(View.GONE);
+            holder.ivCheck.setBackgroundResource(R.drawable.check_default);
+            holder.rootContainer.setBackgroundResource(R.drawable.box_off_01);
+            if(data.isCheck()){
+                holder.ivCheck.setBackgroundResource(R.drawable.check_on);
+                holder.rootContainer.setBackgroundResource(R.drawable.box_on_01);
+            }
 
             holder.rootContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -96,7 +108,6 @@ public class StoreSearchListAdapter extends RecyclerView.Adapter<StoreSearchList
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivPhoto;
         private TextView tvName;
-        private TextView tvStoreNumber;
         private ImageView ivCheck;
         private LinearLayout rootContainer;
 
@@ -105,9 +116,19 @@ public class StoreSearchListAdapter extends RecyclerView.Adapter<StoreSearchList
 
             ivPhoto = convertView.findViewById(R.id.ivPhoto);
             tvName = convertView.findViewById(R.id.tvName);
-            tvStoreNumber = convertView.findViewById(R.id.tvStoreNumber);
             ivCheck = convertView.findViewById(R.id.ivCheck);
             rootContainer = convertView.findViewById(R.id.rootContainer);
+
+            rootContainer.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    int margin1 =  ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half1);
+                    int clumWidth1 = ctx.getResources().getDimensionPixelSize(R.dimen.column_width4);
+                    ImageUtil.requestImageView(ctx,clumWidth1,rootContainer,margin1,margin1);
+
+                }
+            });
         }
 
     }

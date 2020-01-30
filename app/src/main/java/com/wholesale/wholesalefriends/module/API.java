@@ -19,6 +19,10 @@ import com.wholesale.wholesalefriends.main.data.CategoryLIstData;
 import com.wholesale.wholesalefriends.main.data.CodeListData;
 import com.wholesale.wholesalefriends.main.data.NoticeListData;
 import com.wholesale.wholesalefriends.main.data.NoticeListResponse;
+import com.wholesale.wholesalefriends.main.data.PaymentGroupListResponse;
+import com.wholesale.wholesalefriends.main.data.PaymentListPaymnetData;
+import com.wholesale.wholesalefriends.main.data.PaymentListProductData;
+import com.wholesale.wholesalefriends.main.data.PaymentListStoreData;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.main.data.ProductResponse;
 import com.wholesale.wholesalefriends.main.data.ProductViewImageData;
@@ -36,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -203,7 +208,7 @@ public class API {
                 }
             }else if(store_type ==2){
                 if(level ==1){
-                    hp.join2("register",store_type+"",level+"",name,id,password,mobile,store_name,store_onoﬀ+"",store_site,store_site_url,store_addr,store_photo);
+                    hp.join2("register",store_type+"",level+"",name,id,password,mobile,store_name,store_number,store_onoﬀ+"",store_site,store_site_url,store_addr,store_photo);
                 }else{
                     hp.join3("register",store_type+"",level+"",name,id,password,mobile,store_id);
                 }
@@ -342,7 +347,7 @@ public class API {
     public static void storeSearch(Context context, String depth, String value, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
-            hp.uploadStoreSearch("buildingSearch",depth,value);
+            hp.uploadStoreSearch("storeSearch",depth,value);
             hp.setOnStoreSearch(new Retrofit.OnStoreSearch() {
 
 
@@ -368,13 +373,13 @@ public class API {
                                 StoreSearchData data = list.get(i);
                                 JSONObject object = new JSONObject();
                                 object.put("id",data.getId());
-                                object.put("store_name",data.getStore());
-
+                                object.put("store_name",data.getStore_name());
+                                object.put("store_photo",data.getStore_photo());
                                 jsonArray.put(object);
                             }
-                            jsonObject.put("list",jsonArray);
-                        }
 
+                        }
+                        jsonObject.put("list",jsonArray);
                         Message msg = new Message();
                         msg.obj = jsonObject;
                         if(jsonObject.getBoolean("result")){
@@ -1343,13 +1348,11 @@ public class API {
                                         jsonArray1.put(object2);
                                     }
                                 }
-                                object.put("product",jsonArray1);
-
-                                jsonArray.put(object);
+                                jsonObject.put("list",jsonArray1);
                             }
                         }
 
-                        jsonObject.put("list",jsonArray);
+
 
 
 
@@ -1455,4 +1458,228 @@ public class API {
         }catch (Throwable e){e.printStackTrace();}
 
     }
+
+    public static void cartAllDelete(Context context, String user_id, List<Integer>arrCid, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadCartListDeleteAll("cart/del",user_id,arrCid,true);
+
+            hp.setOnCartListDelete(new Retrofit.OnCartListDelete() {
+                @Override
+                public void onResponse(Retrofit.ContributorCartListDelete c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        jsonObject.put("user_id",c.user_id);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    public static void paymentList(Context context, Integer order_type, String user_id, Integer p_id, String p_option_1, String p_option_2,String amount, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadPaymentList("order/form",order_type,user_id,p_id,p_option_1,p_option_2,amount);
+            hp.setOnPaymentList(new Retrofit.OnPaymentList() {
+                @Override
+                public void onResponse(Retrofit.ContributorPaymentList c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        jsonObject.put("total_price",c.total_price);
+
+                        List<PaymentGroupListResponse> paymentGroupListResponses = c.list;
+
+                        JSONArray jsonArray = new JSONArray();
+                        if(paymentGroupListResponses!=null &&paymentGroupListResponses.size()>0){
+                            for(int i=0; i<paymentGroupListResponses.size();i++){
+                                JSONObject object = new JSONObject();
+                                PaymentListStoreData data = paymentGroupListResponses.get(i).getStore();
+                                List<PaymentListProductData> product = paymentGroupListResponses.get(i).getProduct();
+                                PaymentListPaymnetData payment = paymentGroupListResponses.get(i).getPayment();
+
+                                JSONArray jsonArray1 = new JSONArray();
+
+                                if(product!=null&& product.size()>0){
+                                    for(int j=0; j<product.size();j++){
+                                        PaymentListProductData data1 = product.get(i);
+
+                                        JSONObject object2 = new JSONObject();
+                                        if(data!=null){
+                                            object2.put("store_id",data.getStore_id());
+                                            object2.put("store_name",data.getStore_name());
+                                        }
+
+                                        if(payment!=null){
+                                            object2.put("payment_id",payment.getPayment_id());
+                                            object2.put("payment",payment.getPayment());
+                                            object2.put("payment_name",payment.getName());
+                                            object2.put("tel",payment.getTel());
+                                            object2.put("bank_name",payment.getBank_name());
+                                            object2.put("account_number",payment.getAccount_number());
+
+                                        }
+                                        object2.put("p_id",data1.getP_id());
+                                        object2.put("name",data1.getName());
+                                        object2.put("price",data1.getPrice());
+                                        object2.put("amount",data1.getAmount());
+                                        object2.put("image",data1.getImage());
+                                        object2.put("option_1",data1.getOption_1());
+                                        object2.put("option_2",data1.getOption_2());
+                                        object2.put("total",data1.getTotal());
+                                        jsonArray1.put(object2);
+                                    }
+                                }
+                                jsonObject.put("list",jsonArray1);
+                            }
+                        }
+
+
+
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    public static void paymentList(Context context,  Integer order_type, String user_id, ArrayList<Integer> arr, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadPaymentList("order/form",order_type,user_id,arr);
+            hp.setOnPaymentList(new Retrofit.OnPaymentList() {
+                @Override
+                public void onResponse(Retrofit.ContributorPaymentList c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        jsonObject.put("total_price",c.total_price);
+
+                        List<PaymentGroupListResponse> paymentGroupListResponses = c.list;
+
+                        JSONArray jsonArray = new JSONArray();
+                        if(paymentGroupListResponses!=null &&paymentGroupListResponses.size()>0){
+                            for(int i=0; i<paymentGroupListResponses.size();i++){
+                                JSONObject object = new JSONObject();
+                                PaymentListStoreData data = paymentGroupListResponses.get(i).getStore();
+                                List<PaymentListProductData> product = paymentGroupListResponses.get(i).getProduct();
+                                PaymentListPaymnetData payment = paymentGroupListResponses.get(i).getPayment();
+
+                                JSONArray jsonArray1 = new JSONArray();
+
+                                if(product!=null&& product.size()>0){
+                                    for(int j=0; j<product.size();j++){
+                                        PaymentListProductData data1 = product.get(i);
+
+                                        JSONObject object2 = new JSONObject();
+                                        if(data!=null){
+                                            object2.put("store_id",data.getStore_id());
+                                            object2.put("store_name",data.getStore_name());
+                                        }
+
+                                        if(payment!=null){
+                                            object2.put("payment_id",payment.getPayment_id());
+                                            object2.put("payment",payment.getPayment());
+                                            object2.put("payment_name",payment.getName());
+                                            object2.put("tel",payment.getTel());
+                                            object2.put("bank_name",payment.getBank_name());
+                                            object2.put("account_number",payment.getAccount_number());
+
+                                        }
+                                        object2.put("p_id",data1.getP_id());
+                                        object2.put("name",data1.getName());
+                                        object2.put("price",data1.getPrice());
+                                        object2.put("amount",data1.getAmount());
+                                        object2.put("image",data1.getImage());
+                                        object2.put("option_1",data1.getOption_1());
+                                        object2.put("option_2",data1.getOption_2());
+                                        object2.put("total",data1.getTotal());
+                                        jsonArray1.put(object2);
+                                    }
+                                }
+                                jsonObject.put("list",jsonArray1);
+                            }
+                        }
+
+
+
+
+
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                    t.printStackTrace();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
 }

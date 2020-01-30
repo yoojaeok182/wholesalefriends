@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -38,6 +39,8 @@ import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.AppData;
+import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
+import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -71,7 +74,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
     private TextView tvPhotoName02;
     private TextView tvPhotoInfo02;
     private AppBarLayout appBarLayout;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private ImageButton btnUp;
     private BannerPageAdapter bannerPageAdapter;
     private ArrayList<BannerLIstData> listBanner = new ArrayList<>();
@@ -152,8 +155,11 @@ public class HomeMainViewPager01Fragment extends Fragment {
             }
         });
         homeMain01ListAdapter.setnCurrentPage(1);
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(), 2));
 
+        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(homeMain01ListAdapter);
 
         btnUp.setOnClickListener(new View.OnClickListener() {

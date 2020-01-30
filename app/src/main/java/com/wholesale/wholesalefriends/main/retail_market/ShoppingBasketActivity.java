@@ -28,7 +28,9 @@ import com.wholesale.wholesalefriends.widget.WrapContentLinearLayoutManager;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingBasketActivity extends GroupActivity {
 
@@ -43,6 +45,7 @@ public class ShoppingBasketActivity extends GroupActivity {
     private LinearLayout btnOrder;
     private LinearLayout llayoutForData;
     private LinearLayout llayoutForNoData;
+    private LinearLayout llayoutForOption;
 
     private CartListAdapter cartListAdapter;
 
@@ -53,6 +56,7 @@ public class ShoppingBasketActivity extends GroupActivity {
     private boolean isSwipeRefresh = false;
     private boolean isExistMore = false;
 
+    private List<Integer> arrCid = new ArrayList<>();
     private int nSelectPos =-1;
     private int nAmountCount;
     @Override
@@ -69,7 +73,7 @@ public class ShoppingBasketActivity extends GroupActivity {
         btnOrder = findViewById(R.id.btnOrder);
         llayoutForData = findViewById(R.id.llayoutForData);
         llayoutForNoData = findViewById(R.id.llayoutForNoData);
-
+        llayoutForOption= findViewById(R.id.llayoutForOption);
 
         tvTitle.setText("장바구니");
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -97,10 +101,8 @@ public class ShoppingBasketActivity extends GroupActivity {
             @Override
             public void onClick(View v) {
                 if(isAllCheck){
-                    for (int i=0; i<cartListAdapter.getItemCount();i++){
-                        API.cartDelete(ShoppingBasketActivity.this,SharedPreference.getIntSharedPreference(ShoppingBasketActivity.this,Constant.CommonKey.user_no)+"",
-                                cartListAdapter.getItem(i).getC_id()+"",cartListAdapter.getItem(i).getAmount()+"",resultDeleteAllHandler,errHandler);
-                    }
+                    API.cartAllDelete(ShoppingBasketActivity.this,SharedPreference.getIntSharedPreference(ShoppingBasketActivity.this,Constant.CommonKey.user_no)+"",
+                            arrCid,resultDeleteAllHandler,errHandler);
 
                 }
             }
@@ -111,6 +113,9 @@ public class ShoppingBasketActivity extends GroupActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShoppingBasketActivity.this,ShoppingPaymentActivity.class);
+                intent.putExtra(Constant.CommonKey.intent_order_type,2);
+                intent.putExtra(Constant.CommonKey.intent_c_id, (Serializable) arrCid);
+
                 startActivity(intent);
             }
         });
@@ -166,11 +171,15 @@ public class ShoppingBasketActivity extends GroupActivity {
         isExistMore= false;
         cartListAdapter.clear();
         if(cartListAdapter.getItemCount() ==0){
+            btnOrder.setEnabled(false);
             recyclerView.setVisibility(View.GONE);
             llayoutForNoData.setVisibility(View.VISIBLE);
+            llayoutForOption.setVisibility(View.GONE);
         }else{
+            btnOrder.setEnabled(true);
             recyclerView.setVisibility(View.VISIBLE);
             llayoutForNoData.setVisibility(View.GONE);
+            llayoutForOption.setVisibility(View.VISIBLE);
         }
     }
 
@@ -204,11 +213,15 @@ public class ShoppingBasketActivity extends GroupActivity {
                     }
                     nSelectPos =-1;
                     if(cartListAdapter.getItemCount() ==0){
+                        btnOrder.setEnabled(false);
                         recyclerView.setVisibility(View.GONE);
                         llayoutForNoData.setVisibility(View.VISIBLE);
+                        llayoutForOption.setVisibility(View.GONE);
                     }else{
+                        btnOrder.setEnabled(true);
                         recyclerView.setVisibility(View.VISIBLE);
                         llayoutForNoData.setVisibility(View.GONE);
+                        llayoutForOption.setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -249,6 +262,12 @@ public class ShoppingBasketActivity extends GroupActivity {
 
                             isSwipeRefresh = false;
                         }
+
+                        for(int i=0; i<cartListAdapter.getItemCount();i++){
+                            if(cartListAdapter.getItem(i).getC_id()>0){
+                                arrCid.add(cartListAdapter.getItem(i).getC_id());
+                            }
+                        }
                         /*else{
                             if(cartListAdapter.getItemCount()>0){
                                 int nowSize = cartListAdapter.getItemCount();
@@ -282,11 +301,15 @@ public class ShoppingBasketActivity extends GroupActivity {
             }
 
             if(cartListAdapter.getItemCount() ==0){
+                btnOrder.setEnabled(false);
                 recyclerView.setVisibility(View.GONE);
                 llayoutForNoData.setVisibility(View.VISIBLE);
+                llayoutForOption.setVisibility(View.GONE);
             }else{
+                btnOrder.setEnabled(true);
                 recyclerView.setVisibility(View.VISIBLE);
                 llayoutForNoData.setVisibility(View.GONE);
+                llayoutForOption.setVisibility(View.VISIBLE);
             }
         }
     };

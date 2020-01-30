@@ -314,7 +314,33 @@ public class DetailProductActivity extends GroupActivity {
         btnOrder2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(strProductOption1 == null ||(strProductOption1!=null&& strProductOption1.length() ==0)){
+                    final CommonAlertDialog dg = new CommonAlertDialog(DetailProductActivity.this, false, false);
+                    dg.setMessage("색상을 선택해주세요.");
+                    dg.show();
+                    return;
+                }
+
+                if(strProductOption2 == null ||(strProductOption1!=null&& strProductOption2.length() ==0)){
+                    final CommonAlertDialog dg = new CommonAlertDialog(DetailProductActivity.this, false, false);
+                    dg.setMessage("사이즈를 선택해주세요.");
+                    dg.show();
+                    return;
+                }
+                if(nProductAmount <=0){
+                    final CommonAlertDialog dg = new CommonAlertDialog(DetailProductActivity.this, false, false);
+                    dg.setMessage("수량을 선택해주세요.");
+                    dg.show();
+                    return;
+                }
+
+                btnOptionClose.performClick();
                 Intent intent1 = new Intent(DetailProductActivity.this, ShoppingPaymentActivity.class);
+                intent1.putExtra(Constant.CommonKey.intent_order_type,1);
+                intent1.putExtra(Constant.CommonKey.intent_p_id,product_id);
+                intent1.putExtra(Constant.CommonKey.intent_p_option_1,strProductOption1);
+                intent1.putExtra(Constant.CommonKey.intent_p_option_2,strProductOption2);
+                intent1.putExtra(Constant.CommonKey.intent_amount,nProductAmount);
                 startActivity(intent1);
             }
         });

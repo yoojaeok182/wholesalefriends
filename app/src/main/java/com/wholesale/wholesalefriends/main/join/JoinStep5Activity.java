@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,6 +26,9 @@ import com.wholesale.wholesalefriends.main.data.StoreSearchListData;
 import com.wholesale.wholesalefriends.main.data.StoreSearchListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
+import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
+import com.wholesale.wholesalefriends.widget.Margin2Decoration;
+import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -38,7 +43,7 @@ public class JoinStep5Activity extends GroupActivity {
     private EditText edtSearch;
     private LinearLayout btnSearch;
     private LinearLayout btnAgain;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private Button btnOk;
 
     private StoreSearchListAdapter storeSearchListAdapter;
@@ -79,20 +84,25 @@ public class JoinStep5Activity extends GroupActivity {
         btnOk = findViewById(R.id.btnOk);
         tvCount = findViewById(R.id.tvCount);
 
-        edtSearch.addTextChangedListener(new TextWatcher() {
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onClick(View v) {
+                if(edtSearch.getText().toString().trim().length()>0){
+                    hideKeyboardFrom(JoinStep5Activity.this,edtSearch);
+                    loadList(edtSearch.getText().toString().trim());
+                }
 
             }
-
+        });
+        edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                loadList(editable.toString());
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_SEARCH){
+                    hideKeyboardFrom(JoinStep5Activity.this,edtSearch);
+                    loadList(edtSearch.getText().toString().trim());
+                }
+                return false;
             }
         });
 
@@ -106,15 +116,19 @@ public class JoinStep5Activity extends GroupActivity {
 
             @Override
             public void itemClick(int pos, StoreSearchListData data) {
-
+                btnOk.setBackgroundResource(R.drawable.btn_02);
                 if(data.isCheck())
-                    btnOk.setBackgroundResource(R.drawable.check_on);
+                    btnOk.setBackgroundResource(R.drawable.btn_02_on);
 
                 store_id = data.getId();
                 store_name = data.getStore_name();
+                storeSearchListAdapter.notifyDataSetChanged();
             }
         });
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(this, 3));
+        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new Margin2Decoration(JoinStep5Activity.this,getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setHasFixedSize(true);
 
         recyclerView.setAdapter(storeSearchListAdapter);
 
@@ -163,7 +177,10 @@ public class JoinStep5Activity extends GroupActivity {
                     if(storeSearchListResponse!=null && storeSearchListResponse.getList().size()>0){
                         storeSearchListAdapter.clear();
                         storeSearchListAdapter.addAll(storeSearchListResponse.getList());
+
+                        tvCount.setText("" + storeSearchListAdapter.getItemCount());
                     }
+
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -176,7 +193,7 @@ public class JoinStep5Activity extends GroupActivity {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
                         final CommonAlertDialog dg = new CommonAlertDialog(JoinStep5Activity.this, false, true);

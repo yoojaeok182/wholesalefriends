@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,18 +70,22 @@ public class CategoryStoreListAdapter extends RecyclerView.Adapter<CategoryStore
 
         StoreListData data = arrayList.get(position);
         if (data != null) {
-            Glide.with(ctx).load(data.getImage()).into(holder.ivPhoto);
+            Glide.with(ctx).load(data.getImage()).error(R.drawable.no_image_01).into(holder.ivPhoto);
 
             holder.tvName.setText(data.getStore_name());
-            holder.tvStoreNumber.setVisibility(View.GONE);
+//            holder.tvStoreNumber.setVisibility(View.GONE);
 
             if(data.getFavorites()!=null && data.getFavorites().equals("1")){
-                holder.ivCheck.setBackgroundResource(R.drawable.check_on);
+                holder.btnAdd.setBackgroundResource(R.drawable.btn_11);
+                holder.btnAdd.setText("내 거래처");
+                holder.btnAdd.setEnabled(false);
             }else{
-                holder.ivCheck.setBackgroundResource(R.drawable.check_default);
+                holder.btnAdd.setBackgroundResource(R.drawable.btn_10);
+                holder.btnAdd.setText("거래처 추가");
+                holder.btnAdd.setEnabled(true);
             }
 
-            holder.ivCheck.setOnClickListener(new View.OnClickListener() {
+            holder.btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -99,8 +104,8 @@ public class CategoryStoreListAdapter extends RecyclerView.Adapter<CategoryStore
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivPhoto;
         private TextView tvName;
-        private TextView tvStoreNumber;
-        private ImageView ivCheck;
+//        private TextView tvStoreNumber;
+        private Button btnAdd;
         private LinearLayout rootContainer;
 
         public ViewHolder(View convertView) {
@@ -108,13 +113,22 @@ public class CategoryStoreListAdapter extends RecyclerView.Adapter<CategoryStore
 
             ivPhoto = convertView.findViewById(R.id.ivPhoto);
             tvName = convertView.findViewById(R.id.tvName);
-            tvStoreNumber = convertView.findViewById(R.id.tvStoreNumber);
-            ivCheck = convertView.findViewById(R.id.ivCheck);
+//            tvStoreNumber = convertView.findViewById(R.id.tvStoreNumber);
+            btnAdd = convertView.findViewById(R.id.btnAdd);
             rootContainer = convertView.findViewById(R.id.rootContainer);
 
-           /* int margin =  ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2);
-            int clumWidth = ctx.getResources().getDimensionPixelSize(R.dimen.column_width2);
-            ImageUtil.requestImageView(ctx,clumWidth,rootContainer,ivPhoto,margin,margin);*/
+           /* */
+
+            rootContainer.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    int margin1 =  ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half1);
+                    int clumWidth1 = ctx.getResources().getDimensionPixelSize(R.dimen.column_width4);
+                    ImageUtil.requestImageView(ctx,clumWidth1,rootContainer,margin1,margin1);
+
+                }
+            });
 
         }
 

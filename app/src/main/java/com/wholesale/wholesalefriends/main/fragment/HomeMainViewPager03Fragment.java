@@ -23,6 +23,8 @@ import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
+import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
+import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 public class HomeMainViewPager03Fragment extends Fragment {
 
     private static Context ctx;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private HomeMain03ListAdapter homeMain03ListAdapter = null;
     private ArrayList<ProductListData> listDatas = new ArrayList<>();
 
@@ -83,7 +85,9 @@ public class HomeMainViewPager03Fragment extends Fragment {
             }
         });
         homeMain03ListAdapter.setnCurrentPage(1);
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(), 2));
+        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerView.setLayoutManager(manager);
 
         recyclerView.setAdapter(homeMain03ListAdapter);
         loadList(1,"","","");
@@ -146,10 +150,10 @@ public class HomeMainViewPager03Fragment extends Fragment {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
-                        final CommonAlertDialog dg = new CommonAlertDialog(ctx, false, true);
+                        final CommonAlertDialog dg = new CommonAlertDialog(ctx, false, false);
                         dg.setTitle("계정 정보 확인");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();

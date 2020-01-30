@@ -50,7 +50,7 @@ public class AlarmReceiveSettingActivity extends GroupActivity {
                 if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
-                        final CommonAlertDialog dg = new CommonAlertDialog(AlarmReceiveSettingActivity.this, false, true);
+                        final CommonAlertDialog dg = new CommonAlertDialog(AlarmReceiveSettingActivity.this, false, false);
                         dg.setTitle("공지사항");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();

@@ -35,7 +35,6 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:clipToPadding="false"
-                    android:layout_marginTop="14dp"
                     android:paddingBottom="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -82,7 +81,7 @@
                 android:layout_marginTop="22dp"
                 android:textSize="15dp"
                 android:textColor="@color/color_text_04"
-                android:text="장바구니에 담긴 상품이 없습니다."
+                android:text="주문 리스트가 없습니다."
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

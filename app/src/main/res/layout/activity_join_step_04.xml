@@ -71,7 +71,7 @@
                         android:lineSpacingExtra="6dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="매장을 대표하는 이미지를 등록해주세요.\n(로고또는 매장사진)"/>
+                        android:text="매장을 대표하는 이미지를 등록해주세요.\n(로고사진)"/>
                 </LinearLayout>
 
                 <ImageView

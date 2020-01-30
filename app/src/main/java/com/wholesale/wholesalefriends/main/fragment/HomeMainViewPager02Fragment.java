@@ -23,6 +23,8 @@ import com.wholesale.wholesalefriends.main.data.BestProductListData;
 import com.wholesale.wholesalefriends.main.data.BestProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
+import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
+import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 public class HomeMainViewPager02Fragment extends Fragment {
 
     private static Context ctx;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private HomeMain02ListAdapter homeMain02ListAdapter = null;
     private ArrayList<BestProductListData> listDatas = new ArrayList<>();
 
@@ -83,7 +85,9 @@ public class HomeMainViewPager02Fragment extends Fragment {
             }
         });
         homeMain02ListAdapter.setnCurrentPage(1);
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(), 2));
+        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerView.setLayoutManager(manager);
 
         recyclerView.setAdapter(homeMain02ListAdapter);
         loadList(1);

@@ -10,7 +10,7 @@ public class CartListResponse {
 
     private String total;
 
-    private List<CartListProductData> product;
+    private List<CartListProductData> list;
 
 
     public String getTotal() {
@@ -22,10 +22,10 @@ public class CartListResponse {
     }
 
     public List<CartListProductData> getProduct() {
-        return product;
+        return list;
     }
 
     public void setProduct(List<CartListProductData> product) {
-        this.product = product;
+        this.list = product;
     }
 }

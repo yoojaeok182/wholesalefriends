@@ -15,13 +15,14 @@ import com.bumptech.glide.Glide;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.data.BestProductListData;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
+import com.wholesale.wholesalefriends.module.util.ImageUtil;
 import com.wholesale.wholesalefriends.module.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeMain02ListAdapter extends RecyclerView.Adapter<HomeMain02ListAdapter.ViewHolder> {
-    private Context ctx;
+    private static Context ctx;
     private LayoutInflater inflater;
     private List<BestProductListData> arrayList = null;
     private int nCurrentPage = 1;
@@ -71,7 +72,7 @@ public class HomeMain02ListAdapter extends RecyclerView.Adapter<HomeMain02ListAd
             holder.tvName.setText(data.getName());
             holder.tvRanking.setText(data.getRank()+"");
             holder.tvprice.setText(Util.getFormattedPrice(Integer.valueOf(data.getPrice())));
-            holder.tvRegDate.setText(data.getCreated_at());
+           holder.tvRegDate.setText(Util.getSplitRegDate(data.getCreated_at()));
            holder.tvImageCount.setText("+"+data.getImage_count());
             holder.rootContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,6 +114,15 @@ public class HomeMain02ListAdapter extends RecyclerView.Adapter<HomeMain02ListAd
             tvLike = convertView.findViewById(R.id.tvLike);
             tvRegDate =convertView. findViewById(R.id.tvRegDate);
             rootContainer=convertView. findViewById(R.id.rootContainer);
+
+            ivPhoto.post(new Runnable() {
+                @Override
+                public void run() {
+                    int clumWidth = ctx.getResources().getDimensionPixelSize(R.dimen.column_width4);
+                    int margin =  ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2);
+                    ImageUtil.requestImageView(ctx,clumWidth,ivPhoto,margin,margin);
+                }
+            });
         }
 
     }

@@ -21,7 +21,7 @@
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:textColor="@color/color_text_08"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아이템 보기"/>
@@ -503,7 +503,6 @@
                         android:textStyle="bold"
                         android:textSize="15dp"
                         android:textColor="@color/color_text_08"
-                        android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="상가별 보기"/>
@@ -541,15 +540,17 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
-                <androidx.recyclerview.widget.RecyclerView
+                <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
                     android:paddingTop="10dp"
                     android:id="@+id/recyclerView"
                     android:clipToPadding="false"
-                    android:layout_marginTop="4dp"
                     android:paddingBottom="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:columnWidth="@dimen/column_width4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
+
             </LinearLayout>
 
         </LinearLayout>

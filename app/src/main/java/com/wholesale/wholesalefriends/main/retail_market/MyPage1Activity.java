@@ -57,10 +57,10 @@ public class MyPage1Activity extends GroupActivity implements View.OnClickListen
         btnMenu05 = findViewById(R.id.btnMenu05);
         btnMenu06 = findViewById(R.id.btnMenu06);
         btnMenu07 = findViewById(R.id.btnMenu07);
+        btnNotice = findViewById(R.id.btnNotice);
 
 
         initBtn();
-        btnNotice = findViewById(R.id.btnNotice);
     }
 
     private void initBtn() {

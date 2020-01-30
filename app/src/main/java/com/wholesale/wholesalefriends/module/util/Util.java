@@ -106,6 +106,14 @@ public class Util {
 
 
 
+    public static String getSplitRegDate(String regDate){
+        String origin = regDate;
+        if(origin!=null && origin.length()>0 && origin.indexOf(" ")>-1){
+            String[] str = origin.split(" ");
+            origin = str[0];
+        }
+        return origin;
+    }
     public static String getFormattedPrice(Integer price){
         String formatteredStringPrice =price +"";
         try{

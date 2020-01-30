@@ -19,6 +19,8 @@ import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
+import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
+import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -30,7 +32,7 @@ public class ProductListActivity extends GroupActivity {
 
     private String category_code;
     private String category_name;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private HomeMain01ListAdapter homeMain01ListAdapter = null;
     private ArrayList<ProductListData> listDatas = new ArrayList<>();
     private boolean isSwipeRefresh = false;
@@ -92,7 +94,10 @@ public class ProductListActivity extends GroupActivity {
             }
         });
         homeMain01ListAdapter.setnCurrentPage(1);
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(this, 3));
+        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new MarginDecoration(ProductListActivity.this,getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setHasFixedSize(true);
 
         recyclerView.setAdapter(homeMain01ListAdapter);
         loadList(1, category_code != null ? (category_code + "") : "", "", "");

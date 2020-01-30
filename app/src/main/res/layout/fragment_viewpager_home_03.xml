@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <androidx.recyclerview.widget.RecyclerView
+    <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
+        android:layout_marginTop="14dp"
         android:id="@+id/recyclerView"
         android:clipToPadding="false"
         android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:columnWidth="@dimen/column_width4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 </LinearLayout>

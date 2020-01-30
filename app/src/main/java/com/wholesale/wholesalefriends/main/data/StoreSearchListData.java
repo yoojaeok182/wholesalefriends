@@ -5,7 +5,25 @@ public class StoreSearchListData {
     private String store_id;
     private Integer id;
     private String store_name;
+    private String store_photo;
     private boolean isCheck;
+
+
+    public String getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
+    }
+
+    public String getStore_photo() {
+        return store_photo;
+    }
+
+    public void setStore_photo(String store_photo) {
+        this.store_photo = store_photo;
+    }
 
     public boolean isCheck() {
         return isCheck;
@@ -15,13 +33,6 @@ public class StoreSearchListData {
         isCheck = check;
     }
 
-    public String getPhoto() {
-        return store_id;
-    }
-
-    public void setPhoto(String photo) {
-        this.store_id = photo;
-    }
 
     public Integer getId() {
         return id;

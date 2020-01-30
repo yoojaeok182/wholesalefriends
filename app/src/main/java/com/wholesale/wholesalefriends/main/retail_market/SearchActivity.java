@@ -30,6 +30,8 @@ import com.wholesale.wholesalefriends.main.data.StoreListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.SharedPreference;
+import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
+import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -53,11 +55,11 @@ public class SearchActivity extends GroupActivity {
     private EditText edtSearch;
     private TagContainerLayout tagGroup;
     private LinearLayout llayoutForRecommKeword;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private LinearLayout llayoutFOrSearch;
     private  TextView tvSearchCount;
 
-    private RecyclerView recyclerViewShop;
+    private AutofitRecyclerView recyclerViewShop;
     private HomeMain01ListAdapter homeMain01ListAdapter = null;
 
     private ArrayList<ProductListData> listDatas = new ArrayList<>();
@@ -180,7 +182,6 @@ public class SearchActivity extends GroupActivity {
         isSwipeRefresh = true;
 
         categoryStoreListAdapter = new CategoryStoreListAdapter(this,list);
-        recyclerViewShop.setLayoutManager(new WrapContentGridLayoutManager(this, 3));
         categoryStoreListAdapter.setListSelectItemListener(new CategoryStoreListAdapter.ListSelectItemListener() {
             @Override
             public void moreLoading(int page) {
@@ -217,6 +218,11 @@ public class SearchActivity extends GroupActivity {
 
             }
         });
+        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerViewShop.getLayoutManager();
+        recyclerViewShop.addItemDecoration(new MarginDecoration(SearchActivity.this,getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerViewShop.setLayoutManager(manager);
+        recyclerViewShop.setHasFixedSize(true);
+
         recyclerViewShop.setAdapter(categoryStoreListAdapter);
 
         homeMain01ListAdapter = new HomeMain01ListAdapter(this, listDatas);
@@ -246,7 +252,10 @@ public class SearchActivity extends GroupActivity {
             }
         });
         homeMain01ListAdapter.setnCurrentPage(1);
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(this, 3));
+        final WrapContentGridLayoutManager manager1 = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new MarginDecoration(SearchActivity.this,getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerView.setLayoutManager(manager1);
+        recyclerView.setHasFixedSize(true);
 
         if(isCheckAll ){
 

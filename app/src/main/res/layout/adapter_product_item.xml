@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:padding="5dp">
         <RelativeLayout
-            android:paddingBottom="25dp"
+            android:paddingBottom="15dp"
             android:gravity="center"
             android:id="@+id/rootContainer"
             android:layout_width="wrap_content"
@@ -22,9 +22,9 @@
                android:layout_height="wrap_content">
                <ImageView
                    android:id="@+id/ivPhoto"
-                   android:scaleType="centerCrop"
-                   android:layout_width="129dp"
-                   android:layout_height="160.33dp" />
+                   android:scaleType="fitXY"
+                   android:layout_width="131dp"
+                   android:layout_height="160dp" />
                <TextView
                    android:visibility="gone"
                    android:textSize="13dp"
@@ -69,6 +69,7 @@
                     android:textSize="12dp"
                     android:lines="1"
                     android:ellipsize="end"
+                    android:textStyle="bold"
                     android:textColor="@color/color_text_08"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -106,15 +107,15 @@
                         android:textSize="11dp"
                         android:id="@+id/tvLike"
                         android:layout_marginLeft="3.3dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:lines="1"
+                        android:maxWidth="40dp"
                         android:ellipsize="end"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_width="1dp"
                         android:background="@color/line_color_01"
                         android:layout_height="10.66dp"/>
@@ -124,6 +125,7 @@
                         android:id="@+id/tvRegDate"
                         android:layout_marginLeft="3.3dp"
                         android:layout_width="wrap_content"
+                        android:layout_weight="1"
                         android:lines="1"
                         android:ellipsize="end"
                         android:text="0000.00.00"

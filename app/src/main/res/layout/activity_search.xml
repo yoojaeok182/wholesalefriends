@@ -242,21 +242,29 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginTop="20dp"
+                        <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
                             android:id="@+id/recyclerView"
+                            android:layout_marginTop="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
                             android:clipToPadding="false"
                             android:paddingBottom="50dp"
+                            android:columnWidth="@dimen/column_width2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginTop="20dp"
+                        <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
                             android:id="@+id/recyclerViewShop"
+                            android:layout_marginTop="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
                             android:clipToPadding="false"
                             android:paddingBottom="50dp"
+                            android:columnWidth="@dimen/column_width4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
+
+
                     </RelativeLayout>
                 </LinearLayout>
 

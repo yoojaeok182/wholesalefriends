@@ -31,6 +31,8 @@ import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.AppData;
 import com.wholesale.wholesalefriends.module.SharedPreference;
+import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
+import com.wholesale.wholesalefriends.widget.Margin2Decoration;
 import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
@@ -53,7 +55,7 @@ public class RetailCategoryFragment extends Fragment {
     private LinearLayout btnCategoryItem11;
     private LinearLayout btnCategoryItem12;
     private TextView tvCategorySearch;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private LinearLayout btnCategorySearch;
 
     private CategoryStoreListAdapter categoryStoreListAdapter;
@@ -93,7 +95,6 @@ public class RetailCategoryFragment extends Fragment {
 
     private void init() {
         categoryStoreListAdapter = new CategoryStoreListAdapter(getActivity(),list);
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(), 2));
         categoryStoreListAdapter.setListSelectItemListener(new CategoryStoreListAdapter.ListSelectItemListener() {
             @Override
             public void moreLoading(int page) {
@@ -134,7 +135,9 @@ public class RetailCategoryFragment extends Fragment {
 
             }
         });
-        recyclerView.addItemDecoration(new MarginDecoration(getActivity()));
+        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new Margin2Decoration(getActivity(),getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
+        recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(categoryStoreListAdapter);
 
@@ -367,11 +370,11 @@ public class RetailCategoryFragment extends Fragment {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
-                        final CommonAlertDialog dg = new CommonAlertDialog(getActivity(), false, true);
-                        dg.setTitle("계정 정보 확인");
+                        final CommonAlertDialog dg = new CommonAlertDialog(getActivity(), false, false);
+                        dg.setTitle("카테고리");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();
 
