@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.wholesale.wholesalefriends.main.fragment.HomeMainViewPager01Fragment;
-import com.wholesale.wholesalefriends.main.fragment.HomeMainViewPager02Fragment;
-import com.wholesale.wholesalefriends.main.fragment.HomeMainViewPager03Fragment;
+import com.wholesale.wholesalefriends.main.retail_market.fragment.HomeMainViewPager01Fragment;
+import com.wholesale.wholesalefriends.main.retail_market.fragment.HomeMainViewPager02Fragment;
+import com.wholesale.wholesalefriends.main.retail_market.fragment.HomeMainViewPager03Fragment;
 
 public class HomeMainPageAdapter extends FragmentStatePagerAdapter {
     private Context context;

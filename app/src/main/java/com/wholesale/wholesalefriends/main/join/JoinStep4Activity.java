@@ -40,6 +40,7 @@ import com.bumptech.glide.request.target.Target;
 import com.soundcloud.android.crop.Crop;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.ImageEditActivity;
+import com.wholesale.wholesalefriends.main.LoginActivity;
 import com.wholesale.wholesalefriends.main.wholesale_market.Main2Activity;
 import com.wholesale.wholesalefriends.main.retail_market.MainActivity;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
@@ -562,16 +563,10 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_no,jsonObject.getInt("user_id"));
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_id,edtId.getText().toString());
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_pwd,edtPwd.getText().toString());
-                    /*Integer store_type = null;
-                    Integer level = null;
-                    if(!jsonObject.isNull("store_type")){
-                        store_type = jsonObject.getInt("store_type");
-                    }else
-                    {
-                    }
-                    if(!jsonObject.isNull("level")){
-                        level = jsonObject.getInt("level");
-                    }*/
+                    SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.store_type,store_type);
+                    SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.level,level);
+                    Integer store_type = null;
+
                     if(!jsonObject.isNull("store_id")){
                         int  store_id = jsonObject.getInt("store_id");
                         SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.store_id,store_id);

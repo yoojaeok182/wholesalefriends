@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main.fragment;
+package com.wholesale.wholesalefriends.main.retail_market.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;

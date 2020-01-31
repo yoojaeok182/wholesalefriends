@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main.fragment;
+package com.wholesale.wholesalefriends.main.retail_market.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,15 +12,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.retail_market.DetailProductActivity;
-import com.wholesale.wholesalefriends.main.adapter.HomeMain02ListAdapter;
+import com.wholesale.wholesalefriends.main.adapter.HomeMain03ListAdapter;
 import com.wholesale.wholesalefriends.main.common.Constant;
-import com.wholesale.wholesalefriends.main.data.BestProductListData;
-import com.wholesale.wholesalefriends.main.data.BestProductListResponse;
+import com.wholesale.wholesalefriends.main.data.ProductListData;
+import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
@@ -31,19 +30,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeMainViewPager02Fragment extends Fragment {
+public class HomeMainViewPager03Fragment extends Fragment {
 
     private static Context ctx;
     private AutofitRecyclerView recyclerView;
-    private HomeMain02ListAdapter homeMain02ListAdapter = null;
-    private ArrayList<BestProductListData> listDatas = new ArrayList<>();
+    private HomeMain03ListAdapter homeMain03ListAdapter = null;
+    private ArrayList<ProductListData> listDatas = new ArrayList<>();
 
     private boolean isSwipeRefresh = false;
     private boolean isExistMore = false;
 
-    public static HomeMainViewPager02Fragment newInstance(Context context) {
+    public static HomeMainViewPager03Fragment newInstance(Context context) {
         ctx = context;
-        HomeMainViewPager02Fragment fragment = new HomeMainViewPager02Fragment();
+        HomeMainViewPager03Fragment fragment = new HomeMainViewPager03Fragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -54,12 +53,12 @@ public class HomeMainViewPager02Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_viewpager_home_02, container, false);
+        View view = inflater.inflate(R.layout.fragment_viewpager_home_03, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        homeMain02ListAdapter = new HomeMain02ListAdapter(getActivity(), listDatas);
-        homeMain02ListAdapter.setAdapterListener(new HomeMain02ListAdapter.AdapterListener() {
+        homeMain03ListAdapter = new HomeMain03ListAdapter(getActivity(), listDatas);
+        homeMain03ListAdapter.setAdapterListener(new HomeMain03ListAdapter.AdapterListener() {
             @Override
             public void moreLoading(int page) {
 
@@ -69,7 +68,7 @@ public class HomeMainViewPager02Fragment extends Fragment {
                         @Override
                         public void run() {
 
-                            loadList(page+1);
+                            loadList(page+1,"","","");
                         }
                     },500);
                     isExistMore =false;
@@ -77,26 +76,26 @@ public class HomeMainViewPager02Fragment extends Fragment {
             }
 
             @Override
-            public void onClickItem(BestProductListData data, int pos) {
+            public void onClickItem(ProductListData data, int pos) {
                 Intent intent = new Intent(ctx, DetailProductActivity.class);
                 intent.putExtra(Constant.CommonKey.product_id,data.getId());
                 intent.putExtra(Constant.CommonKey.product_name,data.getName());
                 startActivity(intent);
             }
         });
-        homeMain02ListAdapter.setnCurrentPage(1);
+        homeMain03ListAdapter.setnCurrentPage(1);
         final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
         recyclerView.setLayoutManager(manager);
 
-        recyclerView.setAdapter(homeMain02ListAdapter);
-        loadList(1);
+        recyclerView.setAdapter(homeMain03ListAdapter);
+        loadList(1,"","","");
         return view;
     }
 
-    private void loadList(int page) {
-        homeMain02ListAdapter.setnCurrentPage(page);
-        API.bestProductList(ctx,page,resultListHandler,errHandler);
+    private void loadList(int page,String category,String is_sale,String store_id) {
+        homeMain03ListAdapter.setnCurrentPage(page);
+        API.productList(ctx,page+"",category,is_sale,store_id,resultListHandler,errHandler);
     }
 
     private Handler resultListHandler = new Handler(){
@@ -106,22 +105,22 @@ public class HomeMainViewPager02Fragment extends Fragment {
                 JSONObject jsonObject = (JSONObject)msg.obj;
 
                 if(jsonObject.getBoolean("result")){
-                    BestProductListResponse productListResponse = new Gson().fromJson(jsonObject.toString(), BestProductListResponse.class);
+                    ProductListResponse productListResponse = new Gson().fromJson(jsonObject.toString(), ProductListResponse.class);
                     if(productListResponse!=null && productListResponse.getList().getData().size()>0){
 
                         if(isSwipeRefresh){
-                            homeMain02ListAdapter.clear();
-                            homeMain02ListAdapter.addAll(productListResponse.getList().getData());
+                            homeMain03ListAdapter.clear();
+                            homeMain03ListAdapter.addAll(productListResponse.getList().getData());
                             isSwipeRefresh = false;
                         }else{
-                            if(homeMain02ListAdapter.getItemCount()>0){
-                                int nowSize = homeMain02ListAdapter.getItemCount();
+                            if(homeMain03ListAdapter.getItemCount()>0){
+                                int nowSize = homeMain03ListAdapter.getItemCount();
                                 for(int i=nowSize; i<nowSize+productListResponse.getList().getData().size();i++){
-                                    homeMain02ListAdapter.add(productListResponse.getList().getData().get(i-nowSize),i);
+                                    homeMain03ListAdapter.add(productListResponse.getList().getData().get(i-nowSize),i);
                                 }
                             }else{
                                 for(int i=0; i<productListResponse.getList().getData().size();i++){
-                                    homeMain02ListAdapter.add(productListResponse.getList().getData().get(i),i);
+                                    homeMain03ListAdapter.add(productListResponse.getList().getData().get(i),i);
                                 }
                             }
                         }
@@ -143,16 +142,17 @@ public class HomeMainViewPager02Fragment extends Fragment {
             }
         }
     };
+
     private Handler errHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (jsonObject.getBoolean("result")) {
+                if (!jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
-                        final CommonAlertDialog dg = new CommonAlertDialog(ctx, false, true);
+                        final CommonAlertDialog dg = new CommonAlertDialog(ctx, false, false);
                         dg.setTitle("계정 정보 확인");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();

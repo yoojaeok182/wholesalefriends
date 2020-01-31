@@ -16,10 +16,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
-import com.wholesale.wholesalefriends.main.fragment.CustomerFragment;
-import com.wholesale.wholesalefriends.main.fragment.HomeFragment;
-import com.wholesale.wholesalefriends.main.fragment.MyPageFragment;
-import com.wholesale.wholesalefriends.main.fragment.OrderListFragment;
+import com.wholesale.wholesalefriends.main.common.Constant;
+import com.wholesale.wholesalefriends.main.wholesale_market.fragment.CustomerFragment;
+import com.wholesale.wholesalefriends.main.wholesale_market.fragment.HomeFragment;
+import com.wholesale.wholesalefriends.main.wholesale_market.fragment.MyPageFragment;
+import com.wholesale.wholesalefriends.main.wholesale_market.fragment.OrderListFragment;
+import com.wholesale.wholesalefriends.module.SharedPreference;
 
 public class Main2Activity extends GroupActivity {
 
@@ -36,8 +38,8 @@ public class Main2Activity extends GroupActivity {
     private ImageView ivStaffType;
     private LinearLayout laySetting;
     private TextView tvShopLocale;
-    private LinearLayout btnOrder;
-    private LinearLayout btnProduct;
+    private LinearLayout btnOrderQna;
+    private LinearLayout btnProductQna;
     private LinearLayout btnShowProductSearch;
     private LinearLayout btnCustomer;
     private LinearLayout btnAllProduct;
@@ -60,14 +62,38 @@ public class Main2Activity extends GroupActivity {
     private TextView tvMenu02;
     private TextView tvMenu03;
     private TextView tvMenu04;
+    private TextView tvStoreName;
+
+    private RelativeLayout btnPMClose;
+    private TextView tvSelectItemCount;
+    private RelativeLayout btnAllCheck;
+    private RelativeLayout btnRemove;
+    private ImageView ivAllCheck;
+
+    private LinearLayout btnReWareHousing;
+    private LinearLayout btnSoldOut;
+    private LinearLayout btnTop30;
+
+
+    private View llayoutForTitle;
+    private View llayoutForProductManagerMode;
+    private View llayoutForMenu;
+    private View llayoutForProductManagerModeBottom;
+
 
     public static boolean isFirstRun;
+
+    private static  Main2Activity instance;
+    public static Main2Activity getInstance(){
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        instance = this;
         isFirstRun = true;
 
         btnMenu = findViewById(R.id.btnMenu);
@@ -83,8 +109,8 @@ public class Main2Activity extends GroupActivity {
         ivStaffType = findViewById(R.id.ivStaffType);
         laySetting = findViewById(R.id.laySetting);
         tvShopLocale = findViewById(R.id.tvShopLocale);
-        btnOrder = findViewById(R.id.btnOrder);
-        btnProduct = findViewById(R.id.btnProduct);
+        btnOrderQna = findViewById(R.id.btnOrderQna);
+        btnProductQna = findViewById(R.id.btnProductQna);
         btnShowProductSearch = findViewById(R.id.btnShowProductSearch);
         btnCustomer = findViewById(R.id.btnCustomer);
         btnAllProduct = findViewById(R.id.btnAllProduct);
@@ -101,17 +127,44 @@ public class Main2Activity extends GroupActivity {
         tvMenu02 = findViewById(R.id.tvMenu02);
         tvMenu03 = findViewById(R.id.tvMenu03);
         tvMenu04 = findViewById(R.id.tvMenu04);
+        tvStoreName = findViewById(R.id.tvStoreName);
+
+        llayoutForTitle = findViewById(R.id.llayoutForTitle);
+        llayoutForProductManagerMode = findViewById(R.id.llayoutForProductManagerMode);
+        llayoutForMenu = findViewById(R.id.llayoutForMenu);
+        llayoutForProductManagerModeBottom = findViewById(R.id.llayoutForProductManagerModeBottom);
+
+        btnPMClose = findViewById(R.id.btnPMClose);
+        tvSelectItemCount = findViewById(R.id.tvSelectItemCount);
+        btnAllCheck = findViewById(R.id.btnAllCheck);
+        btnRemove = findViewById(R.id.btnRemove);
+        ivAllCheck = findViewById(R.id.ivAllCheck);
+
+        btnReWareHousing = findViewById(R.id.btnReWareHousing);
+        btnSoldOut = findViewById(R.id.btnSoldOut);
+        btnTop30 = findViewById(R.id.btnTop30);
+
+
         homeFragment = new HomeFragment();
         orderListFragment = new OrderListFragment();
         customerFragment = new CustomerFragment();
         myPageFragment = new MyPageFragment();
+
         init();
 
+        initSetting();
+
+        if(homeFragment!=null)homeFragment.setManagerMode(btnPMClose,tvSelectItemCount,btnAllCheck,ivAllCheck,btnRemove,btnReWareHousing,btnSoldOut,btnTop30);
 
     }
 
-    private void init() {
+    private void initSetting(){
 
+        if(SharedPreference.getIntSharedPreference(Main2Activity.this, Constant.CommonKey.level) ==2){  //직원
+            ivStaffType.setBackgroundResource(R.drawable.btn_staff);
+        }else{
+            ivStaffType.setBackgroundResource(R.drawable.btn_staff3);
+        }
         drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -131,6 +184,80 @@ public class Main2Activity extends GroupActivity {
             @Override
             public void onDrawerStateChanged(int newState) {
 
+            }
+        });
+
+        btnOrderQna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+            }
+        });
+        btnProductQna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+            }
+        });
+
+        btnShowProductSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnAllProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnMyShopBest30.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnMyShopNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnMyShopServiceCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        laySetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+    private void init() {
+
+
+        ivLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentMenu(0);
+                updateTableFragment(0);
             }
         });
 
@@ -199,6 +326,31 @@ public class Main2Activity extends GroupActivity {
         updateTableFragment(0);
     }
 
+    public void setVisibilityProductManager(boolean isShow){
+        if(isShow){
+            llayoutForTitle.setVisibility(View.GONE);
+            llayoutForMenu.setVisibility(View.GONE);
+            llayoutForProductManagerMode.setVisibility(View.VISIBLE);
+            llayoutForProductManagerModeBottom.setVisibility(View.VISIBLE);
+
+
+
+
+            btnPMClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setVisibilityProductManager(false);
+                }
+            });
+
+        }else{
+            llayoutForTitle.setVisibility(View.VISIBLE);
+            llayoutForMenu.setVisibility(View.VISIBLE);
+            llayoutForProductManagerMode.setVisibility(View.GONE);
+            llayoutForProductManagerModeBottom.setVisibility(View.GONE);
+        }
+
+    }
     private void getDrawaerController(boolean isOpen) {
 
     }
@@ -216,21 +368,26 @@ public class Main2Activity extends GroupActivity {
         tvMenu02.setTextColor(getResources().getColor(R.color.btn_textcolor_01_select));
         tvMenu03.setTextColor(getResources().getColor(R.color.btn_textcolor_01_select));
         tvMenu04.setTextColor(getResources().getColor(R.color.btn_textcolor_01_select));
-
+        ivLogo.setVisibility(View.GONE);
+        tvTitle.setVisibility(View.GONE);
         switch (pos) {
             case 0:
+                ivLogo.setVisibility(View.GONE);
                 ivMenu01.setBackgroundResource(R.drawable.botton_icon_home_on);
                 tvMenu01.setTextColor(getResources().getColor(R.color.color_text_07));
                 break;
             case 1:
+                ivLogo.setVisibility(View.GONE);
                 ivMenu02.setBackgroundResource(R.drawable.botton_icon_category_on);
                 tvMenu02.setTextColor(getResources().getColor(R.color.color_text_07));
                 break;
             case 2:
+                ivLogo.setVisibility(View.GONE);
                 ivMenu03.setBackgroundResource(R.drawable.botton_icon_list_on);
                 tvMenu03.setTextColor(getResources().getColor(R.color.color_text_07));
                 break;
             case 3:
+                tvTitle.setVisibility(View.VISIBLE);
                 ivMenu04.setBackgroundResource(R.drawable.botton_icon_notice_on);
                 tvMenu04.setTextColor(getResources().getColor(R.color.color_text_07));
                 break;

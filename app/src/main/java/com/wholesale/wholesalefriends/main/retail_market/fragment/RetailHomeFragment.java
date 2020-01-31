@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main.fragment;
+package com.wholesale.wholesalefriends.main.retail_market.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,10 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import com.wholesale.wholesalefriends.R;
-import com.wholesale.wholesalefriends.main.adapter.HomeMainPageAdapter;
 
 public class RetailHomeFragment extends Fragment {
 

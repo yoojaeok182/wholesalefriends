@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main.fragment;
+package com.wholesale.wholesalefriends.main.wholesale_market.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import com.wholesale.wholesalefriends.R;
 
-public class CustomerFragment extends Fragment {
+public class OrderListFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_customer, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
+
         return view;
+
     }
 }

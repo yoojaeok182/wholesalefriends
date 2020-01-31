@@ -20,11 +20,74 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/layout_for_title3"/>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include
+                    android:id="@+id/llayoutForTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/layout_for_title3"/>
+                <LinearLayout
+                    android:visibility="visible"
+                    android:background="@color/color_box10"
+                    android:id="@+id/llayoutForProductManagerMode"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/btnPMClose"
+                        android:layout_width="56dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_close"/>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:id="@+id/tvSelectItemCount"
+                        android:textColor="@color/color_text_09"
+                        android:text="0개 선택"
+                        android:gravity="center_vertical"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/btnAllCheck"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ivAllCheck"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_check"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_marginRight="6.66dp"
+                        android:id="@+id/btnRemove"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_delete"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -37,9 +100,20 @@
 
 
 
-            <include android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/layout_for_main_menu2"/>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <include
+                   android:id="@+id/llayoutForMenu"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   layout="@layout/layout_for_main_menu2"/>
+               <include
+                   android:id="@+id/llayoutForProductManagerModeBottom"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   layout="@layout/layout_for_bottom_manager_product"/>
+           </RelativeLayout>
         </LinearLayout>
 
         <include
@@ -50,5 +124,7 @@
             android:layout_height="match_parent"
             android:clickable="true"/>
     </androidx.drawerlayout.widget.DrawerLayout>
+
+
 
 </LinearLayout>

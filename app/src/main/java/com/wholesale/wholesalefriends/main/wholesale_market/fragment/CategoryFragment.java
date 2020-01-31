@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main.fragment;
+package com.wholesale.wholesalefriends.main.wholesale_market.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

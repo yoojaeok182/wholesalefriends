@@ -97,7 +97,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".main.DetailProduct2Activity"
+            android:name=".main.wholesale_market.DetailProduct2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
@@ -126,7 +126,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".main.ProductManagmentActivity"
+            android:name=".main.wholesale_market.ProductManagmentActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

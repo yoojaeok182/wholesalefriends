@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main.fragment;
+package com.wholesale.wholesalefriends.main.retail_market.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;

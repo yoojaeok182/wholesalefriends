@@ -317,14 +317,11 @@ public class JoinStep6Activity extends GroupActivity {
                     SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.user_no,jsonObject.getInt("user_id"));
                     SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.user_id,edtId.getText().toString());
                     SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.user_pwd,edtPwd.getText().toString());
+                    SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.store_type,store_type);
+                    SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.level,level);
+
                     Integer store_type = null;
-                    Integer level = null;
-                    if(!jsonObject.isNull("store_type")){
-                        store_type = jsonObject.getInt("store_type");
-                    }
-                    if(!jsonObject.isNull("level")){
-                        level = jsonObject.getInt("level");
-                    }
+
                     if(!jsonObject.isNull("store_id")){
                         int  store_id = jsonObject.getInt("store_id");
                         SharedPreference.putSharedPreference(JoinStep6Activity.this, Constant.CommonKey.store_id,store_id);

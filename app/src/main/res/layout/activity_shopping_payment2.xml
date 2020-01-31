@@ -161,6 +161,7 @@
                   android:id="@+id/edtName"
                   android:paddingLeft="20dp"
                   android:paddingRight="20dp"
+                  android:singleLine="true"
                   android:gravity="center_vertical"
                   android:background="@drawable/input_box_off_01"/>
 

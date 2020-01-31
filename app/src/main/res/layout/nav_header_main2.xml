@@ -63,6 +63,7 @@
                                     android:orientation="horizontal"
                                     android:gravity="center_vertical">
                                     <TextView
+                                        android:id="@+id/tvStoreName"
                                         android:textSize="15dp"
                                         android:textColor="@color/color_text_08"
                                         android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
                         <LinearLayout
-                            android:id="@+id/btnOrder"
+                            android:id="@+id/btnOrderQna"
                             android:duplicateParentState="true"
                             android:orientation="horizontal"
                             android:gravity="center"
@@ -126,7 +127,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/btnProduct"
+                            android:id="@+id/btnProductQna"
                             android:duplicateParentState="true"
                             android:orientation="horizontal"
                             android:gravity="center"
@@ -247,12 +248,13 @@
 
                     <LinearLayout
                         android:paddingTop="10dp"
-                        android:paddingRight="20dp"
+
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
+                            android:paddingRight="20dp"
                             android:orientation="horizontal"
                             android:id="@+id/btnMyShopBest30"
                             android:layout_width="match_parent"
@@ -282,6 +284,7 @@
                             android:background="@color/line_color_01"
                             android:layout_marginRight="20dp"/>
                         <LinearLayout
+                            android:paddingRight="20dp"
                             android:orientation="horizontal"
                             android:id="@+id/btnMyShopNotice"
                             android:layout_width="match_parent"
@@ -310,6 +313,7 @@
                             android:background="@color/line_color_01"
                             android:layout_marginRight="20dp"/>
                         <LinearLayout
+                            android:paddingRight="20dp"
                             android:orientation="horizontal"
                             android:id="@+id/btnMyShopServiceCenter"
                             android:layout_width="match_parent"

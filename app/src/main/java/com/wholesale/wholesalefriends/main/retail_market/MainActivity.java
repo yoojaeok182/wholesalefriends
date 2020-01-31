@@ -13,10 +13,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
-import com.wholesale.wholesalefriends.main.fragment.RetailCategoryFragment;
-import com.wholesale.wholesalefriends.main.fragment.RetailCustomerFragment;
-import com.wholesale.wholesalefriends.main.fragment.RetailHomeFragment;
-import com.wholesale.wholesalefriends.main.fragment.RetailNoticeFragment;
+import com.wholesale.wholesalefriends.main.retail_market.fragment.RetailCategoryFragment;
+import com.wholesale.wholesalefriends.main.retail_market.fragment.RetailCustomerFragment;
+import com.wholesale.wholesalefriends.main.retail_market.fragment.RetailHomeFragment;
+import com.wholesale.wholesalefriends.main.retail_market.fragment.RetailNoticeFragment;
 
 public class MainActivity extends GroupActivity {
 

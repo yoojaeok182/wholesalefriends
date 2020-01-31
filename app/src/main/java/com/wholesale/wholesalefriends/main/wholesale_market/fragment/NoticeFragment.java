@@ -1,4 +1,4 @@
-package com.wholesale.wholesalefriends.main.fragment;
+package com.wholesale.wholesalefriends.main.wholesale_market.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,34 +26,46 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class RetailNoticeFragment extends Fragment {
+public class NoticeFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<NoticeListData> list = new ArrayList<>();
     private NoticeAdapter noticeAdapter;
-
     private boolean isSwipeRefresh;
     private boolean isExistMore;
+    private ArrayList<NoticeListData> list = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_retail_notice, container, false);
-        recyclerView =view.findViewById(R.id.recyclerView);
-
-        init();
-
-        return view;
-
-    }
-
-    private void init(){
-        noticeAdapter = new NoticeAdapter(getActivity(), list);
+        View view = inflater.inflate(R.layout.fragment_notice, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        noticeAdapter = new NoticeAdapter(getActivity(),list);
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getActivity()));
         recyclerView.setAdapter(noticeAdapter);
+        noticeAdapter.setListSelectItemListener(new NoticeAdapter.ListSelectItemListener() {
+            @Override
+            public void moreLoading(int page) {
+                if(isExistMore){
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            loadList(page+1);
+                        }
+                    },500);
+                    isExistMore =false;
+                }
+            }
+
+            @Override
+            public void itemClick(int pos, NoticeListData data) {
+
+            }
+        });
 
         clearData();
         loadList(1);
+        return view;
     }
 
     private void clearData(){
@@ -117,11 +129,11 @@ public class RetailNoticeFragment extends Fragment {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
-                if (!jsonObject.getBoolean("result")) {
+                if (jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
                         final CommonAlertDialog dg = new CommonAlertDialog(getActivity(), false, true);
-                        dg.setTitle("공지사항");
+                        dg.setTitle("계정 정보 확인");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();
 

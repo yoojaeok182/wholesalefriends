@@ -1,11 +1,9 @@
-package com.wholesale.wholesalefriends.main;
+package com.wholesale.wholesalefriends.main.wholesale_market;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,15 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.adapter.DetailProductViewAdapter;
@@ -174,6 +166,18 @@ public class DetailProduct2Activity extends GroupActivity {
         });
 
 
+
+        if(!SharedPreference.getBooleanSharedPreference(this, Constant.CommonKey.guide_show)){
+            llayoutForGuide.setVisibility(View.VISIBLE);
+            llayoutForGuide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    llayoutForGuide.setVisibility(View.GONE);
+                    SharedPreference.putSharedPreference(DetailProduct2Activity.this, Constant.CommonKey.guide_show,true);
+                }
+            });
+
+        }
 
     }
     private void initIndigator(int size){

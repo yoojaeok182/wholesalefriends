@@ -13,7 +13,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
@@ -47,6 +49,7 @@
                             android:id="@+id/tvCategorySearch"
                             android:layout_width="0dp"
                             android:layout_weight="1"
+                            android:singleLine="true"
                             android:imeOptions="actionSearch"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"/>
@@ -86,11 +89,13 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <androidx.recyclerview.widget.RecyclerView
+                            android:paddingLeft="20dp"
                             android:layout_width="match_parent"
                             android:layout_height="90.33dp"
                             android:id="@+id/horRecyclerView"
@@ -161,7 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:paddingTop="21dp">
+                   >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="46.66dp"
@@ -246,6 +251,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/btnSort"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
@@ -270,7 +276,7 @@
                                     android:layout_height="match_parent"/>
 
                                 <ImageView
-                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginLeft="10dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/icon_droparrow"/>
@@ -327,36 +333,29 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="41dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:layout_marginTop="14dp"
                         android:id="@+id/recyclerView"
-                        android:clipToPadding="false"/>
+                        android:clipToPadding="false"
+                        android:paddingBottom="20dp"
+                        android:columnWidth="@dimen/column_width4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
 
             </LinearLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnUp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_up"/>
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-<!--
-<LinearLayout
-android:background="@color/color_bg"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical">
-
-
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
-</LinearLayout>-->

@@ -2,11 +2,13 @@ package com.wholesale.wholesalefriends.main;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
@@ -27,12 +29,11 @@ import java.io.File;
 
 public class IntroActivity extends GroupActivity {
 
+    private Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-
-        initSetting();
         permissionCheck(new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -112,9 +113,11 @@ public class IntroActivity extends GroupActivity {
                     Integer level = null;
                     if(!jsonObject.isNull("store_type")){
                         store_type = jsonObject.getInt("store_type");
+                        SharedPreference.putSharedPreference(IntroActivity.this, Constant.CommonKey.store_type,store_type);
                     }
                     if(!jsonObject.isNull("level")){
                         level = jsonObject.getInt("level");
+                        SharedPreference.putSharedPreference(IntroActivity.this, Constant.CommonKey.level,level);
                     }
                     Intent intent = null;
                     if(store_type!=null &&store_type ==2){
