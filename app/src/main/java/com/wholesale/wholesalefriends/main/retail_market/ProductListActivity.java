@@ -106,7 +106,7 @@ public class ProductListActivity extends GroupActivity {
 
     private void loadList(int page, String category, String is_sale, String store_id) {
         homeMain01ListAdapter.setnCurrentPage(page);
-        API.productList(ProductListActivity.this, page + "", category, is_sale, store_id, resultListHandler, errHandler);
+        API.productList(ProductListActivity.this, page + "", category, is_sale, store_id,null, resultListHandler, errHandler);
     }
 
     private Handler resultListHandler = new Handler() {

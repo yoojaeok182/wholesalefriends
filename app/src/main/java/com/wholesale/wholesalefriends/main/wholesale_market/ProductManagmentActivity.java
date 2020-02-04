@@ -344,7 +344,7 @@ public class ProductManagmentActivity extends GroupActivity {
     private void loadList(int page,String category,String is_sale,String store_id) {
         productListListAdapter.setnCurrentPage(page);
         //TODO 바뀔수 있음
-        API.productList(ProductManagmentActivity.this,page+"",category,is_sale,store_id,resultListHandler,errHandler);
+        API.productList(ProductManagmentActivity.this,page+"",category,is_sale,store_id,null,resultListHandler,errHandler);
     }
 
     private Handler resultListHandler = new Handler(){

@@ -24,6 +24,7 @@ import com.wholesale.wholesalefriends.main.data.CartListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.SharedPreference;
+import com.wholesale.wholesalefriends.module.util.Util;
 import com.wholesale.wholesalefriends.widget.WrapContentLinearLayoutManager;
 
 import org.json.JSONObject;
@@ -46,6 +47,7 @@ public class ShoppingBasketActivity extends GroupActivity {
     private LinearLayout llayoutForData;
     private LinearLayout llayoutForNoData;
     private LinearLayout llayoutForOption;
+    private TextView tvTotalPrice;
 
     private CartListAdapter cartListAdapter;
 
@@ -57,6 +59,7 @@ public class ShoppingBasketActivity extends GroupActivity {
     private boolean isExistMore = false;
 
     private List<Integer> arrCid = new ArrayList<>();
+    private String c_id = "";
     private int nSelectPos =-1;
     private int nAmountCount;
     @Override
@@ -74,7 +77,7 @@ public class ShoppingBasketActivity extends GroupActivity {
         llayoutForData = findViewById(R.id.llayoutForData);
         llayoutForNoData = findViewById(R.id.llayoutForNoData);
         llayoutForOption= findViewById(R.id.llayoutForOption);
-
+        tvTotalPrice = findViewById(R.id.tvTotalPrice);
         tvTitle.setText("장바구니");
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,20 +93,44 @@ public class ShoppingBasketActivity extends GroupActivity {
                 if(!isAllCheck){
                     ivCheck.setBackgroundResource(R.drawable.check_on);
                     isAllCheck = true;
+                    btnOrder.setEnabled(true);
+                    btnOrder.setBackgroundResource(R.drawable.btn_02_on);
                 }else{
                     ivCheck.setBackgroundResource(R.drawable.check_default);
                     isAllCheck = false;
+                    btnOrder.setEnabled(false);
+                    btnOrder.setBackgroundResource(R.drawable.btn_02);
+
                 }
+
+                for(int i=0; i<cartListAdapter.getItemCount();i++){
+                    cartListAdapter.getItem(i).setCheck(isAllCheck);
+                }
+                cartListAdapter.notifyDataSetChanged();
+
+                c_id = "";
+                arrCid.clear();
+
+                c_id = "";
+                arrCid.clear();
+                for(int i=0; i<cartListAdapter.getItemCount();i++){
+                    if(cartListAdapter.getItem(i).getC_id()>0 &&cartListAdapter.getItem(i).isCheck()){
+                        arrCid.add(cartListAdapter.getItem(i).getC_id());
+                        c_id = c_id+cartListAdapter.getItem(i).getC_id()+"||";
+                    }
+                }
+
             }
+
         });
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isAllCheck){
-                    API.cartAllDelete(ShoppingBasketActivity.this,SharedPreference.getIntSharedPreference(ShoppingBasketActivity.this,Constant.CommonKey.user_no)+"",
-                            arrCid,resultDeleteAllHandler,errHandler);
 
+                    API.cartDelete(ShoppingBasketActivity.this,SharedPreference.getIntSharedPreference(ShoppingBasketActivity.this,Constant.CommonKey.user_no)+"",
+                            c_id,resultDeleteHandler,errHandler);
                 }
             }
         });
@@ -115,6 +142,7 @@ public class ShoppingBasketActivity extends GroupActivity {
                 Intent intent = new Intent(ShoppingBasketActivity.this,ShoppingPaymentActivity.class);
                 intent.putExtra(Constant.CommonKey.intent_order_type,2);
                 intent.putExtra(Constant.CommonKey.intent_c_id, (Serializable) arrCid);
+                intent.putExtra(Constant.CommonKey.intent_c_id2,   c_id);
 
                 startActivity(intent);
             }
@@ -124,21 +152,30 @@ public class ShoppingBasketActivity extends GroupActivity {
             @Override
             public void itemClick(int pos, boolean isCheck, CartListProductData data) {
                 nSelectPos = pos;
-                boolean isTempCheck = false;
-                for(int i=0; i<cartListAdapter.getItemCount();i++){
-                    if(cartListAdapter.getItem(i).isCheck()){
-                        isTempCheck = true;
-                    }else{
-                        isTempCheck = false;
-                    }
-                }
+               checkBtnOrder();
 
-                if(isTempCheck){
-                    isAllCheck = true;
-                }
+
 
                 cartListAdapter.getItem(nSelectPos).setCheck(isCheck);
                 cartListAdapter.notifyDataSetChanged();
+                c_id = "";
+                arrCid.clear();
+                for(int i=0; i<cartListAdapter.getItemCount();i++){
+                    if(cartListAdapter.getItem(i).getC_id()>0 &&cartListAdapter.getItem(i).isCheck()){
+                        arrCid.add(cartListAdapter.getItem(i).getC_id());
+                        c_id = c_id+cartListAdapter.getItem(i).getC_id()+"||";
+                    }
+                }
+
+
+                for(int i=0; i<cartListAdapter.getItemCount();i++){
+                    if(isCheck){
+                        btnOrder.setBackgroundResource(R.drawable.btn_02_on);
+                        btnOrder.setEnabled(true);
+                        break;
+                    }
+                }
+
             }
 
             @Override
@@ -146,14 +183,14 @@ public class ShoppingBasketActivity extends GroupActivity {
                 nSelectPos = pos;
                 nAmountCount = count;
                 API.cartAmountMod(ShoppingBasketActivity.this,SharedPreference.getIntSharedPreference(ShoppingBasketActivity.this,Constant.CommonKey.user_no)+"",
-                        SharedPreference.getIntSharedPreference(ShoppingBasketActivity.this, Constant.CommonKey.store_id)+"",data.getC_id()+"",count+"",resultModifyHandler,errHandler);
+                        data.getStore_id()+"",data.getC_id()+"",count+"",resultModifyHandler,errHandler);
             }
 
             @Override
             public void itemDelete(int pos, CartListProductData data) {
                 nSelectPos = pos;
                 API.cartDelete(ShoppingBasketActivity.this,SharedPreference.getIntSharedPreference(ShoppingBasketActivity.this,Constant.CommonKey.user_no)+"",
-                        data.getC_id()+"",data.getAmount()+"",resultDeleteHandler,errHandler);
+                        data.getC_id()+"||",resultDeleteHandler,errHandler);
             }
         });
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
@@ -170,7 +207,7 @@ public class ShoppingBasketActivity extends GroupActivity {
         isSwipeRefresh = true;
         isExistMore= false;
         cartListAdapter.clear();
-        if(cartListAdapter.getItemCount() ==0){
+        /*if(cartListAdapter.getItemCount() ==0){
             btnOrder.setEnabled(false);
             recyclerView.setVisibility(View.GONE);
             llayoutForNoData.setVisibility(View.VISIBLE);
@@ -180,7 +217,7 @@ public class ShoppingBasketActivity extends GroupActivity {
             recyclerView.setVisibility(View.VISIBLE);
             llayoutForNoData.setVisibility(View.GONE);
             llayoutForOption.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     private Handler resultModifyHandler = new Handler() {
@@ -190,6 +227,11 @@ public class ShoppingBasketActivity extends GroupActivity {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
                 if (jsonObject.getBoolean("result")) {
+                    if(nAmountCount ==0){
+                        clearData();
+                        loadList();
+                        return;
+                    }
                     cartListAdapter.getItem(nSelectPos).setAmount(nAmountCount);
                     cartListAdapter.notifyDataSetChanged();
 
@@ -207,22 +249,8 @@ public class ShoppingBasketActivity extends GroupActivity {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
                 if (jsonObject.getBoolean("result")) {
-                    if(nSelectPos>=0){
-                        cartListAdapter.remove(cartListAdapter.getItem(nSelectPos));
-
-                    }
-                    nSelectPos =-1;
-                    if(cartListAdapter.getItemCount() ==0){
-                        btnOrder.setEnabled(false);
-                        recyclerView.setVisibility(View.GONE);
-                        llayoutForNoData.setVisibility(View.VISIBLE);
-                        llayoutForOption.setVisibility(View.GONE);
-                    }else{
-                        btnOrder.setEnabled(true);
-                        recyclerView.setVisibility(View.VISIBLE);
-                        llayoutForNoData.setVisibility(View.GONE);
-                        llayoutForOption.setVisibility(View.VISIBLE);
-                    }
+                    clearData();
+                    loadList();
 
                 }
             } catch (Throwable e) {
@@ -239,6 +267,7 @@ public class ShoppingBasketActivity extends GroupActivity {
                 if (jsonObject.getBoolean("result")) {
                     isAllCheck = false;
                     clearData();
+                    tvTotalPrice.setText("0원");
                     Toast.makeText(ShoppingBasketActivity.this, "전체 삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
                 }
@@ -263,44 +292,31 @@ public class ShoppingBasketActivity extends GroupActivity {
                             isSwipeRefresh = false;
                         }
 
-                        for(int i=0; i<cartListAdapter.getItemCount();i++){
-                            if(cartListAdapter.getItem(i).getC_id()>0){
-                                arrCid.add(cartListAdapter.getItem(i).getC_id());
-                            }
-                        }
-                        /*else{
-                            if(cartListAdapter.getItemCount()>0){
-                                int nowSize = cartListAdapter.getItemCount();
-                                for(int i=nowSize; i<nowSize+cartListResponse.getProduct().size();i++){
-                                    cartListAdapter.add(cartListResponse.getProduct().get(i-nowSize),i);
-                                }
-                            }else{
-                                for(int i=0; i<cartListResponse.getProduct().size();i++){
-                                    cartListAdapter.add(cartListResponse.getProduct().get(i),i);
-                                }
-                            }
-                        }
 
-                        if(cartListResponse.getProduct().size() >= Constant.PAGE_GO){
-                            isExistMore = true;
-                        }else{
-                            isExistMore = false;
-                        }*/
 
 
                     }else{
                         isExistMore = false;
                     }
+
+                    if(cartListResponse!=null){
+                        tvTotalPrice.setText(Util.getFormattedPrice(Integer.valueOf(cartListResponse.getTotal())));
+                    }else{
+                        tvTotalPrice.setText("0원");
+                    }
                 }else{
                     isExistMore = false;
+                    tvTotalPrice.setText("0원");
                 }
 
             }catch (Throwable e){
                 isExistMore = false;
+                tvTotalPrice.setText("0원");
                 e.printStackTrace();
             }
 
             if(cartListAdapter.getItemCount() ==0){
+                tvTotalPrice.setText("0원");
                 btnOrder.setEnabled(false);
                 recyclerView.setVisibility(View.GONE);
                 llayoutForNoData.setVisibility(View.VISIBLE);
@@ -311,9 +327,30 @@ public class ShoppingBasketActivity extends GroupActivity {
                 llayoutForNoData.setVisibility(View.GONE);
                 llayoutForOption.setVisibility(View.VISIBLE);
             }
+
+            checkBtnOrder();
         }
     };
 
+    private void checkBtnOrder(){
+        boolean isTempCheck = false;
+        for(int i=0; i<cartListAdapter.getItemCount();i++){
+            if(cartListAdapter.getItem(i).isCheck()){
+                isTempCheck = true;
+            }else{
+                isTempCheck = false;
+            }
+        }
+
+        if(isTempCheck){
+            isAllCheck = true;
+            btnOrder.setBackgroundResource(R.drawable.btn_02_on);
+            btnOrder.setEnabled(true);
+        }else{
+            btnOrder.setBackgroundResource(R.drawable.btn_02);
+            btnOrder.setEnabled(false);
+        }
+    }
     private Handler errHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

@@ -22,7 +22,7 @@
 
        <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="200dp"
+           android:layout_height="wrap_content"
            android:orientation="vertical">
            <LinearLayout
                android:layout_width="match_parent"
@@ -54,13 +54,43 @@
                    android:importantForAutofill="noExcludeDescendants"
                    android:id="@+id/txt"
                    android:layout_width="match_parent"
-                   android:layout_height="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
 
                    android:textSize="13dp"
                    android:gravity="center"
                    android:textColor="@color/color_text_08"
                    />
 
+
+               <LinearLayout
+                   android:id="@+id/llayoutForBank"
+                   android:layout_marginTop="20dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical">
+                   <TextView
+                       android:importantForAutofill="noExcludeDescendants"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+
+                       android:textStyle="bold"
+                       android:text="계좌 정보"
+                       android:textSize="14dp"
+                       android:textColor="@color/color_text_08"
+                       />
+
+                   <TextView
+                       android:layout_marginTop="10dp"
+                       android:importantForAutofill="noExcludeDescendants"
+                       android:id="@+id/tvContent02"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textSize="13dp"
+                       android:gravity="center"
+                       android:textColor="@color/color_text_08"
+                       />
+               </LinearLayout>
            </LinearLayout>
 
 

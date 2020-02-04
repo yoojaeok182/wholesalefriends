@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -128,11 +129,11 @@
                             android:gravity="center_vertical"
                             android:layout_height="match_parent"/>
 
-                        <ImageButton
+                        <!--<ImageButton
                             android:id="@+id/btnTypeChange"
                             android:background="@drawable/btn_change"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"/>-->
                     </LinearLayout>
                 </LinearLayout>
 
@@ -141,56 +142,175 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line_color_01"/>
+
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:orientation="horizontal">
-
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/llayoutForOption01">
                     <LinearLayout
-                        android:background="@color/color_box8"
-                        android:layout_width="79dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-                        <TextView
-                            android:text="사업자 전화"
-                            android:textSize="12dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_text_08"/>
-                    </LinearLayout>
-                    <ImageView
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/line_color_01"/>
-                    <LinearLayout
-                        android:paddingLeft="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:layout_height="42dp"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:textColor="@color/color_text_03"
-                            android:id="@+id/tvPaymentTel"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:textSize="12dp"
-                            android:gravity="center_vertical"
-                            android:layout_height="match_parent"/>
+                        <LinearLayout
+                            android:background="@color/color_box8"
+                            android:layout_width="79dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+                            <TextView
+                                android:text="계좌정보"
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/color_text_08"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:paddingLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                        <ImageButton
-                            android:id="@+id/btnNumberChange"
-                            android:background="@drawable/btn_change"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="@color/color_text_03"
+                                android:id="@+id/tvBankInfo"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="12dp"
+                                android:gravity="center_vertical"
+                                android:layout_height="match_parent"/>
+
+                        </LinearLayout>
                     </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/line_color_01"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/llayoutForOption02">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:background="@color/color_box8"
+                            android:layout_width="79dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+                            <TextView
+                                android:text="입금자명"
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/color_text_08"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:paddingLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:textColor="@color/color_text_03"
+                                android:id="@+id/tvDepositorName"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="12dp"
+                                android:gravity="center_vertical"
+                                android:layout_height="match_parent"/>
+
+                           <!-- <ImageButton
+                                android:id="@+id/btnDepositorNameChange"
+                                android:background="@drawable/btn_change"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>-->
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/line_color_01"/>
                 </LinearLayout>
 
-
-                <ImageView
+                <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line_color_01"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/llayoutForOption03">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:background="@color/color_box8"
+                            android:layout_width="79dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+                            <TextView
+                                android:text="사입자 전화"
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/color_text_08"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/line_color_01"/>
+                        <LinearLayout
+                            android:paddingLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:textColor="@color/color_text_03"
+                                android:id="@+id/tvPaymentTel"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="12dp"
+                                android:gravity="center_vertical"
+                                android:layout_height="match_parent"/>
+
+                          <!--  <ImageButton
+                                android:id="@+id/btnNumberChange"
+                                android:background="@drawable/btn_change"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>-->
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/line_color_01"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
@@ -236,7 +356,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/line_color_01"/>
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:orientation="horizontal">
@@ -286,7 +406,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line_color_01"/>
+                    android:background="@color/line_color_01"/>-->
 
             </LinearLayout>
 

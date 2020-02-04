@@ -95,7 +95,7 @@ public class HomeMainViewPager03Fragment extends Fragment {
 
     private void loadList(int page,String category,String is_sale,String store_id) {
         homeMain03ListAdapter.setnCurrentPage(page);
-        API.productList(ctx,page+"",category,is_sale,store_id,resultListHandler,errHandler);
+        API.productList(ctx,page+"",category,is_sale,store_id,null,resultListHandler,errHandler);
     }
 
     private Handler resultListHandler = new Handler(){

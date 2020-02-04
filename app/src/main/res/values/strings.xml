@@ -1,4 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="com.crashlytics.useFirebaseAppId" tools:ignore="ExtraTranslation">true</string>
+
     <string name="app_name" translatable="false">도매프렌즈</string>
 
     <string name="permission_reject_cannot_service_msg" translatable="false">필수 권한을 거부하면 서비스를 사용할 수 없습니다.\n[설정]> [권한]에서 권한을 켜십시오.</string>

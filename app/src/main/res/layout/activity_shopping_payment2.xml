@@ -117,6 +117,32 @@
                       android:background="@drawable/check_default"/>
               </LinearLayout>
 
+              <LinearLayout
+                  android:id="@+id/btmPaymentType04"
+                  android:layout_marginTop="15dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="54.33dp"
+                  android:paddingLeft="20dp"
+                  android:paddingRight="20dp"
+                  android:gravity="center_vertical"
+                  android:background="@drawable/box_off_01"
+                  android:orientation="horizontal">
+                  <TextView
+                      android:textSize="16dp"
+                      android:textColor="@color/color_text_06"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="wrap_content"
+                      android:text="건사입요청"/>
+
+
+                  <ImageView
+                      android:id="@+id/ivCheck04"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/check_default"/>
+              </LinearLayout>
+
               <TextView
                   android:layout_marginTop="20dp"
                   android:textSize="12dp"
@@ -133,7 +159,8 @@
               android:layout_height="10dp"
               android:background="@color/color_bg2"/>
 
-          <LinearLayout
+          <RelativeLayout
+              android:id="@+id/groupPaymentOption"
               android:paddingBottom="50dp"
               android:paddingLeft="20dp"
               android:paddingRight="20dp"
@@ -142,79 +169,77 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@color/color_text_08"
-                  android:textStyle="bold"
-                  android:text="입금자명"
-                  android:textSize="15dp"/>
-
-              <EditText
-                  android:textSize="13dp"
-                  android:textColor="@color/color_text_08"
-                  android:hint="입금자명"
-                  android:textColorHint="@color/color_text_03"
-                  android:layout_marginTop="13dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="45dp"
-                  android:id="@+id/edtName"
-                  android:paddingLeft="20dp"
-                  android:paddingRight="20dp"
-                  android:singleLine="true"
-                  android:gravity="center_vertical"
-                  android:background="@drawable/input_box_off_01"/>
-
-              <TextView
-                  android:layout_marginTop="30dp"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@color/color_text_08"
-                  android:textStyle="bold"
-                  android:text="사입삼촌"
-                  android:textSize="15dp"/>
 
 
               <LinearLayout
-                  android:layout_marginTop="13dp"
-                  android:background="@drawable/box_off_01"
+                  android:visibility="gone"
+                  android:id="@+id/llayoutForPaymentOption01"
                   android:layout_width="match_parent"
-                  android:layout_height="45dp">
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+                  <LinearLayout
+                      android:id="@+id/llayoutForSaipTel"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/color_text_08"
+                          android:textStyle="bold"
+                          android:text="사입자 전화번호"
+                          android:textSize="15dp"/>
 
-                  <LinearLayout
-                      android:layout_width="0dp"
-                      android:layout_weight="1"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:gravity="center"
-                      android:id="@+id/btnPurchase01"
-                      android:background="@drawable/l_roundbox_off_01">
-                      <TextView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/tvPurchase01"
+                      <EditText
+                          android:inputType="phone"
                           android:textSize="13dp"
-                          android:text="있어요"
-                           android:textColor="@color/color_text_03"/>
-                  </LinearLayout>
-                  <LinearLayout
-                      android:layout_width="0dp"
-                      android:layout_weight="1"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:gravity="center"
-                      android:id="@+id/btnPurchase02"
-                      android:background="@drawable/r_roundbox_on_01">
-                      <TextView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/tvPurchase02"
-                          android:textSize="13dp"
-                          android:text="없어요"
-                          android:textColor="@color/color_text_07"/>
+                          android:textColor="@color/color_text_08"
+                          android:hint="사입자 전화번호"
+                          android:textColorHint="@color/color_text_03"
+                          android:layout_marginTop="13dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="45dp"
+                          android:id="@+id/edtSaipTel"
+                          android:paddingLeft="20dp"
+                          android:paddingRight="20dp"
+                          android:singleLine="true"
+                          android:gravity="center_vertical"
+                          android:background="@drawable/input_box_off_01"/>
                   </LinearLayout>
               </LinearLayout>
-          </LinearLayout>
+
+              <LinearLayout
+                  android:visibility="gone"
+                  android:id="@+id/llayoutForPaymentOption02"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@color/color_text_08"
+                      android:textStyle="bold"
+                      android:text="입금자명"
+                      android:textSize="15dp"/>
+
+                  <EditText
+                      android:textSize="13dp"
+                      android:textColor="@color/color_text_08"
+                      android:hint="입금자명"
+                      android:textColorHint="@color/color_text_03"
+                      android:layout_marginTop="13dp"
+                      android:layout_width="match_parent"
+                      android:layout_height="45dp"
+                      android:id="@+id/edtName"
+                      android:paddingLeft="20dp"
+                      android:paddingRight="20dp"
+                      android:singleLine="true"
+                      android:gravity="center_vertical"
+                      android:background="@drawable/input_box_off_01"/>
+              </LinearLayout>
+
+          </RelativeLayout>
 
 
       </LinearLayout>

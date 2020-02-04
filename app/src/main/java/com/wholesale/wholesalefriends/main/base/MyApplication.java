@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
@@ -15,6 +16,8 @@ import com.wholesale.wholesalefriends.module.util.Util;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MyApplication extends MultiDexApplication {
     public static boolean DEBUG = false;
@@ -35,7 +38,7 @@ public class MyApplication extends MultiDexApplication {
 
         DEBUG = Util.isDebuggable(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
+        Fabric.with(this, new Crashlytics());
 //        KakaoSDK.init(new KakaoSDKAdapter());
 
         if(Build.VERSION.SDK_INT< Build.VERSION_CODES.LOLLIPOP){

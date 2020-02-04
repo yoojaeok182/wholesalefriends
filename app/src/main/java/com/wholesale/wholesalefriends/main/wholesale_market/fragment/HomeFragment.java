@@ -404,7 +404,7 @@ public class HomeFragment extends Fragment {
     private void loadList(int page,String category,String is_sale,String store_id) {
         productListListAdapter.setnCurrentPage(page);
         //TODO 바뀔수 있음
-        API.productList(getActivity(),page+"",category,is_sale,store_id,resultListHandler,errHandler);
+        API.productList(getActivity(),page+"",category,is_sale,store_id,null,resultListHandler,errHandler);
     }
 
     private Handler resultListHandler = new Handler(){

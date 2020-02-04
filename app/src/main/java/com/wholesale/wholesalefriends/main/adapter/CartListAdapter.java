@@ -73,14 +73,14 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
            holder.tvStoreName.setText(data.getStore_name());
            holder.tvItemName.setText(data.getName());
            holder.tvItemInfo.setText(data.getOption_1() +" / " +data.getOption_2());
-           holder.tvItemPrice.setText(Util.getFormattedPrice(data.getPrice())+"원");
+           holder.tvItemPrice.setText(Util.getFormattedPrice(data.getPrice()));
 
             Glide.with(ctx).load(data.getImage()).into(holder.ivPhoto);
             holder.ivCheck.setBackgroundResource(R.drawable.check_default);
             if(data.isCheck()){
                 holder.ivCheck.setBackgroundResource(R.drawable.check_on);
             }
-            holder.tvAmount.setText(data.getAmount());
+            holder.tvAmount.setText(data.getAmount()+"");
 
             holder.ivCheck.setOnClickListener(new View.OnClickListener() {
                 @Override

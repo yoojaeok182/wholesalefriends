@@ -98,24 +98,6 @@ public class Retrofit {
                 .build();
 
     }
-    /*private interface UploadInterface{
-        @Multipart
-        @POST
-        Call<Contributor> upload(
-                *//**
-                 * REST API 등록
-                 *//*
-                @Part("method") RequestBody method,
-                @Part("mem_no") RequestBody memNo,
-                @Part("from_method") RequestBody from_method,
-                @Part("subject") RequestBody subject,
-                @Part("otp_key") RequestBody otp_key,
-                @Part("by_order") RequestBody by_order,
-                @Part("device_id") RequestBody device_id,
-
-                @Part MultipartBody.Part file,
-                @Url String apiUrl);
-    }*/
 
     private interface UploadLoginInterface{
         @Multipart
@@ -352,7 +334,7 @@ public class Retrofit {
                 /**
                  * REST API 등록
                  */
-//                @Part("page") RequestBody page,
+                @Part("page") RequestBody page,
                /*
                 @Part("category") RequestBody category,
                 @Part("is_sale") RequestBody is_sale,
@@ -395,9 +377,12 @@ public class Retrofit {
                 @Part("page") RequestBody page,
                 @Part("building_id") RequestBody building_id,
                 @Part("user_id") RequestBody user_id,
+                @Part("keyword") RequestBody keyword,
                 @Url String apiUrl
         );
     }
+
+
 
     private interface UploadProductAddInterface{
         @Multipart
@@ -447,13 +432,13 @@ public class Retrofit {
 
 
     private interface UploadNoticeInterface{
-//        @Multipart
+        @Multipart
         @POST
         Call<ContributorNoticeList> upload(
                 /**
                  * REST API 등록
                  */
-//                @Part("page") RequestBody id,
+                @Part("page") RequestBody page,
                  @Url String apiUrl
         );
     }
@@ -499,6 +484,7 @@ public class Retrofit {
         );
     }
 
+
     private interface UploadCartListInterface{
         @Multipart
         @POST
@@ -535,23 +521,11 @@ public class Retrofit {
                  */
                 @Part("user_id") RequestBody user_id,
                 @Part("c_id") RequestBody c_id,
-                @Part("amount") RequestBody amount,
+//                @Part("amount") RequestBody amount,
                 @Url String apiUrl
         );
     }
 
-    private interface UploadCartListDeleteAllInterface{
-        @Multipart
-        @POST
-        Call<ContributorCartListDelete> upload(
-                /**
-                 * REST API 등록
-                 */
-                @Part("user_id") RequestBody user_id,
-                @Part List<MultipartBody.Part> fileParams,
-                @Url String apiUrl
-        );
-    }
 
     private interface UploadPaymentListInterface{
         @Multipart
@@ -579,10 +553,96 @@ public class Retrofit {
                  */
                 @Part("order_type") RequestBody order_type,
                 @Part("user_id") RequestBody user_id,
-                @Part List<MultipartBody.Part> fileParams,
+                @Part("c_id") RequestBody c_id,
                 @Url String apiUrl
         );
     }
+
+    private interface UploadOrderFormAddInterface{
+        @Multipart
+        @POST
+        Call<ContributorOrderFormAdd> upload(
+                /**
+                 * REST API 등록
+                 */
+                 @Part("user_id") RequestBody user_id,
+                 @Part("store_id") RequestBody store_id,
+                 @Part("payment_id") RequestBody payment_id,
+                 @Part("payment_info") RequestBody  payment_info,
+                 @Part("p_id") RequestBody  p_id,
+                 @Part("p_option_1") RequestBody p_option_1 ,
+                 @Part("p_option_2") RequestBody p_option_2  ,
+                 @Part("amount") RequestBody  amount,
+                 @Part("price") RequestBody  price,
+                 @Part("total") RequestBody  total,
+
+
+                @Url String apiUrl
+        );
+    }
+    private interface UploadOrderFormAdd2Interface{
+        @Multipart
+        @POST
+        Call<ContributorOrderFormAdd> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("store_id") RequestBody store_id,
+                @Part("payment_id") RequestBody payment_id,
+                @Part("payment_info") RequestBody  payment_info,
+                @Part("p_id") RequestBody  p_id,
+                @Part("p_option_1") RequestBody p_option_1 ,
+                @Part("p_option_2") RequestBody p_option_2  ,
+                @Part("amount") RequestBody  amount,
+                @Part("price") RequestBody  price,
+                @Part("total") RequestBody  total,
+                @Part("message") RequestBody  message,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadPaymentOption1Interface{
+        @Multipart
+        @POST
+        Call<ContributorPaymentOption> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("store_id") RequestBody  store_id,
+                @Part("payment") RequestBody  payment ,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadPaymentOption2Interface{
+        @Multipart
+        @POST
+        Call<ContributorPaymentOption> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("store_id") RequestBody  store_id,
+                @Part("payment") RequestBody  payment ,
+                @Part("tel") RequestBody tel ,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadPaymentOption3Interface{
+        @Multipart
+        @POST
+        Call<ContributorPaymentOption> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("store_id") RequestBody  store_id,
+                @Part("payment") RequestBody  payment ,
+                @Part("name") RequestBody name ,
+                @Url String apiUrl
+        );
+    }
+
     public void uploadCartAdd(String method, String user_id,String store_id, String p_id,String p_option_1,String p_option_2,String amount,boolean _isLoading){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), store_id);
@@ -979,7 +1039,7 @@ public class Retrofit {
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
 
         UploadBestProductList2Interface uploadInterface = mRetrofit.create(UploadBestProductList2Interface.class);
-        Call<ContributorBestProductList> call = uploadInterface.upload(Constant.DOMAIN.api+method+"/");
+        Call<ContributorBestProductList> call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
 
         call.enqueue(new Callback<ContributorBestProductList>() {
             @Override
@@ -1055,12 +1115,16 @@ public class Retrofit {
      * @param building_id
      * @param user_id
      */
-    public void uploadStoreList(String method,String page, String building_id,String user_id){
+    public void uploadStoreList(String method,String page, String building_id,String user_id,String keyword){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), building_id);
         RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), keyword);
+
+        Call<ContributorStoreViewList> call=null;
         UploadStoreOfViewLIstInterface uploadInterface = mRetrofit.create(UploadStoreOfViewLIstInterface.class);
-        Call<ContributorStoreViewList> call = uploadInterface.upload(p1, p2,p3,Constant.DOMAIN.api+method+"/");
+        call = uploadInterface.upload(p1, p2,p3,p4,Constant.DOMAIN.api+method+"/");
+
 
         call.enqueue(new Callback<ContributorStoreViewList>() {
             @Override
@@ -1177,8 +1241,10 @@ public class Retrofit {
      * @param page
      */
     public void uploadNotice(String method,String page){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
+
         UploadNoticeInterface uploadInterface = mRetrofit.create(UploadNoticeInterface.class);
-        Call<ContributorNoticeList> call = uploadInterface.upload(Constant.DOMAIN.api+method+"/");
+        Call<ContributorNoticeList> call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
 
         call.enqueue(new Callback<ContributorNoticeList>() {
             @Override
@@ -1230,7 +1296,11 @@ public class Retrofit {
             public void onResponse(Call<ContributorCartList> call,
                                    Response<ContributorCartList> response) {
                 if(dg!=null&& isShowLoading)dg.dismiss();
-                onCartList.onResponse((ContributorCartList)response.body());
+                if(response.code()==200){
+                    onCartList.onResponse((ContributorCartList)response.body());
+                }else{
+                    onCartList.onServerError(response.message().toString());
+                }
             }
             @Override
             public void onFailure(Call<ContributorCartList> call, Throwable t) {
@@ -1268,13 +1338,12 @@ public class Retrofit {
     }
 
 
-    public void uploadCartListDelete(String method, String user_id, String c_id,String amount,boolean _isLoading){
+    public void uploadCartListDelete(String method, String user_id,String c_id,boolean _isLoading){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), c_id);
-        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), amount);
 
         UploadCartListDeleteInterface uploadInterface = mRetrofit.create(UploadCartListDeleteInterface.class);
-        Call<ContributorCartListDelete> call = uploadInterface.upload(p1, p2,p3,Constant.DOMAIN.api+method+"/");
+        Call<ContributorCartListDelete> call = uploadInterface.upload(p1, p2,Constant.DOMAIN.api+method+"/");
 
         call.enqueue(new Callback<ContributorCartListDelete>() {
             @Override
@@ -1292,47 +1361,14 @@ public class Retrofit {
     }
 
 
-    public void uploadCartListDeleteAll(String method, String user_id, List<Integer> arr,boolean _isLoading){
-        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
-
-        ArrayList<MultipartBody.Part> fileParams = new ArrayList<>();
-        if(arr.size() > 0) {
-            for(int i = 0; i < arr.size(); i++) {
-                if(arr.get(i) != null) {
-                    RequestBody mFile = RequestBody.create(MediaType.parse("text/plain"), arr.get(i).toString());
-                    MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("c_id",arr.get(i).toString(),mFile);
-                    fileParams.add(fileToUpload);
-                }
-            }
-        }
-
-
-
-        UploadCartListDeleteAllInterface uploadInterface = mRetrofit.create(UploadCartListDeleteAllInterface.class);
-        Call<ContributorCartListDelete> call = uploadInterface.upload(p1, fileParams,Constant.DOMAIN.api+method+"/");
-
-        call.enqueue(new Callback<ContributorCartListDelete>() {
-            @Override
-            public void onResponse(Call<ContributorCartListDelete> call,
-                                   Response<ContributorCartListDelete> response) {
-                if(dg!=null && isShowLoading)dg.dismiss();
-                onCartListDelete.onResponse((ContributorCartListDelete)response.body());
-            }
-            @Override
-            public void onFailure(Call<ContributorCartListDelete> call, Throwable t) {
-                if(dg!=null&& isShowLoading)dg.dismiss();
-                onCartListDelete.onFailure(t);
-            }
-        });
-    }
 
     public void uploadPaymentList(String method, Integer order_type, String user_id, Integer p_id, String p_option_1, String p_option_2,String amount){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), order_type+"");
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), p_id+"");
-        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), p_option_1);
-        RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), p_option_2);
-        RequestBody p6 = RequestBody.create(MediaType.parse("text/plain"), amount);
+        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), p_option_1+"");
+        RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), p_option_2+"");
+        RequestBody p6 = RequestBody.create(MediaType.parse("text/plain"), amount+"");
 
         UploadPaymentListInterface uploadInterface = mRetrofit.create(UploadPaymentListInterface.class);
         Call<ContributorPaymentList> call = uploadInterface.upload(p1,p2,p3,p4,p5,p6,Constant.DOMAIN.api+method+"/");
@@ -1352,23 +1388,14 @@ public class Retrofit {
         });
     }
 
-    public void uploadPaymentList(String method, Integer order_type, String user_id, ArrayList<Integer> arr){
+    public void uploadPaymentList(String method, Integer order_type, String user_id, String c_id){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), order_type+"");
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), c_id);
 
-        ArrayList<MultipartBody.Part> fileParams = new ArrayList<>();
-        if(arr.size() > 0) {
-            for(int i = 0; i < arr.size(); i++) {
-                if(arr.get(i) != null) {
-                    RequestBody mFile = RequestBody.create(MediaType.parse("text/plain"), arr.get(i).toString());
-                    MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("c_id",arr.get(i).toString(),mFile);
-                    fileParams.add(fileToUpload);
-                }
-            }
-        }
 
         UploadPaymentListCartInterface uploadInterface = mRetrofit.create(UploadPaymentListCartInterface.class);
-        Call<ContributorPaymentList> call = uploadInterface.upload(p1,p2,fileParams,Constant.DOMAIN.api+method+"/");
+        Call<ContributorPaymentList> call = uploadInterface.upload(p1,p2,p3,Constant.DOMAIN.api+method+"/");
 
         call.enqueue(new Callback<ContributorPaymentList>() {
             @Override
@@ -1385,6 +1412,130 @@ public class Retrofit {
         });
     }
 
+
+    public void uploadOrderFormAdd(String method, String user_id, String store_id,String payment_id,String payment_info,
+                                   String p_id,String p_option_1,String p_option_2,String amount,
+                                   String price,String total,String message){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), store_id+"");
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), payment_id+"");
+        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), payment_info+"");
+        RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), p_id+"");
+        RequestBody p6 = RequestBody.create(MediaType.parse("text/plain"), p_option_1+"");
+        RequestBody p7 = RequestBody.create(MediaType.parse("text/plain"), p_option_2+"");
+        RequestBody p8 = RequestBody.create(MediaType.parse("text/plain"), amount+"");
+        RequestBody p9 = RequestBody.create(MediaType.parse("text/plain"), price+"");
+        RequestBody p10 = RequestBody.create(MediaType.parse("text/plain"), total+"");
+
+        Call<ContributorOrderFormAdd> call =null;
+        if(message!=null && message.length()>0){
+            RequestBody p11 = RequestBody.create(MediaType.parse("text/plain"), message+"");
+            UploadOrderFormAdd2Interface uploadInterface = mRetrofit.create(UploadOrderFormAdd2Interface.class);
+            call = uploadInterface.upload(p1,p2,p3,p4,p5,p6,p7,
+                    p8,p9,p10,p11,Constant.DOMAIN.api+method+"/");
+        }else{
+            UploadOrderFormAddInterface uploadInterface = mRetrofit.create(UploadOrderFormAddInterface.class);
+            call = uploadInterface.upload(p1,p2,p3,p4,p5,p6,p7,
+                    p8,p9,p10,Constant.DOMAIN.api+method+"/");
+        }
+
+
+
+        call.enqueue(new Callback<ContributorOrderFormAdd>() {
+            @Override
+            public void onResponse(Call<ContributorOrderFormAdd> call,
+                                   Response<ContributorOrderFormAdd> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onOrderFormAdd.onResponse((ContributorOrderFormAdd)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorOrderFormAdd> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onOrderFormAdd.onFailure(t);
+            }
+        });
+    }
+
+
+    /**
+     * API에 맞추어 메소드 작성
+     */
+    public void uploadPaymentOption01(String method,String store_id, String payment,boolean _isLoading){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), payment);
+
+        UploadPaymentOption1Interface uploadInterface = mRetrofit.create(UploadPaymentOption1Interface.class);
+        Call<ContributorPaymentOption> call = uploadInterface.upload(p1, p2,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorPaymentOption>() {
+            @Override
+            public void onResponse(Call<ContributorPaymentOption> call,
+                                   Response<ContributorPaymentOption> response) {
+                if(dg!=null && isShowLoading)dg.dismiss();
+                onPaymentOption.onResponse((ContributorPaymentOption)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorPaymentOption> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onPaymentOption.onFailure(t);
+            }
+        });
+    }
+
+    /**
+     * API에 맞추어 메소드 작성
+     */
+    public void uploadPaymentOption02(String method,String store_id, String payment,String tel,boolean _isLoading){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), payment);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), tel);
+
+        UploadPaymentOption2Interface uploadInterface = mRetrofit.create(UploadPaymentOption2Interface.class);
+        Call<ContributorPaymentOption> call = uploadInterface.upload(p1, p2,p3,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorPaymentOption>() {
+            @Override
+            public void onResponse(Call<ContributorPaymentOption> call,
+                                   Response<ContributorPaymentOption> response) {
+                if(dg!=null && isShowLoading)dg.dismiss();
+                onPaymentOption.onResponse((ContributorPaymentOption)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorPaymentOption> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onPaymentOption.onFailure(t);
+            }
+        });
+    }
+
+
+    /**
+            * API에 맞추어 메소드 작성
+     */
+    public void uploadPaymentOption03(String method,String store_id, String payment,String name,boolean _isLoading){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), payment);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), name);
+
+        UploadPaymentOption3Interface uploadInterface = mRetrofit.create(UploadPaymentOption3Interface.class);
+        Call<ContributorPaymentOption> call = uploadInterface.upload(p1, p2,p3,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorPaymentOption>() {
+            @Override
+            public void onResponse(Call<ContributorPaymentOption> call,
+                                   Response<ContributorPaymentOption> response) {
+                if(dg!=null && isShowLoading)dg.dismiss();
+                onPaymentOption.onResponse((ContributorPaymentOption)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorPaymentOption> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onPaymentOption.onFailure(t);
+            }
+        });
+    }
+
     /**
      * RESPONSE PARAM 등록
      */
@@ -1397,6 +1548,7 @@ public class Retrofit {
         public String result ="";
         public String error="";
         public String user_id ="";
+        public String store_id  ="";
         public Integer store_type;
         public Integer level;
     }
@@ -1406,6 +1558,8 @@ public class Retrofit {
         public String result ="";
         public String error="";
         public String user_id ="";
+        public String store_id  ="";
+
 
     }
     public static class ContributorBuildSearch{
@@ -1487,6 +1641,8 @@ public class Retrofit {
         public String result ="";
         public String error="";
         public Integer user_id;
+        public Integer flag;
+
     }
 
     public static class ContributorNoticeList{
@@ -1535,10 +1691,45 @@ public class Retrofit {
     public static class ContributorPaymentList{
         public String result ="";
         public String error="";
-        public Integer total_price=0;
+        public String total_price="";
         public List<PaymentGroupListResponse> list;
     }
 
+    public static class ContributorOrderFormAdd{
+        public String result ="";
+        public String error="";
+        public String o_id ="";
+        public String order_number ="";
+        public String account_info ="";
+    }
+
+
+    public static class ContributorPaymentOption{
+        public String result ="";
+        public String error="";
+        public String store_id ="";
+    }
+
+    private OnPaymentOption onPaymentOption;
+    public void setOnPaymentOption(OnPaymentOption listener){
+        onPaymentOption = listener;
+    }
+
+    public static interface OnPaymentOption{
+        public void onResponse(ContributorPaymentOption c);
+        public void onFailure(Throwable t);
+    }
+
+
+    private OnOrderFormAdd onOrderFormAdd;
+    public void setOnOrderFormAdd(OnOrderFormAdd listener){
+        onOrderFormAdd = listener;
+    }
+
+    public static interface OnOrderFormAdd{
+        public void onResponse(ContributorOrderFormAdd c);
+        public void onFailure(Throwable t);
+    }
 
     private OnPaymentList onPaymentList;
     public void setOnPaymentList(OnPaymentList listener){
@@ -1557,6 +1748,7 @@ public class Retrofit {
 
     public static interface OnCartList{
         public void onResponse(ContributorCartList c);
+        public void onServerError(String e);
         public void onFailure(Throwable t);
     }
 

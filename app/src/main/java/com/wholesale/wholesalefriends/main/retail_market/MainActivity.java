@@ -3,6 +3,7 @@ package com.wholesale.wholesalefriends.main.retail_market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -77,11 +78,14 @@ public class MainActivity extends GroupActivity {
         retailNoticeFragment = new RetailNoticeFragment();
 
 
+
         ivLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 setCurrentMenu(0);
                 updateTableFragment(0);
+
             }
         });
 

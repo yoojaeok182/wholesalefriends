@@ -79,8 +79,12 @@ public class HomeMain01ListAdapter extends RecyclerView.Adapter<HomeMain01ListAd
             holder.tvName.setText(data.getName());
             holder.tvprice.setText(Util.getFormattedPrice(Integer.valueOf(data.getPrice())));
             holder.tvRegDate.setText(Util.getSplitRegDate(data.getCreated_at()));
+            holder.tvImageCount.setVisibility(View.GONE);
+            if(data.getImage_count()!=null && data.getImage_count()>0){
+                holder.tvImageCount.setVisibility(View.VISIBLE);
+                holder.tvImageCount.setText("+"+data.getImage_count());
+            }
 
-            holder.tvImageCount.setText("+"+data.getImage_count());
             holder.rootContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

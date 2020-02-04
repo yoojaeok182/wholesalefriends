@@ -21,6 +21,12 @@ public class Constant {
         String store_type="store_type";
         String level="level";
 
+        String payment_id="payment_id";
+        String payment="payment";
+        String payment_tel="payment_tel";
+        String payment_name="payment_name";
+
+
         String category_code = "category_code";
         String category_name = "category_name";
 
@@ -37,6 +43,8 @@ public class Constant {
         String intent_amount   = "intent_amount";
 
         String intent_c_id   = "intent_c_id";
+        String intent_c_id2   = "intent_c_id2";
+
     }
     public interface DOMAIN{
         String url = "http://app.asadalin.com/";

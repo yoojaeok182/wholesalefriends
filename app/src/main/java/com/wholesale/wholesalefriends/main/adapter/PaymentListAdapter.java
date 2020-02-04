@@ -33,7 +33,7 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
 
 
     public interface ListSelectItemListener {
-        void itemClick(int pos,PaymentListData data);
+        void itemClick(int pos, PaymentListData data);
 
     }
 
@@ -70,22 +70,45 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
 
         PaymentListData data = arrayList.get(position);
         if (data != null) {
-            holder.tvStoreName.setText(data.getStore_name()!=null ? data.getStore_name():"");
+            holder.tvStoreName.setText(data.getStore_name() != null ? data.getStore_name() : "");
             Glide.with(ctx).load(data.getImage()).into(holder.ivPhoto);
-
-
             holder.tvItemName.setText(data.getName());
 
-            holder.tvItemInfo.setText(data.getOption_1() + " / " + data.getOption_2());
-            holder.tvItemCount.setText("수량 "+data.getAmount()+"개");
-
+            holder.llayoutForOption01.setVisibility(View.GONE);
+            holder.llayoutForOption02.setVisibility(View.GONE);
+            holder.llayoutForOption03.setVisibility(View.GONE);
 
             holder.tvPaymentType.setText(data.getPayment());
-            holder.tvPaymentTel.setText(data.getTel());
-            holder.tvPaymentPrice.setText(Util.getFormattedPrice(data.getPrice()) + "원");
+
+            if(data.getPayment_id().equals("1")){
+                //매장수령
+
+            }else if(data.getPayment_id().equals("2")){
+                //사입삼촌
+                holder.llayoutForOption01.setVisibility(View.VISIBLE);
+                holder.llayoutForOption02.setVisibility(View.VISIBLE);
+                holder.tvPaymentTel.setText(data.getTel());
+            }else if(data.getPayment_id().equals("3")){
+                //계좌이체
+                holder.llayoutForOption03.setVisibility(View.VISIBLE);
+                holder.tvDepositorName.setText(data.getPayment_name());
+                holder.tvBankInfo.setText(data.getAccount_info());
+            }else if(data.getPayment_id().equals("4")){
+                //건사입요청
+            }
+
+
+
+            holder.tvItemInfo.setText(data.getOption_1() + " / " + data.getOption_2());
+            holder.tvItemCount.setText("수량 " + data.getAmount() + "개");
+
+
+
+            holder.tvPaymentPrice.setText(Util.getFormattedPrice(Integer.valueOf(data.getPrice())));
 
 
         }
+
 
     }
 
@@ -95,33 +118,38 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvStoreName;
         private ImageView ivPhoto;
+        private TextView tvItemName;
         private TextView tvItemInfo;
         private TextView tvItemCount;
         private TextView tvPaymentType;
-        private ImageButton btnTypeChange;
+        private TextView tvBankInfo;
+        private LinearLayout llayoutForOption01;
+        private TextView tvDepositorName;
+        private LinearLayout llayoutForOption02;
         private TextView tvPaymentTel;
-        private ImageButton btnNumberChange;
+        private LinearLayout llayoutForOption03;
         private TextView tvPaymentPrice;
-        private EditText tvPaymentComment;
+//        private EditText tvPaymentComment;
         private LinearLayout rootContainer;
-        private TextView tvStoreName;
-        private TextView tvItemName;
 
         public ViewHolder(View convertView) {
             super(convertView);
-            tvItemName = convertView.findViewById(R.id.tvItemName);
-
-            tvStoreName= convertView.findViewById(R.id.tvStoreName);
+            tvStoreName = convertView.findViewById(R.id.tvStoreName);
             ivPhoto = convertView.findViewById(R.id.ivPhoto);
+            tvItemName = convertView.findViewById(R.id.tvItemName);
             tvItemInfo = convertView.findViewById(R.id.tvItemInfo);
             tvItemCount = convertView.findViewById(R.id.tvItemCount);
             tvPaymentType = convertView.findViewById(R.id.tvPaymentType);
-            btnTypeChange =convertView. findViewById(R.id.btnTypeChange);
+            tvBankInfo = convertView.findViewById(R.id.tvBankInfo);
+            llayoutForOption01 = convertView.findViewById(R.id.llayoutForOption01);
+            tvDepositorName = convertView.findViewById(R.id.tvDepositorName);
+            llayoutForOption02 = convertView.findViewById(R.id.llayoutForOption02);
             tvPaymentTel = convertView.findViewById(R.id.tvPaymentTel);
-            btnNumberChange = convertView.findViewById(R.id.btnNumberChange);
+            llayoutForOption03 = convertView.findViewById(R.id.llayoutForOption03);
             tvPaymentPrice = convertView.findViewById(R.id.tvPaymentPrice);
-            tvPaymentComment = convertView.findViewById(R.id.tvPaymentComment);
+//            tvPaymentComment = convertView.findViewById(R.id.tvPaymentComment);
             rootContainer = convertView.findViewById(R.id.rootContainer);
 
         }

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
+import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.data.BannerLIstData;
 import com.wholesale.wholesalefriends.main.data.BestProductListData;
 import com.wholesale.wholesalefriends.main.data.BestProductResponse;
@@ -46,85 +47,14 @@ import java.util.List;
 
 public class API {
 
-    public static void cartAdd(Context context, String p_id, String user_id,String store_id,String p_option_1,String p_option_2,String amount, Handler resultHandler, Handler errorHandler){
-        try{
-            Retrofit hp = new Retrofit( context);
-            hp.uploadCartAdd("cart/add",user_id,store_id,p_id,p_option_1,p_option_2,amount,true);
-            hp.setOnCartAdd(new Retrofit.OnCartAdd() {
-                @Override
-                public void onResponse(Retrofit.ContributorCartAdd c) {
-                    try {
-                        JSONObject jsonObject = new JSONObject();
-                        if(c.result!=null && c.result.equals("success")){
-
-                            jsonObject.put("result",true);
-
-                        }else{
-                            jsonObject.put("result",false);
-                        }
-
-                        jsonObject.put("error",c.error);
-                        jsonObject.put("user_id",c.user_id);
-                        Message msg = new Message();
-                        msg.obj = jsonObject;
-                        if(jsonObject.getBoolean("result")){
-                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
-                        }else{
-                            if(errorHandler!=null) errorHandler.sendMessage(msg);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }catch (Throwable e){e.printStackTrace();}
-
-    }
-
-    public static void qnaWrite(Context context, String p_id, String user_id,String content, Handler resultHandler, Handler errorHandler){
-        try{
-            Retrofit hp = new Retrofit( context);
-            hp.uploadQnaWrite("product/qnaWrite",p_id,user_id,content,true);
-            hp.setOnQnaWrite(new Retrofit.OnQnaWrite() {
-                @Override
-                public void onResponse(Retrofit.ContributorQnaWrite c) {
-                    try {
-                        JSONObject jsonObject = new JSONObject();
-                        if(c.result!=null && c.result.equals("success")){
-
-                            jsonObject.put("result",true);
-
-                        }else{
-                            jsonObject.put("result",false);
-                        }
-
-                        jsonObject.put("error",c.error);
-                        jsonObject.put("qna_id",c.qna_id);
-                        Message msg = new Message();
-                        msg.obj = jsonObject;
-                        if(jsonObject.getBoolean("result")){
-                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
-                        }else{
-                            if(errorHandler!=null) errorHandler.sendMessage(msg);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    Toast.makeText(context,"상품 문의 실패",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }catch (Throwable e){e.printStackTrace();}
-
-    }
+    /**
+     * 1. 로그인
+     * @param context
+     * @param id
+     * @param pwd
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void login(Context context, String id, String pwd, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -145,6 +75,7 @@ public class API {
 
                         jsonObject.put("error",c.error);
                         jsonObject.put("user_id",c.user_id);
+                        jsonObject.put("store_id",c.store_id);
                         jsonObject.put("store_type",c.store_type);
                         jsonObject.put("level",c.level);
                         Message msg = new Message();
@@ -168,7 +99,10 @@ public class API {
 
     }
 
+
     /**
+     * 2. 회원가입
+     *
      * * store_type : 도매 : 1, 소매 : 2
      * * level : 회원 구분 1:대표, 2: 직원
      * * name : 이름
@@ -231,13 +165,6 @@ public class API {
                         jsonObject.put("error",c.error);
                         jsonObject.put("user_id",c.user_id);
 
-                       /* try{
-                            jsonObject.put("store_type",c.store_type);
-                            jsonObject.put("level",c.level);
-                        }catch (Throwable e){
-                            e.printStackTrace();
-                        }*/
-
                         msg.obj = jsonObject;
 
                         if(jsonObject.getBoolean("result")){
@@ -260,30 +187,19 @@ public class API {
 
         }catch (Throwable e){e.printStackTrace();}
 
-       /* RetrofitModel hp = new RetrofitModel(MyApplication.get_instance().getApplicationContext());
-        hp.addParam("store_type", store_type+"");
-        hp.addParam("level", level+"");
-        hp.addParam("name", name);
-        hp.addParam("id", id);
-        hp.addParam("password", password);
-        hp.addParam("mobile", mobile);
-        hp.addParam("store_name", store_name);
-        hp.addParam("store_number", store_number);
-        hp.addParam("store_building_id", store_building_id);
-        hp.addParam("store_addr", store_addr);
-        hp.addParam("store_photo", id);
-        hp.addParam("store_onoﬀ", store_onoﬀ);
-        hp.addParam("store_site", store_site);
-        hp.addParam("store_id", store_id);
-        hp.addParam("store_photo", store_photo);
-
-
-        hp.setResultHandler(resultHandler);
-        hp.setErrorHandler(errorHandler);
-        hp.callBackHttp("join");*/
 
     }
 
+
+    /**
+     * 3. 빌딩 검색
+     *
+     * @param context
+     * @param depth
+     * @param value
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void buildingSearch(Context context, String depth, String value, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -309,19 +225,20 @@ public class API {
                         JSONArray jsonArray = new JSONArray();
 
                         if(list!=null && list.size()>0){
-                           for(int i=0; i<list.size();i++){
-                               BuildSearchData data = list.get(i);
-                               JSONObject object = new JSONObject();
-                               object.put("id",data.getId());
-                               object.put("depth",data.getDepth());
-                               object.put("parent",data.getParent());
-                               object.put("order",data.getOrder());
-                               object.put("building_name", data.getBuilding_name());
+                            for(int i=0; i<list.size();i++){
+                                BuildSearchData data = list.get(i);
+                                JSONObject object = new JSONObject();
+                                object.put("id",data.getId());
+                                object.put("depth",data.getDepth());
+                                object.put("parent",data.getParent());
+                                object.put("order",data.getOrder());
+                                object.put("building_name", data.getBuilding_name());
 
-                               jsonArray.put(object);
-                           }
-                            jsonObject.put("list",jsonArray);
+                                jsonArray.put(object);
+                            }
+
                         }
+                        jsonObject.put("list",jsonArray);
 
                         Message msg = new Message();
                         msg.obj = jsonObject;
@@ -337,13 +254,23 @@ public class API {
 
                 @Override
                 public void onFailure(Throwable t) {
-                    Toast.makeText(context,"로그인 실패",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"빌딩 리스트 검색 실패",Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Throwable e){e.printStackTrace();}
 
     }
 
+
+    /**
+     * 4. 상가검색
+     *
+     * @param context
+     * @param depth
+     * @param value
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void storeSearch(Context context, String depth, String value, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -394,13 +321,20 @@ public class API {
 
                 @Override
                 public void onFailure(Throwable t) {
-                    Toast.makeText(context,"로그인 실패",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"상가 검색 실패",Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Throwable e){e.printStackTrace();}
 
     }
 
+    /**
+     * 5. 배너 리스트
+     * @param context
+     * @param type
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void banerList(Context context, String type, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -433,8 +367,10 @@ public class API {
                                 object.put("name",data.getName());
                                 jsonArray.put(object);
                             }
-                            jsonObject.put("list",jsonArray);
+
                         }
+
+                        jsonObject.put("list",jsonArray);
 
                         Message msg = new Message();
                         msg.obj = jsonObject;
@@ -457,6 +393,14 @@ public class API {
 
     }
 
+
+    /**
+     * 6. 카테고리
+     * @param context
+     * @param resultHandler
+     * @param errorHandler
+     * @param isLoading
+     */
     public static void categoryList(Context context, Handler resultHandler, Handler errorHandler,boolean isLoading){
         try{
             Retrofit hp = new Retrofit( context,isLoading);
@@ -487,8 +431,10 @@ public class API {
                                 object.put("name",data.getName());
                                 jsonArray.put(object);
                             }
-                            jsonObject.put("list",jsonArray);
+
                         }
+
+                        jsonObject.put("list",jsonArray);
 
                         Message msg = new Message();
                         msg.obj = jsonObject;
@@ -511,8 +457,16 @@ public class API {
 
     }
 
+    /**
+     * 7. 코드리스트
+     * @param context
+     * @param code   0001 : 색상 0002 : 사이즈 0003 : 소재 0004 : 옷감 두께감 0005 : 옷감 비침 0006 : 옷감 신축성 0007 : 옷감 안감 0008 : 세탁정보 0009 : 스타일 0010 : 제조국 0011 : 결제수단
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void codeList(Context context, String code, Handler resultHandler, Handler errorHandler){
         try{
+
             Retrofit hp = new Retrofit( context);
             hp.uploadCodeList("product/codeList",code);
             hp.setOnCodeList(new Retrofit.OnCodeList() {
@@ -565,86 +519,27 @@ public class API {
 
     }
 
-    public static void productList(Context context, String page, String category,String is_sale,String store_id, Handler resultHandler, Handler errorHandler){
-        try{
-            Retrofit hp = new Retrofit( context);
-            hp.uploadProductList("product/list",page,category,is_sale,store_id);
-            hp.setOnProductList(new Retrofit.OnProductList() {
-                @Override
-                public void onResponse(Retrofit.ContributorProductList c) {
-                    try {
-                        JSONObject jsonObject = new JSONObject();
-                        if(c.result!=null && c.result.equals("success")){
 
-                            jsonObject.put("result",true);
-
-                        }else{
-                            jsonObject.put("result",false);
-                        }
-
-                        jsonObject.put("error",c.error);
-
-                        ProductResponse productResponse = c.list;
-                        JSONObject object = new JSONObject();
-                        object.put("total",productResponse.getTotal());
-                        object.put("curent_page",productResponse.getCurent_page());
-                        object.put("last_page",productResponse.getLast_page());
-                        object.put("from",productResponse.getFrom());
-                        object.put("to",productResponse.getTo());
-                        object.put("next_page_url",productResponse.getNext_page_url());
-                        object.put("prev_page_url",productResponse.getPrev_page_url());
-                        object.put("per_page",productResponse.getPer_page());
-
-                        List<ProductListData> list = productResponse.getData();
-                        JSONArray jsonArray = new JSONArray();
-
-                        if(list!=null && list.size()>0){
-                            for(int i=0; i<list.size();i++){
-                                ProductListData data = list.get(i);
-                                JSONObject object1 = new JSONObject();
-                                object1.put("id",data.getId());
-                                object1.put("image",data.getImage());
-                                object1.put("image_count",data.getImage_count());
-                                object1.put("name",data.getName());
-                                object1.put("price", data.getPrice());
-                                object1.put("store_name", data.getStore_name());
-                                object1.put("store_id", data.getStore_id());
-                                object1.put("like", data.getLike());
-                                object1.put("created_at", data.getCreated_at());
-
-                                jsonArray.put(object1);
-                            }
-
-                        }
-                        object.put("data",jsonArray);
-                        jsonObject.put("list",object);
-                        Message msg = new Message();
-                        msg.obj = jsonObject;
-                        if(jsonObject.getBoolean("result")){
-                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
-                        }else{
-                            if(errorHandler!=null) errorHandler.sendMessage(msg);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                }
-            });
-        }catch (Throwable e){e.printStackTrace();}
-
-    }
-
-
+    /**
+     * 8. 상품목록
+     *
+     * @param context
+     * @param page
+     * @param category
+     * @param is_sale
+     * @param store_id
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void productList(Context context, String page, String category,String is_sale,String store_id,
                                    String keyword,Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
-            hp.uploadProductListSearch("product/list",page,category,is_sale,store_id,keyword);
+            if(keyword!=null && keyword.length()>0){
+                hp.uploadProductListSearch("product/list",page,category,is_sale,store_id,keyword);
+            }else{
+                hp.uploadProductList("product/list",page,category,is_sale,store_id);
+            }
             hp.setOnProductList(new Retrofit.OnProductList() {
                 @Override
                 public void onResponse(Retrofit.ContributorProductList c) {
@@ -716,6 +611,14 @@ public class API {
 
     }
 
+    /**
+     * 9. qptmxm 상품목록
+     *
+     * @param context
+     * @param page
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void bestProductList(Context context,int page, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -791,6 +694,16 @@ public class API {
 
     }
 
+
+    /**
+     * 10. 상품정보
+     *
+     * @param context
+     * @param id
+     * @param user_id
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void productVIew(Context context, String id, String user_id, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -830,7 +743,7 @@ public class API {
                             }
                             jsonObject.put("info",jsonArray);
                         }
-                       ProductViewOptionData option = response.getOption();
+                        ProductViewOptionData option = response.getOption();
                         List<ProductViewOptionColorData> color = option.getColor();
                         JSONArray jsonArray1 = new JSONArray();
 
@@ -894,6 +807,13 @@ public class API {
 
     }
 
+
+    /**
+     * 11. 상가 건물 리스트(상가별 보기에 필요)
+     * @param context
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void buildingList(Context context, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -948,10 +868,23 @@ public class API {
 
     }
 
-    public static void storeLList(Context context, String page, String building_id,String user_id, Handler resultHandler, Handler errorHandler){
+
+    /**
+     * 12. 상가별 보기
+     *
+     * @param context
+     * @param page
+     * @param building_id
+     * @param user_id
+     * @param keyword
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void storeLList(Context context, String page, String building_id,String user_id,String keyword, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
-            hp.uploadStoreList("product/storeList",page,building_id,user_id);
+            hp.uploadStoreList("product/storeList",page,building_id,user_id,keyword);
+
             hp.setOnStoreList(new Retrofit.OnStoreList() {
                 @Override
                 public void onResponse(Retrofit.ContributorStoreViewList c) {
@@ -992,9 +925,9 @@ public class API {
                                 object1.put("is_new", data.getIs_new());
                                 jsonArray.put(object1);
                             }
-                            jsonObject.put("data",jsonArray);
-                        }
 
+                        }
+                        jsonObject.put("data",jsonArray);
                         Message msg = new Message();
                         msg.obj = jsonObject;
                         if(jsonObject.getBoolean("result")){
@@ -1016,77 +949,34 @@ public class API {
 
     }
 
-    public static void storeLList(Context context, String page, String building_id,String user_id,String keyword, Handler resultHandler, Handler errorHandler){
-        try{
-            Retrofit hp = new Retrofit( context);
-            hp.uploadStoreList("product/storeList",page,building_id,user_id);
-            hp.setOnStoreList(new Retrofit.OnStoreList() {
-                @Override
-                public void onResponse(Retrofit.ContributorStoreViewList c) {
-                    try {
-                        JSONObject jsonObject = new JSONObject();
-                        if(c.result!=null && c.result.equals("success")){
 
-                            jsonObject.put("result",true);
-
-                        }else{
-                            jsonObject.put("result",false);
-                        }
-
-                        jsonObject.put("error",c.error);
-
-                        StoreListResponse response = c.list;
-                        JSONObject object = new JSONObject();
-                        object.put("total",response.getTotal());
-                        object.put("curent_page",response.getCurent_page());
-                        object.put("last_page",response.getLast_page());
-                        object.put("from",response.getFrom());
-                        object.put("to",response.getTo());
-                        object.put("next_page_url",response.getNext_page_url());
-                        object.put("prev_page_url",response.getPrev_page_url());
-                        object.put("per_page",response.getPer_page());
-
-                        List<StoreListData> list = response.getData();
-                        JSONArray jsonArray = new JSONArray();
-
-                        if(list!=null && list.size()>0){
-                            for(int i=0; i<list.size();i++){
-                                StoreListData data = list.get(i);
-                                JSONObject object1 = new JSONObject();
-                                object1.put("id",data.getId());
-                                object1.put("image",data.getImage());
-                                object1.put("store_name",data.getStore_name());
-                                object1.put("favorites",data.getFavorites());
-                                object1.put("created_at", data.getCreated_at());
-                                object1.put("store_name", data.getStore_name());
-                                object1.put("is_new", data.getIs_new());
-                                jsonArray.put(object1);
-                            }
-                            object.put("data",jsonArray);
-                        }
-                        jsonObject.put("list",object);
-
-                        Message msg = new Message();
-                        msg.obj = jsonObject;
-                        if(jsonObject.getBoolean("result")){
-                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
-                        }else{
-                            if(errorHandler!=null) errorHandler.sendMessage(msg);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                }
-            });
-        }catch (Throwable e){e.printStackTrace();}
-
-    }
-
+    /**
+     * 13. 상품등록
+     *
+     * @param context
+     * @param name
+     * @param price
+     * @param category
+     * @param material_info
+     * @param cloth_info_1
+     * @param cloth_info_2
+     * @param cloth_info_3
+     * @param cloth_info_4
+     * @param washing_info
+     * @param style_info
+     * @param option_1
+     * @param option_2
+     * @param detail
+     * @param origin_info
+     * @param store_id
+     * @param open_type
+     * @param open_day
+     * @param kakao_open
+     * @param global_open
+     * @param bms
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void productAdd(Context context,String name, String price,String category,String material_info,
                                   String cloth_info_1,String cloth_info_2,String cloth_info_3,String cloth_info_4,
                                   String washing_info,String style_info,String option_1, String option_2,
@@ -1133,7 +1023,15 @@ public class API {
     }
 
 
-
+    /**
+     * 14. 즐겨찾기 등록(상가는 내거래처, 상품은 좋아요)
+     * @param context
+     * @param user_id
+     * @param type 1: 상가, 2: 상품
+     * @param target_id
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void favorites(Context context,String user_id,String type,String target_id, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -1153,6 +1051,8 @@ public class API {
 
                         jsonObject.put("error",c.error);
                         jsonObject.put("user_id",c.user_id);
+                        jsonObject.put("flag",c.flag);
+
                         Message msg = new Message();
                         msg.obj = jsonObject;
                         if(jsonObject.getBoolean("result")){
@@ -1174,6 +1074,14 @@ public class API {
 
     }
 
+    /**
+     * 15. 공지사항
+     *
+     * @param context
+     * @param page
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void noticeList(Context context, String page, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -1243,6 +1151,12 @@ public class API {
 
     }
 
+    /**
+     * 16. 추천 검색어
+     * @param context
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void recomWord(Context context, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -1298,6 +1212,118 @@ public class API {
     }
 
 
+    /**
+     * 상품 문의
+     * @param context
+     * @param p_id
+     * @param user_id
+     * @param content
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void qnaWrite(Context context, String p_id, String user_id,String content, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadQnaWrite("product/qnaWrite",p_id,user_id,content,true);
+            hp.setOnQnaWrite(new Retrofit.OnQnaWrite() {
+                @Override
+                public void onResponse(Retrofit.ContributorQnaWrite c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        jsonObject.put("qna_id",c.qna_id);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(context,"상품 문의 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 18 . 장바구니 담기
+     *
+     * @param context
+     * @param p_id
+     * @param user_id
+     * @param store_id
+     * @param p_option_1
+     * @param p_option_2
+     * @param amount
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void cartAdd(Context context, String p_id, String user_id,String store_id,String p_option_1,String p_option_2,String amount, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadCartAdd("cart/add",user_id,store_id,p_id,p_option_1,p_option_2,amount,true);
+            hp.setOnCartAdd(new Retrofit.OnCartAdd() {
+                @Override
+                public void onResponse(Retrofit.ContributorCartAdd c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        jsonObject.put("user_id",c.user_id);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 19. 장바구니 리스트
+     *
+     * @param context
+     * @param user_id
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void cartList(Context context, String user_id, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -1326,11 +1352,10 @@ public class API {
                                 JSONObject object = new JSONObject();
                                 CartListStoreData data = cartListResponse.get(i).getStore();
                                 List<CartListProductData> product = cartListResponse.get(i).getProduct();
-                                JSONArray jsonArray1 = new JSONArray();
 
                                 if(product!=null&& product.size()>0){
                                     for(int j=0; j<product.size();j++){
-                                        CartListProductData data1 = product.get(i);
+                                        CartListProductData data1 = product.get(j);
                                         JSONObject object2 = new JSONObject();
                                         if(data!=null){
                                             object2.put("store_id",data.getStore_id());
@@ -1345,11 +1370,15 @@ public class API {
                                         object2.put("option_1",data1.getOption_1());
                                         object2.put("option_2",data1.getOption_2());
                                         object2.put("total",data1.getTotal());
-                                        jsonArray1.put(object2);
+                                        jsonArray.put(object2);
                                     }
+
                                 }
-                                jsonObject.put("list",jsonArray1);
+
                             }
+                            jsonObject.put("list",jsonArray);
+                        }else{
+                            jsonObject.put("list",jsonArray);
                         }
 
 
@@ -1369,6 +1398,20 @@ public class API {
                 }
 
                 @Override
+                public void onServerError(String e) {
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("result",false);
+                        jsonObject.put("error",e);
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    }
+                    Message msg = new Message();
+                    msg.obj = jsonObject;
+                    if(errorHandler!=null) errorHandler.sendMessage(msg);
+                }
+
+                @Override
                 public void onFailure(Throwable t) {
 
                     t.printStackTrace();
@@ -1377,6 +1420,18 @@ public class API {
         }catch (Throwable e){e.printStackTrace();}
 
     }
+
+    /**
+     * 20. 장바구니 수량 수정
+     *
+     * @param context
+     * @param user_id
+     * @param store_id
+     * @param c_id
+     * @param amount
+     * @param resultHandler
+     * @param errorHandler
+     */
     public static void cartAmountMod(Context context, String user_id,String store_id, String c_id,String amount, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
@@ -1418,10 +1473,18 @@ public class API {
     }
 
 
-    public static void cartDelete(Context context, String user_id, String c_id,String amount, Handler resultHandler, Handler errorHandler){
+    /**
+     * 21. 장바구니 삭제
+     * @param context
+     * @param user_id
+     * @param c_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void cartDelete(Context context, String user_id,String c_id, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
-            hp.uploadCartListDelete("cart/del",user_id,c_id,amount,true);
+            hp.uploadCartListDelete("cart/del",user_id,c_id,true);
 
             hp.setOnCartListDelete(new Retrofit.OnCartListDelete() {
                 @Override
@@ -1459,51 +1522,30 @@ public class API {
 
     }
 
-    public static void cartAllDelete(Context context, String user_id, List<Integer>arrCid, Handler resultHandler, Handler errorHandler){
+
+
+    /**
+     * 22. 주문하기 리스트
+     *
+     * @param context
+     * @param order_type
+     * @param user_id
+     * @param arr
+     * @param p_id
+     * @param p_option_1
+     * @param p_option_2
+     * @param amount
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void paymentList(Context context,  Integer order_type, String user_id,String c_id, Integer p_id, String p_option_1, String p_option_2,String amount, Handler resultHandler, Handler errorHandler){
         try{
             Retrofit hp = new Retrofit( context);
-            hp.uploadCartListDeleteAll("cart/del",user_id,arrCid,true);
-
-            hp.setOnCartListDelete(new Retrofit.OnCartListDelete() {
-                @Override
-                public void onResponse(Retrofit.ContributorCartListDelete c) {
-                    try {
-                        JSONObject jsonObject = new JSONObject();
-                        if(c.result!=null && c.result.equals("success")){
-
-                            jsonObject.put("result",true);
-
-                        }else{
-                            jsonObject.put("result",false);
-                        }
-
-                        jsonObject.put("error",c.error);
-                        jsonObject.put("user_id",c.user_id);
-                        Message msg = new Message();
-                        msg.obj = jsonObject;
-                        if(jsonObject.getBoolean("result")){
-                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
-                        }else{
-                            if(errorHandler!=null) errorHandler.sendMessage(msg);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }catch (Throwable e){e.printStackTrace();}
-
-    }
-
-    public static void paymentList(Context context, Integer order_type, String user_id, Integer p_id, String p_option_1, String p_option_2,String amount, Handler resultHandler, Handler errorHandler){
-        try{
-            Retrofit hp = new Retrofit( context);
-            hp.uploadPaymentList("order/form",order_type,user_id,p_id,p_option_1,p_option_2,amount);
+            if(order_type ==2){
+                hp.uploadPaymentList("order/form",order_type,user_id,c_id);
+            }else{
+                hp.uploadPaymentList("order/form",order_type,user_id,p_id,p_option_1,p_option_2,amount);
+            }
             hp.setOnPaymentList(new Retrofit.OnPaymentList() {
                 @Override
                 public void onResponse(Retrofit.ContributorPaymentList c) {
@@ -1530,13 +1572,13 @@ public class API {
                                 List<PaymentListProductData> product = paymentGroupListResponses.get(i).getProduct();
                                 PaymentListPaymnetData payment = paymentGroupListResponses.get(i).getPayment();
 
-                                JSONArray jsonArray1 = new JSONArray();
 
                                 if(product!=null&& product.size()>0){
                                     for(int j=0; j<product.size();j++){
-                                        PaymentListProductData data1 = product.get(i);
+                                        PaymentListProductData data1 = product.get(j);
 
                                         JSONObject object2 = new JSONObject();
+                                        object2.put("user_id",SharedPreference.getIntSharedPreference(context, Constant.CommonKey.user_no)+"");
                                         if(data!=null){
                                             object2.put("store_id",data.getStore_id());
                                             object2.put("store_name",data.getStore_name());
@@ -1547,8 +1589,7 @@ public class API {
                                             object2.put("payment",payment.getPayment());
                                             object2.put("payment_name",payment.getName());
                                             object2.put("tel",payment.getTel());
-                                            object2.put("bank_name",payment.getBank_name());
-                                            object2.put("account_number",payment.getAccount_number());
+                                            object2.put("account_info",payment.getAccount_info());
 
                                         }
                                         object2.put("p_id",data1.getP_id());
@@ -1559,101 +1600,13 @@ public class API {
                                         object2.put("option_1",data1.getOption_1());
                                         object2.put("option_2",data1.getOption_2());
                                         object2.put("total",data1.getTotal());
-                                        jsonArray1.put(object2);
+                                        jsonArray.put(object2);
                                     }
                                 }
-                                jsonObject.put("list",jsonArray1);
+                                jsonObject.put("list",jsonArray);
                             }
-                        }
-
-
-
-                        Message msg = new Message();
-                        msg.obj = jsonObject;
-                        if(jsonObject.getBoolean("result")){
-                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
                         }else{
-                            if(errorHandler!=null) errorHandler.sendMessage(msg);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                }
-            });
-        }catch (Throwable e){e.printStackTrace();}
-
-    }
-
-
-    public static void paymentList(Context context,  Integer order_type, String user_id, ArrayList<Integer> arr, Handler resultHandler, Handler errorHandler){
-        try{
-            Retrofit hp = new Retrofit( context);
-            hp.uploadPaymentList("order/form",order_type,user_id,arr);
-            hp.setOnPaymentList(new Retrofit.OnPaymentList() {
-                @Override
-                public void onResponse(Retrofit.ContributorPaymentList c) {
-                    try {
-                        JSONObject jsonObject = new JSONObject();
-                        if(c.result!=null && c.result.equals("success")){
-
-                            jsonObject.put("result",true);
-
-                        }else{
-                            jsonObject.put("result",false);
-                        }
-
-                        jsonObject.put("error",c.error);
-                        jsonObject.put("total_price",c.total_price);
-
-                        List<PaymentGroupListResponse> paymentGroupListResponses = c.list;
-
-                        JSONArray jsonArray = new JSONArray();
-                        if(paymentGroupListResponses!=null &&paymentGroupListResponses.size()>0){
-                            for(int i=0; i<paymentGroupListResponses.size();i++){
-                                JSONObject object = new JSONObject();
-                                PaymentListStoreData data = paymentGroupListResponses.get(i).getStore();
-                                List<PaymentListProductData> product = paymentGroupListResponses.get(i).getProduct();
-                                PaymentListPaymnetData payment = paymentGroupListResponses.get(i).getPayment();
-
-                                JSONArray jsonArray1 = new JSONArray();
-
-                                if(product!=null&& product.size()>0){
-                                    for(int j=0; j<product.size();j++){
-                                        PaymentListProductData data1 = product.get(i);
-
-                                        JSONObject object2 = new JSONObject();
-                                        if(data!=null){
-                                            object2.put("store_id",data.getStore_id());
-                                            object2.put("store_name",data.getStore_name());
-                                        }
-
-                                        if(payment!=null){
-                                            object2.put("payment_id",payment.getPayment_id());
-                                            object2.put("payment",payment.getPayment());
-                                            object2.put("payment_name",payment.getName());
-                                            object2.put("tel",payment.getTel());
-                                            object2.put("bank_name",payment.getBank_name());
-                                            object2.put("account_number",payment.getAccount_number());
-
-                                        }
-                                        object2.put("p_id",data1.getP_id());
-                                        object2.put("name",data1.getName());
-                                        object2.put("price",data1.getPrice());
-                                        object2.put("amount",data1.getAmount());
-                                        object2.put("image",data1.getImage());
-                                        object2.put("option_1",data1.getOption_1());
-                                        object2.put("option_2",data1.getOption_2());
-                                        object2.put("total",data1.getTotal());
-                                        jsonArray1.put(object2);
-                                    }
-                                }
-                                jsonObject.put("list",jsonArray1);
-                            }
+                            jsonObject.put("list",jsonArray);
                         }
 
 
@@ -1682,4 +1635,125 @@ public class API {
 
     }
 
+
+    /**
+     * 23. 주문등록
+     *
+     * @param context
+     * @param user_id
+     * @param store_id
+     * @param payment_id
+     * @param payment_info
+     * @param p_id
+     * @param p_option_1
+     * @param p_option_2
+     * @param amount
+     * @param price
+     * @param total
+     * @param message
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void formAdd(Context context, String user_id, String store_id,String payment_id,String payment_info,
+                               String p_id,String p_option_1,String p_option_2,String amount,
+                               String price,String total,String message,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadOrderFormAdd("order/formAdd",user_id,store_id,payment_id,payment_info,p_id,p_option_1,p_option_2,amount,price,total,message);
+            hp.setOnOrderFormAdd(new Retrofit.OnOrderFormAdd() {
+                @Override
+                public void onResponse(Retrofit.ContributorOrderFormAdd c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        jsonObject.put("o_id",c.o_id);
+                        jsonObject.put("order_number",c.order_number );
+                        jsonObject.put("account_info",c.account_info);
+
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    /**
+     * 24. 결제방법 수정
+     * @param context
+     * @param store_id
+     * @param payment
+     * @param tel
+     * @param name
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void paymentOption(Context context, String store_id, Integer payment,String tel,String name, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            if(payment == 1 || payment ==4){
+                hp.uploadPaymentOption01("store/payment",store_id,payment+"",true);
+            }else if(payment ==2){
+                hp.uploadPaymentOption02("store/payment",store_id,payment+"",tel,true);
+            }else if(payment ==3){
+                hp.uploadPaymentOption03("store/payment",store_id,payment+"",name,true);
+            }
+
+            hp.setOnPaymentOption(new Retrofit.OnPaymentOption() {
+                @Override
+                public void onResponse(Retrofit.ContributorPaymentOption c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        jsonObject.put("store_id",c.store_id);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
 }

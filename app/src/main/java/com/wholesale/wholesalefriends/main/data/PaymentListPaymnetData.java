@@ -3,19 +3,18 @@ package com.wholesale.wholesalefriends.main.data;
 public class PaymentListPaymnetData {
 
 
-    private Integer payment_id;
+    private String payment_id;
     private String payment;
     private String name;
     private String tel;
-    private String bank_name;
-    private String account_number;
+    private String account_info;
 
 
-    public Integer getPayment_id() {
+    public String getPayment_id() {
         return payment_id;
     }
 
-    public void setPayment_id(Integer payment_id) {
+    public void setPayment_id(String payment_id) {
         this.payment_id = payment_id;
     }
 
@@ -43,19 +42,11 @@ public class PaymentListPaymnetData {
         this.tel = tel;
     }
 
-    public String getBank_name() {
-        return bank_name;
+    public String getAccount_info() {
+        return account_info;
     }
 
-    public void setBank_name(String bank_name) {
-        this.bank_name = bank_name;
-    }
-
-    public String getAccount_number() {
-        return account_number;
-    }
-
-    public void setAccount_number(String account_number) {
-        this.account_number = account_number;
+    public void setAccount_info(String account_info) {
+        this.account_info = account_info;
     }
 }

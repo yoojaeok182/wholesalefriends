@@ -2,15 +2,14 @@ package com.wholesale.wholesalefriends.main.data;
 
 public class PaymentListProductData {
 
-    private Integer p_id;
+    private String p_id;
     private String name;
-    private Integer price;
-    private Integer amount;
-    private Integer total;
+    private String price;
+    private String amount;
+    private String total;
     private String image;
     private String option_1;
     private String option_2;
-
 
     private boolean isCheck;
 
@@ -22,20 +21,20 @@ public class PaymentListProductData {
         isCheck = check;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
 
-    public Integer getP_id() {
+    public String getP_id() {
         return p_id;
     }
 
-    public void setP_id(Integer p_id) {
+    public void setP_id(String p_id) {
         this.p_id = p_id;
     }
 
@@ -47,19 +46,19 @@ public class PaymentListProductData {
         this.name = name;
     }
 
-    public Integer getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public Integer getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 

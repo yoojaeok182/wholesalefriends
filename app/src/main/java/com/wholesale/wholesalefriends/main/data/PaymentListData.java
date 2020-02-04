@@ -2,26 +2,34 @@ package com.wholesale.wholesalefriends.main.data;
 
 public class PaymentListData {
 
-    private Integer p_id;
+    private String p_id;
     private String name;
-    private Integer price;
-    private Integer amount;
-    private Integer total;
+    private String price;
+    private String amount;
+    private String total;
     private String image;
     private String option_1;
     private String option_2;
 
-    private Integer payment_id;
+    private String payment_id;
     private String payment;
     private String payment_name;
     private String tel;
-    private String bank_name;
-    private String account_number;
+    private String account_info;
 
-    private Integer store_id;
+
+    private String store_id;
     private String store_name;
-
+    private String user_id;
     private String send_content;
+
+    public String getUser_no() {
+        return user_id;
+    }
+
+    public void setUser_no(String user_no) {
+        this.user_id = user_no;
+    }
 
     public String getSend_content() {
         return send_content;
@@ -31,11 +39,11 @@ public class PaymentListData {
         this.send_content = send_content;
     }
 
-    public Integer getStore_id() {
+    public String getStore_id() {
         return store_id;
     }
 
-    public void setStore_id(Integer store_id) {
+    public void setStore_id(String store_id) {
         this.store_id = store_id;
     }
 
@@ -57,20 +65,20 @@ public class PaymentListData {
         isCheck = check;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
 
-    public Integer getP_id() {
+    public String getP_id() {
         return p_id;
     }
 
-    public void setP_id(Integer p_id) {
+    public void setP_id(String p_id) {
         this.p_id = p_id;
     }
 
@@ -82,19 +90,19 @@ public class PaymentListData {
         this.name = name;
     }
 
-    public Integer getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public Integer getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 
@@ -122,11 +130,11 @@ public class PaymentListData {
         this.option_2 = option_2;
     }
 
-    public Integer getPayment_id() {
+    public String getPayment_id() {
         return payment_id;
     }
 
-    public void setPayment_id(Integer payment_id) {
+    public void setPayment_id(String payment_id) {
         this.payment_id = payment_id;
     }
 
@@ -154,19 +162,11 @@ public class PaymentListData {
         this.tel = tel;
     }
 
-    public String getBank_name() {
-        return bank_name;
+    public String getAccount_info() {
+        return account_info;
     }
 
-    public void setBank_name(String bank_name) {
-        this.bank_name = bank_name;
-    }
-
-    public String getAccount_number() {
-        return account_number;
-    }
-
-    public void setAccount_number(String account_number) {
-        this.account_number = account_number;
+    public void setAccount_info(String account_info) {
+        this.account_info = account_info;
     }
 }

@@ -71,6 +71,7 @@ public class DetailProductActivity extends GroupActivity {
     private LinearLayout btnOrder;
 
 
+    private ProductViewInfoData productViewInfoData;
     private String product_name;
     private int product_id;
     private ViewPager viewPager;
@@ -190,6 +191,16 @@ public class DetailProductActivity extends GroupActivity {
                     llayoutForOption.startAnimation(bottomUp);
                     llayoutForOption.setVisibility(View.GONE);
                     isPanelShown = false;
+
+                    for(int i=0; i<productOptionColorAdapter.getItemCount();i++){
+                        productOptionColorAdapter.getItem(i).setSelect(false);
+                    }
+                    productOptionColorAdapter.notifyDataSetChanged();
+
+                    for(int i=0; i<productOptionSizeAdapter.getItemCount();i++){
+                        productOptionSizeAdapter.getItem(i).setSelect(false);
+                    }
+                    productOptionSizeAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -307,7 +318,7 @@ public class DetailProductActivity extends GroupActivity {
                     return;
                 }
                 API.cartAdd(DetailProductActivity.this, product_id + "", SharedPreference.getIntSharedPreference(DetailProductActivity.this, Constant.CommonKey.user_no) + "",
-                        SharedPreference.getIntSharedPreference(DetailProductActivity.this, Constant.CommonKey.store_id) + "", strProductOption1, strProductOption2, nProductAmount + "", resultCartAddHandler, errHandler);
+                        productViewInfoData.getStore_id()+ "", strProductOption1, strProductOption2, nProductAmount + "", resultCartAddHandler, errHandler);
             }
         });
 
@@ -335,6 +346,10 @@ public class DetailProductActivity extends GroupActivity {
                 }
 
                 btnOptionClose.performClick();
+
+
+
+
                 Intent intent1 = new Intent(DetailProductActivity.this, ShoppingPaymentActivity.class);
                 intent1.putExtra(Constant.CommonKey.intent_order_type,1);
                 intent1.putExtra(Constant.CommonKey.intent_p_id,product_id);
@@ -475,7 +490,15 @@ public class DetailProductActivity extends GroupActivity {
 
                 if (jsonObject.getBoolean("result")) {
 
-                    loadData();
+                    if(!jsonObject.isNull("flag")){
+                        int flag = jsonObject.getInt("flag");
+                        if(flag ==1){
+                            Toast.makeText(DetailProductActivity.this,"관심 상품으로 등록하였습니다.",Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(DetailProductActivity.this,"관심 상품을 해제하였습니다.",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+//                    loadData();
 //                    Toast.makeText(DetailProductActivity.this,"관심 상품으로 등록하였습니다.",Toast.LENGTH_SHORT).show();
 
                 }
@@ -534,15 +557,15 @@ public class DetailProductActivity extends GroupActivity {
                             initIndigator(0);
                         }
                         if (response.getInfo() != null && response.getInfo().size() > 0) {
-                            ProductViewInfoData info = response.getInfo().get(0);
-                            if (info != null) {
-                                tvProductName.setText(info.getName());
-                                tvProductInfo.setText(info.getStore_name());
-                                tvProductPrice.setText(Util.getFormattedPrice(info.getPrice()));
-                                tvContent.setText(info.getDetail());
+                            productViewInfoData = response.getInfo().get(0);
+                            if (productViewInfoData != null) {
+                                tvProductName.setText(productViewInfoData.getName());
+                                tvProductInfo.setText(productViewInfoData.getStore_name());
+                                tvProductPrice.setText(Util.getFormattedPrice(productViewInfoData.getPrice()));
+                                tvContent.setText(productViewInfoData.getDetail());
 
-                                if (info.getLogo() != null) {
-                                    Glide.with(DetailProductActivity.this).asBitmap().load(info.getLogo())
+                                if (productViewInfoData.getLogo() != null) {
+                                    Glide.with(DetailProductActivity.this).asBitmap().load(productViewInfoData.getLogo())
                                             .listener(new RequestListener<Bitmap>() {
                                                 @Override
                                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
@@ -562,8 +585,8 @@ public class DetailProductActivity extends GroupActivity {
                                     ivStoreLogo.setVisibility(View.GONE);
                                 }
 
-                                if (info.getKeyword() != null && info.getKeyword().indexOf(",") > -1) {
-                                    String[] tag = info.getKeyword().split(",");
+                                if (productViewInfoData.getKeyword() != null && productViewInfoData.getKeyword().indexOf(",") > -1) {
+                                    String[] tag = productViewInfoData.getKeyword().split(",");
                                     LayoutInflater inflater = null;
                                     View header = inflater.inflate(R.layout.adapter_deatail_product_keyword, null);
                                     TextView tvKeyWord = header.findViewById(R.id.tvKeyWord);
