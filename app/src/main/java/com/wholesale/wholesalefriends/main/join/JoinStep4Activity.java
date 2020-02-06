@@ -565,7 +565,6 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.user_pwd,edtPwd.getText().toString());
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.store_type,store_type);
                     SharedPreference.putSharedPreference(JoinStep4Activity.this, Constant.CommonKey.level,level);
-                    Integer store_type = null;
 
                     if(!jsonObject.isNull("store_id")){
                         int  store_id = jsonObject.getInt("store_id");

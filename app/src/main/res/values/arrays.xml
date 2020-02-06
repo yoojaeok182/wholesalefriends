@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="order_sort_type">
+        <item>최신상품순​</item>
+        <item>판매상품순</item>
+        <item>품절상품순</item>
+    </string-array>
+
     <string-array name="store_view_item">
-        <item>마마 ​</item>
+        <item>마마​</item>
         <item>부르뎅​</item>
         <item>포키​</item>
         <item>크레용​</item>

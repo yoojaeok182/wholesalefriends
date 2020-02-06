@@ -36,6 +36,7 @@ import com.wholesale.wholesalefriends.main.data.RecomWordData;
 import com.wholesale.wholesalefriends.main.data.StoreListData;
 import com.wholesale.wholesalefriends.main.data.StoreListResponse;
 import com.wholesale.wholesalefriends.main.data.StoreSearchData;
+import com.wholesale.wholesalefriends.main.data.TopStoreListData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -536,9 +537,9 @@ public class API {
         try{
             Retrofit hp = new Retrofit( context);
             if(keyword!=null && keyword.length()>0){
-                hp.uploadProductListSearch("product/list",page,category,is_sale,store_id,keyword);
+                hp.uploadProductListSearch("product/list",page,category,is_sale,store_id,keyword,1+"");
             }else{
-                hp.uploadProductList("product/list",page,category,is_sale,store_id);
+                hp.uploadProductList("product/list",page,category,is_sale,store_id,1+"");
             }
             hp.setOnProductList(new Retrofit.OnProductList() {
                 @Override
@@ -582,6 +583,86 @@ public class API {
                                 object1.put("store_id", data.getStore_id());
                                 object1.put("like", data.getLike());
                                 object1.put("created_at", data.getCreated_at());
+
+                                jsonArray.put(object1);
+                            }
+                        }else{
+
+                        }
+                        object.put("data",jsonArray);
+                        jsonObject.put("list",object);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    public static void productList2(Context context, String page, String category,String is_sale,String store_id,
+                                   String keyword,String orderBy,String open_type,String is_soldout,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadProductList2("product/list",page,category,is_sale,store_id,keyword,orderBy,open_type,is_soldout);
+            hp.setOnProductList(new Retrofit.OnProductList() {
+                @Override
+                public void onResponse(Retrofit.ContributorProductList c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+
+                        ProductResponse productResponse = c.list;
+                        JSONObject object = new JSONObject();
+                        object.put("total",productResponse.getTotal());
+                        object.put("curent_page",productResponse.getCurent_page());
+                        object.put("last_page",productResponse.getLast_page());
+                        object.put("from",productResponse.getFrom());
+                        object.put("to",productResponse.getTo());
+                        object.put("next_page_url",productResponse.getNext_page_url());
+                        object.put("prev_page_url",productResponse.getPrev_page_url());
+                        object.put("per_page",productResponse.getPer_page());
+
+                        List<ProductListData> list = productResponse.getData();
+                        JSONArray jsonArray = new JSONArray();
+
+                        if(list!=null && list.size()>0){
+                            for(int i=0; i<list.size();i++){
+                                ProductListData data = list.get(i);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("id",data.getId());
+                                object1.put("image",data.getImage());
+                                object1.put("image_count",data.getImage_count());
+                                object1.put("name",data.getName());
+                                object1.put("price", data.getPrice());
+                                object1.put("store_name", data.getStore_name());
+                                object1.put("store_id", data.getStore_id());
+                                object1.put("like", data.getLike());
+                                object1.put("created_at", data.getCreated_at());
+                                object1.put("is_soldout", data.getIs_soldout());
+                                object1.put("is_top", data.getIs_top());
+                                object1.put("created_at", data.getCreated_at());
+                                object1.put("is_check", false);
 
                                 jsonArray.put(object1);
                             }
@@ -1751,6 +1832,311 @@ public class API {
                 @Override
                 public void onFailure(Throwable t) {
                     Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 25. 우리매장 ToP 30 리스트
+     * @param context
+     * @param user_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void topList(Context context, String user_id, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadTopList("product/topList",user_id);
+            hp.setOnTopList(new Retrofit.OnTopList() {
+
+
+                @Override
+                public void onResponse(Retrofit.ContributorTopList c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+
+                        List<TopStoreListData> list = c.list;
+                        JSONArray jsonArray = new JSONArray();
+
+                        if(list!=null && list.size()>0){
+                            for(int i=0; i<list.size();i++){
+                                TopStoreListData data = list.get(i);
+                                JSONObject object = new JSONObject();
+                                object.put("id",data.getId());
+                                object.put("name",data.getName());
+                                object.put("image",data.getImage());
+                                jsonArray.put(object);
+                            }
+
+                        }
+                        jsonObject.put("list",jsonArray);
+
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     *  26. 우리매장 TOP 30 자동등록
+     *
+     * @param context
+     * @param user_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void topAuto(Context context, String user_id,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadTopAutoAdd("product/topAuto",user_id);
+            hp.setOnTop30AutoAdd(new Retrofit.OnTop30AutoAdd() {
+                @Override
+                public void onResponse(Retrofit.ContributorTop30AutoAdd c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    /**
+     * 27. 우리매장 TOP 30 지우기
+     *
+     * @param context
+     * @param user_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void topDel(Context context, String user_id,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadTop30Del("product/topDel",user_id);
+            hp.setOnTop30Del(new Retrofit.OnTop30Del() {
+                @Override
+                public void onResponse(Retrofit.ContributorTop30Del c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    /**
+     * 28. 상품 재입고 (도매 상품관리)
+     * @param context
+     * @param user_id
+     * @param p_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void restock(Context context, String user_id,String p_id,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadRestock("product/restock",user_id,p_id);
+            hp.setOnRestock(new Retrofit.OnRestock() {
+                @Override
+                public void onResponse(Retrofit.ContributorRestock c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    /**
+     * 29. 상품 품절 (도매 상품관리)
+     * @param context
+     * @param user_id
+     * @param p_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void soldOut(Context context, String user_id,String p_id,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadSoldOut("product/soldout",user_id,p_id);
+            hp.setOnSoldOut(new Retrofit.OnSoldOut() {
+                @Override
+                public void onResponse(Retrofit.ContributorSoldout c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+    /**
+     *  30. 우리 매장 TOP 30에 등록 (도매 상품관리)
+     * @param context
+     * @param user_id
+     * @param p_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void topAdd(Context context, String user_id,String p_id,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadTop30Add("product/topAdd",user_id,p_id);
+            hp.setOnTop30Add(new Retrofit.OnTop30Add() {
+                @Override
+                public void onResponse(Retrofit.ContributorTopAdd c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Throwable e){e.printStackTrace();}

@@ -48,6 +48,9 @@ public class ImageEditActivity extends GroupActivity {
     ImageView ivImg0;
     ImageView ivImg1;
     ImageView ivImg2;
+    ImageView ivImg3;
+    ImageView ivImg4;
+
     ImageView[] ivCheck;
     TextView[] tvImageNumber;
     private int imagePosition = 0;
@@ -61,7 +64,7 @@ public class ImageEditActivity extends GroupActivity {
         ImageView btnBack = (ImageView) findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                onBackPressed();
+               finish();
             }
         });
         tvCount = (TextView) findViewById(R.id.tv_count);
@@ -101,20 +104,24 @@ public class ImageEditActivity extends GroupActivity {
         }
 
         if(!isNodata) {
-            tvCount.setText(String.valueOf(arrImage.size()));
+            tvCount.setText(0+"");
             ivCheck = new ImageView[arrImage.size()];
             tvImageNumber = new TextView[arrImage.size()];
 
             TextView tvAdd = (TextView) findViewById(R.id.tv_ok);
             tvAdd.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
+                    if(getCheckCount().equals("0") ){
+                        return;
+                    }
+
                     for (int i = arrImage.size() - 1; i >= 0; i--) {
                         if (arrImage.get(i).isCheck()) {
                             String resizePath = "";
                             resizePath = BitmapUtil.saveImage(arrImage.get(i).getBitmap());
                             arrImage.get(i).setResizePath(resizePath);
                             imageFiles.get(i).setResizePath(resizePath);
-                           // imageFiles.get(i).setBitmap(arrImage.get(i).getBitmap());
+                            // imageFiles.get(i).setBitmap(arrImage.get(i).getBitmap());
                         } else {
                             imageFiles.remove(i);
                         }
@@ -198,6 +205,8 @@ public class ImageEditActivity extends GroupActivity {
             ivImg0.setImageDrawable(null);
             ivImg1.setImageDrawable(null);
             ivImg2.setImageDrawable(null);
+            ivImg3.setImageDrawable(null);
+            ivImg4.setImageDrawable(null);
         } catch (Exception e) {
 
         }
@@ -280,6 +289,34 @@ public class ImageEditActivity extends GroupActivity {
                                 return false;
                             }
                         }).into(ivImg2);
+                        break;
+                    case 3:
+                        Glide.with(this).asBitmap().load(Crop.getOutput(result).getPath()).listener(new RequestListener<Bitmap>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                arrImage.get(imagePosition).setBitmap(resource);
+                                return false;
+                            }
+                        }).into(ivImg3);
+                        break;
+                    case 4:
+                        Glide.with(this).asBitmap().load(Crop.getOutput(result).getPath()).listener(new RequestListener<Bitmap>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                arrImage.get(imagePosition).setBitmap(resource);
+                                return false;
+                            }
+                        }).into(ivImg4);
                         break;
                 }
             } catch (OutOfMemoryError e) {
@@ -420,6 +457,39 @@ public class ImageEditActivity extends GroupActivity {
                             }
                         }).into(ivImg2);
                         break;
+                    case 3:
+                        ivImg3 = (ImageView) view.findViewById(R.id.iv_img);
+//                        Glide.with(ImageEditActivity.this).asBitmap().load(arrImage.get(position).getOriginalPath()).into(ivImg2);
+                        Glide.with(ImageEditActivity.this).asBitmap().load(new File(arrImage.get(position).getOriginalPath())).listener(new RequestListener<Bitmap>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                arrImage.get(position).setBitmap(resource);
+                                return false;
+                            }
+                        }).into(ivImg3);
+                        break;
+
+                    case 4:
+                        ivImg4 = (ImageView) view.findViewById(R.id.iv_img);
+//                        Glide.with(ImageEditActivity.this).asBitmap().load(arrImage.get(position).getOriginalPath()).into(ivImg2);
+                        Glide.with(ImageEditActivity.this).asBitmap().load(new File(arrImage.get(position).getOriginalPath())).listener(new RequestListener<Bitmap>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                arrImage.get(position).setBitmap(resource);
+                                return false;
+                            }
+                        }).into(ivImg4);
+                        break;
                 }
             } catch (OutOfMemoryError e) {
                 Log.d("OOM:", "" + e.getMessage());
@@ -474,6 +544,35 @@ public class ImageEditActivity extends GroupActivity {
                                             return false;
                                         }
                                     }).into(ivImg2);
+                                    break;
+                                case 3:
+                                    Glide.with(ImageEditActivity.this).asBitmap().load(new File(arrImage.get(position).getCropPath())).listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            arrImage.get(position).setBitmap(resource);
+                                            return false;
+                                        }
+                                    }).into(ivImg3);
+                                    break;
+
+                                case 4:
+                                    Glide.with(ImageEditActivity.this).asBitmap().load(new File(arrImage.get(position).getCropPath())).listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            arrImage.get(position).setBitmap(resource);
+                                            return false;
+                                        }
+                                    }).into(ivImg4);
                                     break;
                             }
                         } catch (OutOfMemoryError e) {

@@ -11,6 +11,35 @@ public class ProductListData {
     private Integer store_id;
     private Integer like;
     private String created_at;
+    private String is_soldout;
+    private String is_top;
+
+    private boolean is_check;
+
+
+    public boolean isCheck() {
+        return is_check;
+    }
+
+    public void setCheck(boolean check) {
+        is_check = check;
+    }
+
+    public String getIs_soldout() {
+        return is_soldout;
+    }
+
+    public void setIs_soldout(String is_soldout) {
+        this.is_soldout = is_soldout;
+    }
+
+    public String getIs_top() {
+        return is_top;
+    }
+
+    public void setIs_top(String is_top) {
+        this.is_top = is_top;
+    }
 
     public Integer getId() {
         return id;

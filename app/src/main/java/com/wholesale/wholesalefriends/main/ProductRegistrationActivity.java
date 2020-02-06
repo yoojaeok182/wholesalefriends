@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,12 +29,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.soundcloud.android.crop.Crop;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
@@ -45,6 +51,8 @@ import com.wholesale.wholesalefriends.main.data.ImageFile;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.main.join.JoinStep3Activity;
 import com.wholesale.wholesalefriends.main.join.JoinStep4Activity;
+import com.wholesale.wholesalefriends.main.wholesale_market.Main2Activity;
+import com.wholesale.wholesalefriends.main.wholesale_market.fragment.HomeFragment;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.AppData;
 import com.wholesale.wholesalefriends.module.SharedPreference;
@@ -94,14 +102,14 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private EditText edtProductName;
     private EditText edtProductPrice;
     private Button btnInfo;
-    private CheckBox cbCheck;
+    private ImageView cbCheck;
     private LinearLayout btnCheck;
-    private TagsEditText edtProductInfo1;
+//    private TagsEditText edtProductInfo1;
     private Button[] btnColors;
 
-    private TagsEditText edtProductInfo2;
+//    private TagsEditText edtProductInfo2;
     private Button[]btnSizes;
-    private TagsEditText edtProductInfo3;
+//    private TagsEditText edtProductInfo3;
     private Button[] btnMaterials;
     private Button[] btnThinicks;
     private Button[] btnClothInfo2s;
@@ -142,16 +150,16 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private String mCurrentPhotoPath;
     private Uri contentUri;
     private ArrayList<ImageFile> profileList;
-    private Bitmap[] bmList;
-
+    private ArrayList<Bitmap> bmList = new ArrayList<>();
+    private Bitmap[] arrBm= null;
     private int nCode_value;
 
     private String strColorValue ="";
     private  String strSizeValue ="";
     private String strMaterialValue ="";
-    private ArrayList<String> arrColorName = new ArrayList<>();
-    private ArrayList<String> arrSizeName = new ArrayList<>();
-    private ArrayList<String> arrMeterialName = new ArrayList<>();
+    private ArrayList<ColorInfo> arrColorName = new ArrayList<>();
+    private ArrayList<SizeInfo> arrSizeName = new ArrayList<>();
+    private ArrayList<MaterialInfo> arrMaterialName = new ArrayList<>();
 
     private int cloth_info_1;
     private int cloth_info_2;
@@ -166,11 +174,14 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
     private String strWashingInfo="";
 
+    private ArrayList<WashingInfo> arrWashingInfo = new ArrayList<>();
+
     private static final int IMAGE_SAVE = 98;
     private static final int IMAGE_SAVE_FINISH = 97;
     private TextView tvPhotoRepresentative;
     private TextView tvSubPhotoRepresentative;
 
+    private boolean isCheck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,7 +218,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         btnInfo = findViewById(R.id.btnInfo);
         cbCheck = findViewById(R.id.cbCheck);
         btnCheck = findViewById(R.id.btnCheck);
-        edtProductInfo1 = findViewById(R.id.edtProductInfo1);
+//        edtProductInfo1 = findViewById(R.id.edtProductInfo1);
         btnSizes = new Button[]{
                 findViewById(R.id.btnColor01),
                 findViewById(R.id.btnColor02),
@@ -235,7 +246,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 findViewById(R.id.btnColor24),
         };
 
-        edtProductInfo2 = findViewById(R.id.edtProductInfo2);
+//        edtProductInfo2 = findViewById(R.id.edtProductInfo2);
 
         btnSizes = new Button[]{
                 findViewById(R.id.btnSize01),
@@ -253,7 +264,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 findViewById(R.id.btnSize13),
         };
 
-        edtProductInfo3 = findViewById(R.id.edtProductInfo3);
+//        edtProductInfo3 = findViewById(R.id.edtProductInfo3);
         btnMaterials = new Button[]{
                 findViewById(R.id.btnMeterial01),
                 findViewById(R.id.btnMeterial02),
@@ -378,6 +389,35 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 findViewById(R.id.btnNationalRadio02),
                 findViewById(R.id.btnNationalRadio03),
         };
+
+        btnColors  = new Button[]{
+                findViewById(R.id.btnColor01),
+                findViewById(R.id.btnColor02),
+                findViewById(R.id.btnColor03),
+                findViewById(R.id.btnColor04),
+                findViewById(R.id.btnColor05),
+                findViewById(R.id.btnColor06),
+                findViewById(R.id.btnColor07),
+                findViewById(R.id.btnColor08),
+                findViewById(R.id.btnColor09),
+                findViewById(R.id.btnColor10),
+                findViewById(R.id.btnColor11),
+                findViewById(R.id.btnColor12),
+                findViewById(R.id.btnColor13),
+                findViewById(R.id.btnColor14),
+                findViewById(R.id.btnColor15),
+                findViewById(R.id.btnColor16),
+                findViewById(R.id.btnColor17),
+                findViewById(R.id.btnColor18),
+                findViewById(R.id.btnColor19),
+                findViewById(R.id.btnColor20),
+                findViewById(R.id.btnColor21),
+                findViewById(R.id.btnColor22),
+                findViewById(R.id.btnColor23),
+                findViewById(R.id.btnColor24),
+
+        };
+
         btnClear = findViewById(R.id.btnClear);
 
 
@@ -391,6 +431,9 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         tvSubPhotoRepresentative = findViewById(R.id.tvSubPhotoRepresentative);
         btnCategory = findViewById(R.id.btnCategory);
         tvTitle.setText("상품등록");
+
+        profileList = new ArrayList<>();
+        bmList = new ArrayList<>();
         init();
 
 
@@ -399,6 +442,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     //
     private void initSelectColor(){
         for(int i=0; i<btnColors.length;i++){
+
             Button btn = btnColors[i];
             switch (i){
                 case 0:
@@ -479,7 +523,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private void selectColor(View view,String color,int value)
     {
         boolean isDuplate =false;
-        edtProductInfo1.setText(color);
+
         switch (value){
             case 1:
                 view.setBackgroundResource(R.drawable.btn_color_1_on);
@@ -607,7 +651,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     }
     private void selectSize(View view,String color,int value)
     {
-        edtProductInfo2.setText(color);
+
         switch (value){
             case 1:
                 view.setBackgroundResource(R.drawable.btn_size1_on);
@@ -699,7 +743,6 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private void selectMeterial(View view,String color,int value)
     {
         boolean isDuplate =false;
-        edtProductInfo3.setText(color);
 
         switch (value){
             case 1:
@@ -864,14 +907,33 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private void initSelectWashingInfo(){
         for(int i=0; i<tvWashingInfos.length;i++) {
             TextView btn = tvWashingInfos[i];
+            WashingInfo data = new WashingInfo();
+            data.isCheck = false;
+            data.code_name = tvWashingInfos[i].getText().toString().trim();
+            data.code_value = (i+1);
+            arrWashingInfo.add(data);
             btn.setTextColor(getResources().getColor(R.color.color_text_04));
         }
     }
     private void selectWashingInfo(TextView view,int pos){
 
-        view.setTextColor(getResources().getColor(R.color.color_text_07));
 
-        strWashingInfo =strWashingInfo+(pos+1)+",";
+        if(arrWashingInfo.size()>0){
+            for(int i=0; i<arrWashingInfo.size();i++){
+                WashingInfo data = arrWashingInfo.get(i);
+                if(!data.isCheck){
+                    view.setTextColor(getResources().getColor(R.color.color_text_07));
+                    data.isCheck = true;
+                }else{
+                    view.setTextColor(getResources().getColor(R.color.color_text_04));
+                    data.isCheck = false;
+                }
+            }
+        }else{
+
+        }
+
+
     }
 
     private void selectRadio(ImageView view,int pos){
@@ -904,7 +966,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private void selectOpenDay(ImageView view,int pos){
         for(int i=0; i<ivOpenTypeRadios.length;i++) {
             ImageView btn = ivOpenTypeRadios[i];
-            btn.setBackgroundResource(R.drawable.btn_radio_on);
+            btn.setBackgroundResource(R.drawable.btn_radio);
         }
         view.setBackgroundResource(R.drawable.btn_radio_on);
 
@@ -914,7 +976,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private void selectNational(ImageView view,int pos){
         for(int i=0; i<ivNationalRadios.length;i++) {
             ImageView btn = ivNationalRadios[i];
-            btn.setBackgroundResource(R.drawable.btn_radio_on);
+            btn.setBackgroundResource(R.drawable.btn_radio);
         }
         view.setBackgroundResource(R.drawable.btn_radio_on);
 
@@ -1073,11 +1135,35 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+              /*      if(arrMeterialName!=null && arrMeterialName.size()>0){
+                        for(int i=0; i<arrMeterialName.size();i++){
+                            if(arrMeterialName.get(i).equals(materialNames[finalI])){
+                                edtProductInfo3.removeTagSpan(edtProductInfo3.getText(),i,true);
+
+                                return;
+                            }
+                        }
+                    }
+                    edtProductInfo3.setText(materialNames[finalI]);*/
+
                     selectMeterial(btnMaterials[finalI],materialNames[finalI],(finalI+1));
                 }
             });
         }
-
+     /*   edtProductInfo3.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                if (view.getId() ==R.id.edtProductInfo3) {
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction()&MotionEvent.ACTION_MASK){
+                        case MotionEvent.ACTION_UP:
+                            view.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         edtProductInfo3.setTagsListener(new TagsEditText.TagsEditListener() {
             @Override
             public void onTagsChanged(Collection<String> tags) {
@@ -1088,7 +1174,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                     for(int i=0; i<arrMeterialName.size();i++){
                         for(int j=0;j<materialNames.length;j++){
                             if(arrMeterialName.get(i).equals(materialNames[j])){
-                                selectSize(btnMaterials[j],materialNames[j],(j+1));
+                                selectMeterial(btnMaterials[j],materialNames[j],(j+1));
 
                             }
                         }
@@ -1101,7 +1187,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             public void onEditingFinished() {
 
             }
-        });
+        });*/
         //********************************************************************************************
         initSelectSize();
         for(int i=0; i<btnSizes.length;i++){
@@ -1111,11 +1197,35 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                   /* if(arrSizeName!=null && arrSizeName.size()>0){
+                        for(int i=0; i<arrSizeName.size();i++){
+                            if(arrSizeName.get(i).equals(sizeNames[finalI])){
+                                edtProductInfo2.removeTagSpan(edtProductInfo2.getText(),i,true);
+
+                                return;
+                            }
+                        }
+                    }
+
+                    edtProductInfo2.setText(sizeNames[finalI]);*/
                     selectSize(btnSizes[finalI],sizeNames[finalI],(finalI+1));
                 }
             });
         }
-
+      /*  edtProductInfo2.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                if (view.getId() ==R.id.edtProductInfo2) {
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction()&MotionEvent.ACTION_MASK){
+                        case MotionEvent.ACTION_UP:
+                            view.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         edtProductInfo2.setTagsListener(new TagsEditText.TagsEditListener() {
             @Override
             public void onTagsChanged(Collection<String> tags) {
@@ -1138,7 +1248,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             public void onEditingFinished() {
 
             }
-        });
+        });*/
         //********************************************************************************************
         initSelectColor();
 
@@ -1148,14 +1258,41 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                   /* if(arrColorName!=null && arrColorName.size()>0){
+                        for(int i=0; i<arrColorName.size();i++){
+                            if(arrColorName.get(i).equals(colorNames[finalI])){
+                              edtProductInfo1.removeTagSpan(edtProductInfo1.getText(),i,true);
+
+                                return;
+                            }
+                        }
+                    }
+
+                    edtProductInfo1.setText(colorNames[finalI]);*/
+
                     selectColor(btnColors[finalI],colorNames[finalI],(finalI+1));
                 }
             });
         }
+        /*edtProductInfo1.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                if (view.getId() ==R.id.edtProductInfo1) {
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction()&MotionEvent.ACTION_MASK){
+                        case MotionEvent.ACTION_UP:
+                            view.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
 
         edtProductInfo1.setTagsListener(new TagsEditText.TagsEditListener() {
             @Override
             public void onTagsChanged(Collection<String> tags) {
+                arrColorName.clear();
                 LogUtil.d(Arrays.toString(tags.toArray()));
                 arrColorName= (ArrayList<String>) tags;
                 initSelectColor();
@@ -1175,25 +1312,21 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             public void onEditingFinished() {
 
             }
-        });
+        });*/
         //********************************************************************************
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(cbCheck.isChecked()){
-                    cbCheck.setChecked(false);
+                if(isCheck){
+                    cbCheck.setBackgroundResource(R.drawable.check_default);
+                    isCheck = false;
                 }else{
-                    cbCheck.setChecked(true);
+                    cbCheck.setBackgroundResource(R.drawable.check_on);
+                    isCheck = true;
                 }
             }
         });
 
-        cbCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                cbCheck.setChecked(b);
-            }
-        });
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1268,8 +1401,6 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
     private void checkSelectColor(){
         String[] colorNames = getResources().getStringArray(R.array.color_code_name);
-        String[] sizeNames = getResources().getStringArray(R.array.size_code_name);
-        String[] materialNames = getResources().getStringArray(R.array.material_code_name);
 
         String comoma = ",";
         if(arrColorName!=null && arrColorName.size()>0){
@@ -1305,17 +1436,22 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     }
 
     private void checkWashingInfo(){
-
-        strWashingInfo = strWashingInfo.substring(0, strWashingInfo.length()-1);
+        strWashingInfo = "";
+        for(int i=0; i<arrWashingInfo.size(); i++){
+            WashingInfo data = arrWashingInfo.get(i);
+            if(data.isCheck){
+                strWashingInfo = strWashingInfo+(data.code_value)+"||";
+            }
+        }
     }
     private void checkSelectMaterial(){
         String[] materialNames = getResources().getStringArray(R.array.material_code_name);
 
         String comoma = ",";
-        if(arrMeterialName!=null && arrMeterialName.size()>0){
-            for(int i=0; i<arrMeterialName.size();i++){
+        if(arrMaterialName!=null && arrMaterialName.size()>0){
+            for(int i=0; i<arrMaterialName.size();i++){
                 for(int j=0;j<materialNames.length;j++){
-                    if(arrMeterialName.get(i).equals(materialNames[j])){
+                    if(arrMaterialName.get(i).equals(materialNames[j])){
                             strMaterialValue = strMaterialValue +(j+1)+comoma;
                     }
                 }
@@ -1378,6 +1514,16 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             return;
         }
 
+
+        checkSelectMaterial();
+        if(strMaterialValue.length() ==0){
+
+            final CommonAlertDialog dg = new CommonAlertDialog(this,false,false);
+            dg.setMessage("소재를 선택해주세요.");
+            dg.show();
+            return;
+        }
+
         checkWashingInfo();
         if(strWashingInfo.length() ==0){
             final CommonAlertDialog dg = new CommonAlertDialog(this,false,false);
@@ -1393,12 +1539,18 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             return;
         }
 
+
+        arrBm = new Bitmap[bmList.size()];
+        for(int i=0; i<bmList.size();i++){
+            arrBm[i] = bmList.get(i);
+        }
+
         API.productAdd(this,edtProductName.getText().toString(), price+"",strValueCategory,strMaterialValue,
                 cloth_info_1+"",cloth_info_2+"",cloth_info_3+"",cloth_info_4+"",
                 strWashingInfo,styleInfo+"",strColorValue, strSizeValue,
                 edtDescript.getText().toString(),nNationalSelect+"", SharedPreference.getIntSharedPreference(this,Constant.CommonKey.store_id)+""
                 ,nOpenOption+"",edtOpenDay.getText().toString().length()>0?edtOpenDay.getText().toString():"",
-                nKakaoOpen+"",cbCheck.isChecked()?(1+""):(0+""),bmList, resultHandler, errHandler);
+                nKakaoOpen+"",isCheck?(1+""):(0+""),arrBm, resultHandler, errHandler);
     }
 
     private void selectCategory(){
@@ -1443,6 +1595,18 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 JSONObject jsonObject = (JSONObject)msg.obj;
 
                 if(jsonObject.getBoolean("result")){
+                    Toast.makeText(ProductRegistrationActivity.this,"상품이 등록되었습니다.",Toast.LENGTH_SHORT).show();
+                    if(Main2Activity.getInstance()!=null){
+                        Main2Activity.getInstance().getHomeRefresh();
+                    }
+
+                    Handler h = new Handler();
+                    h.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                         finish();
+                        }
+                    },600);
                 }
             }catch (Throwable e){
                 e.printStackTrace();
@@ -1516,6 +1680,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
         new Picker.Builder(this, ProductRegistrationActivity.this, R.style.AppTheme_NoActionBar)
                 .setPickMode(Picker.PickMode.MULTIPLE_IMAGES)
+                .setLimit(5)
                 .build()
                 .startActivity();
     }
@@ -1686,7 +1851,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                     if (imageFiles != null && imageFiles.size() > 0) {
                         for (int i = 0; i < imageFiles.size(); i++) {
                             profileList.add(imageFiles.get(i));
-                            bmList[i] = imageFiles.get(i).getBitmap();
+
                         }
 
                         switch (profileList.size()) {
@@ -1706,8 +1871,19 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                                 tvSubPhotoRepresentative.setVisibility(View.GONE);
                                 llayoutForNoImg.setVisibility(View.GONE);
                                 ivSubPhoto01Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto01);
                                 break;
                             case 2:
                                 tvPhotoRepresentative.setVisibility(View.GONE);
@@ -1715,10 +1891,33 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                                 llayoutForNoImg.setVisibility(View.GONE);
                                 ivSubPhoto01Plus.setVisibility(View.GONE);
                                 Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto01);
+
 
                                 ivSubPhoto02Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto02);
                                 break;
                             case 3:
                                 tvPhotoRepresentative.setVisibility(View.GONE);
@@ -1726,12 +1925,44 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                                 llayoutForNoImg.setVisibility(View.GONE);
                                 ivSubPhoto01Plus.setVisibility(View.GONE);
                                 Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
 
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto01);
                                 ivSubPhoto02Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto02);
                                 ivSubPhoto03Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto03);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(2).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto03);
                                 break;
                             case 4:
                                 tvPhotoRepresentative.setVisibility(View.GONE);
@@ -1739,14 +1970,59 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                                 llayoutForNoImg.setVisibility(View.GONE);
                                 ivSubPhoto01Plus.setVisibility(View.GONE);
                                 Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto01);
 
                                 ivSubPhoto02Plus.setVisibility(View.GONE);
                                 Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto02);
                                 ivSubPhoto03Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto03);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(2).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto03);
                                 ivSubPhoto04Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto04);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(3).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(3).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto04);
                                 break;
                             case 5:
                                 tvPhotoRepresentative.setVisibility(View.GONE);
@@ -1754,16 +2030,71 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                                 llayoutForNoImg.setVisibility(View.GONE);
                                 ivSubPhoto01Plus.setVisibility(View.GONE);
                                 Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto01);
 
                                 ivSubPhoto02Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto02);
                                 ivSubPhoto03Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto03);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(2).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto03);
                                 ivSubPhoto04Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto04);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(3).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(3).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto04);
                                 ivSubPhoto05Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(4).getResizePath()).into(ivSubPhoto05);
+                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(4).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        bmList.add(imageFiles.get(4).getBitmap());
+                                        return false;
+                                    }
+                                }).into(ivSubPhoto05);
                                 break;
                         }
                     }
@@ -1802,7 +2133,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(ProductRegistrationActivity.this, ImageEditActivity.class);
                                 intent.putExtra("image", imageFileArrayList);
-                                intent.putExtra("profile", true);
+                                intent.putExtra("profile", false);
                                 startActivityForResult(intent, IMAGECROP);
                             } catch (Exception e) {
                                 Toast.makeText(ProductRegistrationActivity.this, getString(R.string.toast_broken_camera), Toast.LENGTH_SHORT).show();
@@ -1848,7 +2179,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(ProductRegistrationActivity.this, ImageEditActivity.class);
                                 intent.putExtra("image", imageFileArrayList);
-                                intent.putExtra("profile", true);
+                                intent.putExtra("profile", false);
                                 startActivityForResult(intent, IMAGECROP);
                             } catch (Exception e) {
                                 Toast.makeText(ProductRegistrationActivity.this, getString(R.string.toast_broken_camera), Toast.LENGTH_SHORT).show();
@@ -1931,23 +2262,51 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     public void onPickedSuccessfully(ArrayList<ImageEntry> images, boolean isEdit) {
         ArrayList<ImageFile> imageFileArrayList = new ArrayList<>();
         if (images != null && images.size() > 0) {
-            ImageFile imageFile = new ImageFile();
             if (images.get(0).path.contains("gif") || images.get(0).path.contains("GIF")) {
                 Toast.makeText(this, getString(R.string.toast_not_use_gif), Toast.LENGTH_SHORT).show();
                 return;
             }
-            imageFile.setOriginalPath(images.get(0).path);
-            imageFileArrayList.add(imageFile);
+
+            for(int i=0 ; i<images.size();i++){
+                ImageFile imageFile = new ImageFile();
+                imageFile.setOriginalPath(images.get(i).path);
+                imageFileArrayList.add(imageFile);
+            }
+
 
             Intent intent = new Intent(ProductRegistrationActivity.this, ImageEditActivity.class);
             intent.putExtra("image", imageFileArrayList);
-            intent.putExtra("profile", true);
+            intent.putExtra("profile", false);
             startActivityForResult(intent, IMAGECROP);
         }
 
 
     }
 
+
+    private class WashingInfo{
+        Integer code_value;
+        String code_name;
+        boolean isCheck;
+    }
+
+    private class ColorInfo{
+        Integer code_value;
+        String code_name;
+        boolean isCheck;
+    }
+
+    private class SizeInfo{
+        Integer code_value;
+        String code_name;
+        boolean isCheck;
+    }
+
+    private class  MaterialInfo{
+        Integer code_value;
+        String code_name;
+        boolean isCheck;
+    }
     @Override
     public void onCancel(boolean isCamera) {
 

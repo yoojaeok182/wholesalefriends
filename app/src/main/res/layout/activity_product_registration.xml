@@ -301,6 +301,8 @@
                 android:paddingRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 android:orientation="vertical">
 
 
@@ -328,6 +330,7 @@
                     android:textColor="@color/color_text_08"
                     android:lines="1"
                     android:maxLength="20"
+                    android:singleLine="true"
                     android:id="@+id/edtProductName"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/input_box_off_01"
@@ -335,6 +338,7 @@
                     android:layout_height="45dp"/>
 
                 <EditText
+                    android:singleLine="true"
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
                     android:hint="￦단가 (숫자만 입력해주세요)"
@@ -342,9 +346,10 @@
                     android:textSize="13dp"
                     android:textColor="@color/color_text_08"
                     android:lines="1"
-                    android:maxLength="20"
                     android:id="@+id/edtProductPrice"
                     android:inputType="number"
+
+
                     android:layout_marginTop="10dp"
                     android:background="@drawable/input_box_off_01"
                     android:layout_width="match_parent"
@@ -405,6 +410,7 @@
 
 
                 <Button
+                    android:stateListAnimator="@null"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -417,11 +423,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <CheckBox
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/cbCheck"
-                        android:button="@drawable/check_default"/>
+                        android:background="@drawable/check_default"/>
 
                     <TextView
                         android:textColor="@color/color_text_03"
@@ -447,6 +453,7 @@
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -467,24 +474,32 @@
 
                 </LinearLayout>
 
-                <mabbas007.tagsedittext.TagsEditText
-                    android:layout_marginTop="20dp"
-                    android:lines="1"
-                    android:textColorHint="@color/color_text_03"
+                <!--<mabbas007.tagsedittext.TagsEditText
+
                     android:id="@+id/edtProductInfo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="45dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/input_box_off_01"
                     android:hint="직접입력 띄어쓰기로 구분"
+                    android:maxLines="1"
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
+                    android:textColorHint="@color/color_text_03"
                     android:textSize="13dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@drawable/input_box_off_01"
                     TagsEditText:allowSpaceInTag="true"
-                    TagsEditText:tagsCloseImageRight="@drawable/tag_close"
+                    android:scrollbarSize="2dp"
+                    android:scrollbars="vertical"
                     TagsEditText:tagsBackground="@drawable/btn_tag_01"
-                    TagsEditText:tagsTextColor="@color/color_text_08"
-                    TagsEditText:tagsTextSize="13dp"
-                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>
+                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"
+                    TagsEditText:tagsCloseImageRight="@drawable/tag_close"
+                    TagsEditText:tagsPaddingBottom="5dp"
+                    TagsEditText:tagsPaddingLeft="10dp"
+                    TagsEditText:tagsPaddingRight="10dp"
+                    TagsEditText:tagsPaddingTop="5dp"
+                    TagsEditText:tagsTextColor="@color/color_text_09"
+                    TagsEditText:tagsTextSize="12dp" />-->
 
                 <LinearLayout
                     android:layout_marginTop="20dp"
@@ -502,6 +517,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor01"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -515,6 +531,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor02"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -527,6 +544,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor03"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -540,6 +558,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor04"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -558,6 +577,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor05"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -571,6 +591,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor06"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -583,6 +604,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor07"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -596,6 +618,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor08"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -613,6 +636,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor09"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -626,6 +650,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor10"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -638,6 +663,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor11"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -651,6 +677,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor12"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -669,6 +696,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor13"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -682,6 +710,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor14"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -694,6 +723,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor15"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -707,6 +737,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor16"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -725,6 +756,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor17"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -738,6 +770,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor18"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -750,6 +783,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor19"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -763,6 +797,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor20"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -780,6 +815,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor21"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -793,6 +829,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor22"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -805,6 +842,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor23"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -818,6 +856,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnColor24"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -860,7 +899,7 @@
 
                 </LinearLayout>
 
-                <mabbas007.tagsedittext.TagsEditText
+                <!--<mabbas007.tagsedittext.TagsEditText
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
                     android:hint="직접입력 띄어쓰기로 구분"
@@ -876,9 +915,13 @@
                     TagsEditText:allowSpaceInTag="true"
                     TagsEditText:tagsCloseImageRight="@drawable/tag_close"
                     TagsEditText:tagsBackground="@drawable/btn_tag_01"
-                    TagsEditText:tagsTextColor="@color/color_text_08"
-                    TagsEditText:tagsTextSize="13dp"
-                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>
+                    TagsEditText:tagsTextColor="@color/color_text_09"
+                    TagsEditText:tagsTextSize="12dp"
+                    TagsEditText:tagsPaddingLeft="10dp"
+                    TagsEditText:tagsPaddingRight="10dp"
+                    TagsEditText:tagsPaddingBottom="5dp"
+                    TagsEditText:tagsPaddingTop="5dp"
+                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>-->
                 <LinearLayout
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
@@ -895,6 +938,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize01"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -908,6 +952,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize02"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -920,6 +965,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize03"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -933,6 +979,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize04"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -951,6 +998,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize05"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -964,6 +1012,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize06"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -976,6 +1025,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize07"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -989,6 +1039,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize08"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1006,6 +1057,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize09"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1019,6 +1071,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize10"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1031,6 +1084,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize11"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1044,6 +1098,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize12"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1062,6 +1117,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnSize13"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1128,7 +1184,7 @@
 
                 </LinearLayout>
 
-                <mabbas007.tagsedittext.TagsEditText
+                <!--<mabbas007.tagsedittext.TagsEditText
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
                     android:hint="직접입력 띄어쓰기로 구분"
@@ -1144,9 +1200,13 @@
                     TagsEditText:allowSpaceInTag="true"
                     TagsEditText:tagsCloseImageRight="@drawable/tag_close"
                     TagsEditText:tagsBackground="@drawable/btn_tag_01"
-                    TagsEditText:tagsTextColor="@color/color_text_08"
-                    TagsEditText:tagsTextSize="13dp"
-                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>
+                    TagsEditText:tagsTextColor="@color/color_text_09"
+                    TagsEditText:tagsTextSize="12dp"
+                    TagsEditText:tagsPaddingLeft="10dp"
+                    TagsEditText:tagsPaddingRight="10dp"
+                    TagsEditText:tagsPaddingBottom="5dp"
+                    TagsEditText:tagsPaddingTop="5dp"
+                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"/>-->
                 <LinearLayout
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
@@ -1163,6 +1223,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial01"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1176,6 +1237,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial02"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1188,6 +1250,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial03"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1201,6 +1264,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial04"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1219,6 +1283,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial05"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1232,6 +1297,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial06"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1244,6 +1310,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial07"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1257,6 +1324,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial08"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1274,6 +1342,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial09"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1287,6 +1356,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial10"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1299,6 +1369,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial11"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1312,6 +1383,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnMeterial12"
                                 android:layout_width="64.33dp"
                                 android:layout_height="24.33dp"
@@ -1381,6 +1453,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick01"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1394,6 +1467,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick02"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1406,6 +1480,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick03"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1434,6 +1509,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick04"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1447,6 +1523,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick05"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1459,6 +1536,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick06"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1487,6 +1565,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick07"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1501,6 +1580,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick08"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1514,6 +1594,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick09"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1527,6 +1608,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick10"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1554,6 +1636,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick11"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1567,6 +1650,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content">
                             <Button
+                                android:stateListAnimator="@null"
                                 android:id="@+id/btnThinick12"
                                 android:layout_width="match_parent"
                                 android:layout_height="24.33dp"
@@ -1650,7 +1734,7 @@
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="드라이클리닝"
+                            android:text="드라이 클리닝"
                             android:textSize="12dp"
                             android:textColor="@color/color_text_04"/>
                     </LinearLayout>
@@ -1751,7 +1835,7 @@
                             android:layout_marginTop="9dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="표백제사용금지"
+                            android:text="표백제 사용금지"
                             android:textSize="12dp"
                             android:textColor="@color/color_text_04"/>
                     </LinearLayout>
@@ -2613,6 +2697,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
+        android:stateListAnimator="@null"
         android:id="@+id/btnOk"
         android:layout_width="match_parent"
         android:layout_height="50.66dp"

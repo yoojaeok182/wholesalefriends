@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     layout="@layout/layout_for_title3"/>
                 <LinearLayout
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:background="@color/color_box10"
                     android:id="@+id/llayoutForProductManagerMode"
                     android:gravity="center_vertical"
@@ -109,6 +109,7 @@
                    android:layout_height="wrap_content"
                    layout="@layout/layout_for_main_menu2"/>
                <include
+                   android:visibility="gone"
                    android:id="@+id/llayoutForProductManagerModeBottom"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"

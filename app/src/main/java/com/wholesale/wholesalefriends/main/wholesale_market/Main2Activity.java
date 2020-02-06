@@ -1,5 +1,6 @@
 package com.wholesale.wholesalefriends.main.wholesale_market;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.wholesale.wholesalefriends.R;
+import com.wholesale.wholesalefriends.main.ProductRegistrationActivity;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
 import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.main.wholesale_market.fragment.CustomerFragment;
@@ -29,7 +31,7 @@ public class Main2Activity extends GroupActivity {
     private ImageView ivLogo;
     private TextView tvTitle;
     private RelativeLayout btnNotice;
-    private RelativeLayout btnMore;
+    private RelativeLayout btnProductAdd;
     private ViewPager viewPager;
     private LinearLayout btnMenu01;
     private LinearLayout btnMenu02;
@@ -100,7 +102,7 @@ public class Main2Activity extends GroupActivity {
         ivLogo = findViewById(R.id.ivLogo);
         tvTitle = findViewById(R.id.tvTitle);
         btnNotice = findViewById(R.id.btnNotice);
-        btnMore = findViewById(R.id.btnMore);
+        btnProductAdd = findViewById(R.id.btnProductAdd);
         viewPager = findViewById(R.id.viewPager);
         btnMenu01 = findViewById(R.id.btnMenu01);
         btnMenu02 = findViewById(R.id.btnMenu02);
@@ -253,6 +255,13 @@ public class Main2Activity extends GroupActivity {
     private void init() {
 
 
+        btnProductAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main2Activity.this, ProductRegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
         ivLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -324,6 +333,7 @@ public class Main2Activity extends GroupActivity {
         });
         setCurrentMenu(0);
         updateTableFragment(0);
+        setVisibilityProductManager(false);
     }
 
     public void setVisibilityProductManager(boolean isShow){
@@ -340,8 +350,11 @@ public class Main2Activity extends GroupActivity {
                 @Override
                 public void onClick(View v) {
                     setVisibilityProductManager(false);
+                    homeFragment.setHiddenAdapterCheck();
                 }
             });
+
+            homeFragment.requestProcuctManager(btnAllCheck,ivAllCheck,tvSelectItemCount,btnReWareHousing,btnSoldOut,btnTop30);
 
         }else{
             llayoutForTitle.setVisibility(View.VISIBLE);
@@ -350,6 +363,12 @@ public class Main2Activity extends GroupActivity {
             llayoutForProductManagerModeBottom.setVisibility(View.GONE);
         }
 
+    }
+
+    public  void getHomeRefresh(){
+        if(homeFragment!=null){
+            homeFragment.getRefresh();
+        }
     }
     private void getDrawaerController(boolean isOpen) {
 

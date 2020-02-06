@@ -16,15 +16,19 @@
            android:layout_height="wrap_content">
            <ImageView
                android:id="@+id/ivPhoto"
-               android:scaleType="centerCrop"
-               android:layout_width="133dp"
+               android:scaleType="fitXY"
+               android:layout_width="131dp"
                android:layout_height="160dp" />
 
            <RelativeLayout
+               android:layout_alignRight="@id/ivPhoto"
+               android:layout_alignTop="@id/ivPhoto"
+               android:layout_alignBottom="@id/ivPhoto"
+               android:layout_alignLeft="@id/ivPhoto"
                android:visibility="gone"
                android:background="@color/color_30_translate"
                android:id="@+id/layoutForSoldOut"
-               android:layout_width="133dp"
+               android:layout_width="131dp"
                android:layout_height="160dp">
 
 
@@ -37,15 +41,16 @@
            </RelativeLayout>
 
            <ImageView
+               android:layout_alignRight="@id/ivPhoto"
                android:visibility="gone"
                android:layout_marginTop="5dp"
-               android:layout_marginLeft="5dp"
+               android:layout_marginRight="5dp"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/ivCheck"
                android:background="@drawable/icon_check2"/>
            <TextView
-               android:visibility="gone"
+               android:visibility="visible"
                android:textSize="13dp"
                android:textColor="@color/color_text_09"
                android:layout_width="wrap_content"

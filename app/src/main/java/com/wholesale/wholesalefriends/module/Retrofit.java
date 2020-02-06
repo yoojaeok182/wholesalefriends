@@ -22,6 +22,7 @@ import com.wholesale.wholesalefriends.main.data.ProductViewResponse;
 import com.wholesale.wholesalefriends.main.data.RecomWordData;
 import com.wholesale.wholesalefriends.main.data.StoreListResponse;
 import com.wholesale.wholesalefriends.main.data.StoreSearchData;
+import com.wholesale.wholesalefriends.main.data.TopStoreListData;
 import com.wholesale.wholesalefriends.main.dialog.LoadingDialog;
 import com.wholesale.wholesalefriends.module.util.LogUtil;
 
@@ -291,6 +292,8 @@ public class Retrofit {
                 @Part("category") RequestBody category,
                 @Part("is_sale") RequestBody is_sale,
                 @Part("store_id") RequestBody store_id,
+                @Part("is_soldout") RequestBody is_soldout,
+
                 @Url String apiUrl
         );
     }
@@ -307,6 +310,28 @@ public class Retrofit {
                 @Part("is_sale") RequestBody is_sale,
                 @Part("store_id") RequestBody store_id,
                 @Part("keyword") RequestBody keyword,
+                @Part("is_soldout") RequestBody is_soldout,
+
+                @Url String apiUrl
+        );
+    }
+
+
+    private interface UploadProductList2Interface{
+        @Multipart
+        @POST
+        Call<ContributorProductList> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("page") RequestBody page,
+                @Part("category") RequestBody category,
+                @Part("is_sale") RequestBody is_sale,
+                @Part("store_id") RequestBody store_id,
+                @Part("keyword") RequestBody keyword,
+                @Part("orderby") RequestBody orderby,
+                @Part("open_type") RequestBody open_type,
+                @Part("is_soldout") RequestBody is_soldout,
                 @Url String apiUrl
         );
     }
@@ -342,6 +367,7 @@ public class Retrofit {
                 @Url String apiUrl
         );
     }
+
 
     private interface UploadProductViewInterface{
         @Multipart
@@ -642,6 +668,84 @@ public class Retrofit {
                 @Url String apiUrl
         );
     }
+
+
+    private interface UploadTopListInterface{
+        @Multipart
+        @POST
+        Call<ContributorTopList> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+               @Url String apiUrl
+        );
+    }
+
+    private interface UploadTopAutoAddInterface{
+        @Multipart
+        @POST
+        Call<ContributorTop30AutoAdd> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadTop30DelInterface{
+        @Multipart
+        @POST
+        Call<ContributorTop30Del> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadRestockInterface{
+        @Multipart
+        @POST
+        Call<ContributorRestock> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("p_id") RequestBody p_id,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadSoldoutInterface{
+        @Multipart
+        @POST
+        Call<ContributorSoldout> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("p_id") RequestBody p_id,
+                @Url String apiUrl
+        );
+    }
+
+
+    private interface UploadTop30AddInterface{
+        @Multipart
+        @POST
+        Call<ContributorTopAdd> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("p_id") RequestBody p_id,
+                @Url String apiUrl
+        );
+    }
+
 
     public void uploadCartAdd(String method, String user_id,String store_id, String p_id,String p_option_1,String p_option_2,String amount,boolean _isLoading){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
@@ -982,14 +1086,15 @@ public class Retrofit {
      * @param is_sale
      * @param store_id
      */
-    public void uploadProductList(String method,String page, String category,String is_sale,String store_id){
+    public void uploadProductList(String method,String page, String category,String is_sale,String store_id,String is_soldout){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), category);
         RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), is_sale);
         RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), is_soldout);
 
         UploadProductListInterface uploadInterface = mRetrofit.create(UploadProductListInterface.class);
-        Call<ContributorProductList> call = uploadInterface.upload(p1, p2,p3,p4,Constant.DOMAIN.api+method+"/");
+        Call<ContributorProductList> call = uploadInterface.upload(p1, p2,p3,p4,p5,Constant.DOMAIN.api+method+"/");
 
         call.enqueue(new Callback<ContributorProductList>() {
             @Override
@@ -1006,15 +1111,46 @@ public class Retrofit {
         });
     }
 
-    public void uploadProductListSearch(String method,String page, String category,String is_sale,String store_id,String keyword){
+    public void uploadProductList2(String method,String page, String category,String is_sale,String store_id,
+                                   String keyword,String orderBy,String open_type,String is_soldout){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), category);
         RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), is_sale);
         RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), store_id);
         RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), keyword);
+        RequestBody p6 = RequestBody.create(MediaType.parse("text/plain"), orderBy);
+        RequestBody p7 = RequestBody.create(MediaType.parse("text/plain"), open_type);
+        RequestBody p8 = RequestBody.create(MediaType.parse("text/plain"), is_soldout);
+
+        UploadProductList2Interface uploadInterface = mRetrofit.create(UploadProductList2Interface.class);
+        Call<ContributorProductList> call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,p7,p8,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorProductList>() {
+            @Override
+            public void onResponse(Call<ContributorProductList> call,
+                                   Response<ContributorProductList> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onProductList.onResponse((ContributorProductList)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorProductList> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onProductList.onFailure(t);
+            }
+        });
+    }
+
+
+    public void uploadProductListSearch(String method,String page, String category,String is_sale,String store_id,String keyword,String is_soldout){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), category);
+        RequestBody p3 = RequestBody.create(MediaType.parse("text/plain"), is_sale);
+        RequestBody p4 = RequestBody.create(MediaType.parse("text/plain"), store_id);
+        RequestBody p5 = RequestBody.create(MediaType.parse("text/plain"), keyword);
+        RequestBody p6 = RequestBody.create(MediaType.parse("text/plain"), is_soldout);
 
         UploadProductListSearchInterface uploadInterface = mRetrofit.create(UploadProductListSearchInterface.class);
-        Call<ContributorProductList> call = uploadInterface.upload(p1, p2,p3,p4,p5,Constant.DOMAIN.api+method+"/");
+        Call<ContributorProductList> call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,Constant.DOMAIN.api+method+"/");
 
         call.enqueue(new Callback<ContributorProductList>() {
             @Override
@@ -1536,13 +1672,156 @@ public class Retrofit {
         });
     }
 
+
+    public void uploadTopList(String method,String user_id){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+
+        UploadTopListInterface uploadInterface = mRetrofit.create(UploadTopListInterface.class);
+        Call<ContributorTopList> call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorTopList>() {
+            @Override
+            public void onResponse(Call<ContributorTopList> call,
+                                   Response<ContributorTopList> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onTopList.onResponse((ContributorTopList)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorTopList> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onTopList.onFailure(t);
+            }
+        });
+    }
+
+
+    public void uploadTopAutoAdd(String method, String user_id){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+
+        Call<ContributorTop30AutoAdd> call =null;
+        UploadTopAutoAddInterface uploadInterface = mRetrofit.create(UploadTopAutoAddInterface.class);
+        call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorTop30AutoAdd>() {
+            @Override
+            public void onResponse(Call<ContributorTop30AutoAdd> call,
+                                   Response<ContributorTop30AutoAdd> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onTop30AutoAdd.onResponse((ContributorTop30AutoAdd)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorTop30AutoAdd> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onOrderFormAdd.onFailure(t);
+            }
+        });
+    }
+
+    public void uploadTop30Del(String method, String user_id){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+
+        Call<ContributorTop30Del> call =null;
+        UploadTop30DelInterface uploadInterface = mRetrofit.create(UploadTop30DelInterface.class);
+        call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorTop30Del>() {
+            @Override
+            public void onResponse(Call<ContributorTop30Del> call,
+                                   Response<ContributorTop30Del> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onTop30Del.onResponse((ContributorTop30Del)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorTop30Del> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onTop30Del.onFailure(t);
+            }
+        });
+    }
+
+    public void uploadRestock(String method, String user_id,String p_id){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), p_id+"");
+
+        Call<ContributorRestock> call =null;
+        UploadRestockInterface uploadInterface = mRetrofit.create(UploadRestockInterface.class);
+        call = uploadInterface.upload(p1,p2,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorRestock>() {
+            @Override
+            public void onResponse(Call<ContributorRestock> call,
+                                   Response<ContributorRestock> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onRestock.onResponse((ContributorRestock)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorRestock> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onRestock.onFailure(t);
+            }
+        });
+    }
+
+    public void uploadSoldOut(String method, String user_id,String p_id){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), p_id+"");
+
+        Call<ContributorSoldout> call =null;
+        UploadSoldoutInterface uploadInterface = mRetrofit.create(UploadSoldoutInterface.class);
+        call = uploadInterface.upload(p1,p2,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorSoldout>() {
+            @Override
+            public void onResponse(Call<ContributorSoldout> call,
+                                   Response<ContributorSoldout> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onSoldOut.onResponse((ContributorSoldout)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorSoldout> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onSoldOut.onFailure(t);
+            }
+        });
+    }
+
+
+    public void uploadTop30Add(String method, String user_id,String p_id){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), p_id+"");
+
+        Call<ContributorTopAdd> call =null;
+        UploadTop30AddInterface uploadInterface = mRetrofit.create(UploadTop30AddInterface.class);
+        call = uploadInterface.upload(p1,p2,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorTopAdd>() {
+            @Override
+            public void onResponse(Call<ContributorTopAdd> call,
+                                   Response<ContributorTopAdd> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onTop30Add.onResponse((ContributorTopAdd)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorTopAdd> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onTop30Add.onFailure(t);
+            }
+        });
+    }
+
     /**
      * RESPONSE PARAM 등록
      */
-    public static class Contributor{
-        public String result ="";
-        public String errmsg="";
-    }
 
     public static class ContributorLogin{
         public String result ="";
@@ -1709,6 +1988,104 @@ public class Retrofit {
         public String error="";
         public String store_id ="";
     }
+
+    public static class ContributorTopList{
+        public String result ="";
+        public String error="";
+        public List<TopStoreListData> list;
+    }
+
+    public static class ContributorTop30AutoAdd{
+        public String result ="";
+        public String error="";
+    }
+
+    public static class ContributorTop30Del{
+        public String result ="";
+        public String error="";
+    }
+
+    public static class ContributorRestock {
+        public String result ="";
+        public String error="";
+    }
+
+    public static class ContributorSoldout {
+        public String result ="";
+        public String error="";
+    }
+
+    public static class ContributorTopAdd {
+        public String result ="";
+        public String error="";
+    }
+
+
+    private OnTop30Add onTop30Add;
+    public void setOnTop30Add(OnTop30Add listener){
+        onTop30Add = listener;
+    }
+
+    public static interface OnTop30Add{
+        public void onResponse(ContributorTopAdd c);
+        public void onFailure(Throwable t);
+    }
+
+    private OnSoldOut onSoldOut;
+    public void setOnSoldOut(OnSoldOut listener){
+        onSoldOut = listener;
+    }
+
+    public static interface OnSoldOut{
+        public void onResponse(ContributorSoldout c);
+        public void onFailure(Throwable t);
+    }
+
+
+    private OnRestock onRestock;
+    public void setOnRestock(OnRestock listener){
+        onRestock = listener;
+    }
+
+    public static interface OnRestock{
+        public void onResponse(ContributorRestock c);
+        public void onFailure(Throwable t);
+    }
+
+
+    private OnTop30Del onTop30Del;
+    public void setOnTop30Del(OnTop30Del listener){
+        onTop30Del = listener;
+    }
+
+    public static interface OnTop30Del{
+        public void onResponse(ContributorTop30Del c);
+        public void onFailure(Throwable t);
+    }
+
+
+    private OnTop30AutoAdd onTop30AutoAdd;
+    public void setOnTop30AutoAdd(OnTop30AutoAdd listener){
+        onTop30AutoAdd = listener;
+    }
+
+    public static interface OnTop30AutoAdd{
+        public void onResponse(ContributorTop30AutoAdd c);
+        public void onFailure(Throwable t);
+    }
+
+
+    private OnTopList onTopList;
+    public void setOnTopList(OnTopList listener){
+        onTopList = listener;
+    }
+
+    public static interface OnTopList{
+        public void onResponse(ContributorTopList c);
+        public void onFailure(Throwable t);
+    }
+
+
 
     private OnPaymentOption onPaymentOption;
     public void setOnPaymentOption(OnPaymentOption listener){
