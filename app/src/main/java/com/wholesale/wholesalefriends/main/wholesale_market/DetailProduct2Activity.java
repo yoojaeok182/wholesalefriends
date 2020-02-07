@@ -1,10 +1,13 @@
 package com.wholesale.wholesalefriends.main.wholesale_market;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,8 +38,13 @@ import java.util.ArrayList;
 public class DetailProduct2Activity extends GroupActivity {
 
 
+    private ArrayList<ProductViewImageData> list = new ArrayList<>();
+
+    private String product_name;
+    private int product_id;
     private RelativeLayout btnBack;
     private TextView tvTitle;
+    private ViewPager viewPager;
     private ImageView ivIndigator01;
     private ImageView ivIndigator02;
     private ImageView ivIndigator03;
@@ -78,18 +86,17 @@ public class DetailProduct2Activity extends GroupActivity {
     private LinearLayout btnFabric01;
     private ImageView ivFabric02;
     private LinearLayout btnFabric02;
+    private ImageView ivArrow;
+    private LinearLayout btnProductInquire;
     private RecyclerView recyclerView;
-    private LinearLayout llayoutForGuide;
     private ImageView ivCheck;
     private EditText edtComment;
     private Button btnWrite;
     private LinearLayout llayoutForComment;
-    private ViewPager viewPager;
+    private LinearLayout llayoutForProductInqurireList;
+    private LinearLayout llayoutForGuide;
 
-    private ArrayList<ProductViewImageData> list = new ArrayList<>();
-
-    private String product_name;
-    private int product_id;
+    private boolean isShowUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,9 +110,9 @@ public class DetailProduct2Activity extends GroupActivity {
         if (intent.hasExtra(Constant.CommonKey.product_id)) {
             product_id = intent.getExtras().getInt(Constant.CommonKey.product_id);
         }
-
         btnBack = findViewById(R.id.btnBack);
         tvTitle = findViewById(R.id.tvTitle);
+        viewPager = findViewById(R.id.viewPager);
         ivIndigator01 = findViewById(R.id.ivIndigator01);
         ivIndigator02 = findViewById(R.id.ivIndigator02);
         ivIndigator03 = findViewById(R.id.ivIndigator03);
@@ -147,13 +154,15 @@ public class DetailProduct2Activity extends GroupActivity {
         btnFabric01 = findViewById(R.id.btnFabric01);
         ivFabric02 = findViewById(R.id.ivFabric02);
         btnFabric02 = findViewById(R.id.btnFabric02);
+        ivArrow = findViewById(R.id.ivArrow);
+        btnProductInquire = findViewById(R.id.btnProductInquire);
         recyclerView = findViewById(R.id.recyclerView);
-        llayoutForGuide = findViewById(R.id.llayoutForGuide);
         ivCheck = findViewById(R.id.ivCheck);
         edtComment = findViewById(R.id.edtComment);
         btnWrite = findViewById(R.id.btnWrite);
         llayoutForComment = findViewById(R.id.llayoutForComment);
-        viewPager = findViewById(R.id.viewPager);
+        llayoutForProductInqurireList = findViewById(R.id.llayoutForProductInqurireList);
+        llayoutForGuide = findViewById(R.id.llayoutForGuide);
         if (product_name != null) {
             tvTitle.setText(product_name);
         }
@@ -166,35 +175,63 @@ public class DetailProduct2Activity extends GroupActivity {
         });
 
 
-
-        if(!SharedPreference.getBooleanSharedPreference(this, Constant.CommonKey.guide_show)){
+        if (!SharedPreference.getBooleanSharedPreference(this, Constant.CommonKey.guide_show)) {
             llayoutForGuide.setVisibility(View.VISIBLE);
             llayoutForGuide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     llayoutForGuide.setVisibility(View.GONE);
-                    SharedPreference.putSharedPreference(DetailProduct2Activity.this, Constant.CommonKey.guide_show,true);
+                    SharedPreference.putSharedPreference(DetailProduct2Activity.this, Constant.CommonKey.guide_show, true);
                 }
             });
 
         }
 
+        llayoutForProductInqurireList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isShowUp){
+                    isShowUp = false;
+                }else{
+                    isShowUp = true;
+                }
+                setValueAnimation(isShowUp);
+
+            }
+        });
     }
-    private void initIndigator(int size){
+
+    private void setValueAnimation(boolean isShowUp){
+        ValueAnimator anim = ValueAnimator.ofInt(llayoutForProductInqurireList.getMeasuredHeight(),isShowUp? -200:200);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = llayoutForProductInqurireList.getLayoutParams();
+                layoutParams.height = val;
+                llayoutForProductInqurireList.setLayoutParams(layoutParams);
+
+            }
+        });
+        anim.setDuration(1500);
+        anim.start();
+    }
+
+    private void initIndigator(int size) {
         ivIndigator01.setVisibility(View.GONE);
         ivIndigator02.setVisibility(View.GONE);
         ivIndigator03.setVisibility(View.GONE);
         ivIndigator04.setVisibility(View.GONE);
         ivIndigator05.setVisibility(View.GONE);
 
-        if(size>=5){
+        if (size >= 5) {
             ivIndigator01.setVisibility(View.VISIBLE);
             ivIndigator02.setVisibility(View.VISIBLE);
             ivIndigator03.setVisibility(View.VISIBLE);
             ivIndigator04.setVisibility(View.VISIBLE);
             ivIndigator05.setVisibility(View.VISIBLE);
-        }else{
-            switch (size){
+        } else {
+            switch (size) {
                 case 1:
                     ivIndigator01.setVisibility(View.VISIBLE);
                     break;
@@ -217,14 +254,14 @@ public class DetailProduct2Activity extends GroupActivity {
         }
     }
 
-    private void showIndigator(int pos){
+    private void showIndigator(int pos) {
         ivIndigator01.setBackgroundResource(R.drawable.icon_indigatior);
         ivIndigator02.setBackgroundResource(R.drawable.icon_indigatior);
         ivIndigator03.setBackgroundResource(R.drawable.icon_indigatior);
         ivIndigator04.setBackgroundResource(R.drawable.icon_indigatior);
         ivIndigator05.setBackgroundResource(R.drawable.icon_indigatior);
 
-        switch (pos){
+        switch (pos) {
             case 0:
                 ivIndigator01.setBackgroundResource(R.drawable.icon_indigatior_on);
                 break;
@@ -246,6 +283,7 @@ public class DetailProduct2Activity extends GroupActivity {
                 break;
         }
     }
+
     private void loadData() {
         API.productVIew(this, product_id + "",
                 SharedPreference.getIntSharedPreference(this, Constant.CommonKey.user_no) + "", resultHandler, errHandler);
@@ -261,11 +299,11 @@ public class DetailProduct2Activity extends GroupActivity {
                     ProductViewResponse response = new Gson().fromJson(jsonObject.toString(), ProductViewResponse.class);
                     if (response != null) {
 
-                        if(response.getImage()!=null && response.getImage().size()>0){
+                        if (response.getImage() != null && response.getImage().size() > 0) {
                             initIndigator(response.getImage().size());
 
                             list.addAll(response.getImage());
-                            DetailProductViewAdapter detailProductViewAdapter = new DetailProductViewAdapter(DetailProduct2Activity.this,list);
+                            DetailProductViewAdapter detailProductViewAdapter = new DetailProductViewAdapter(DetailProduct2Activity.this, list);
                             viewPager.setAdapter(detailProductViewAdapter);
                             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                                 @Override
@@ -275,7 +313,7 @@ public class DetailProduct2Activity extends GroupActivity {
 
                                 @Override
                                 public void onPageSelected(int position) {
-                                    showIndigator(position%5);
+                                    showIndigator(position % 5);
                                 }
 
                                 @Override
@@ -283,7 +321,7 @@ public class DetailProduct2Activity extends GroupActivity {
 
                                 }
                             });
-                        }else{
+                        } else {
                             initIndigator(0);
                         }
                         if (response.getInfo() != null && response.getInfo().size() > 0) {
