@@ -33,6 +33,7 @@ import com.wholesale.wholesalefriends.main.data.ProductViewOptionData;
 import com.wholesale.wholesalefriends.main.data.ProductViewOptionSizeData;
 import com.wholesale.wholesalefriends.main.data.ProductViewResponse;
 import com.wholesale.wholesalefriends.main.data.RecomWordData;
+import com.wholesale.wholesalefriends.main.data.SideCountData;
 import com.wholesale.wholesalefriends.main.data.StoreListData;
 import com.wholesale.wholesalefriends.main.data.StoreListResponse;
 import com.wholesale.wholesalefriends.main.data.StoreSearchData;
@@ -2137,6 +2138,119 @@ public class API {
                 public void onFailure(Throwable t) {
                     t.printStackTrace();
                     Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 31. 상품삭제(도매 상품관리)
+     * @param context
+     * @param user_id
+     * @param p_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void productDel(Context context, String user_id,String p_id,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadProductDel("/product/del",user_id,p_id);
+            hp.setOnProductDel(new Retrofit.OnProductDel() {
+                @Override
+                public void onResponse(Retrofit.ContributorProductDel c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 31. 도매 회원 사이드 메뉴
+     * @param context
+     * @param user_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void sideCount(Context context, String user_id, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+                hp.uploadSideCount("user/sideCount",user_id+"");
+
+            hp.setOnSideCount(new Retrofit.OnSideCount() {
+                @Override
+                public void onResponse(Retrofit.ContributorSideCount c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+
+                        JSONObject object = new JSONObject();
+                        SideCountData data = c.data;
+                        if(data!=null){
+
+                            object.put("image",data.getImage());
+                            object.put("store_name",data.getStore_name());
+                            object.put("level",data.getLevel());
+                            object.put("views",data.getViews());
+                            object.put("users",data.getUsers());
+                            object.put("products",data.getProducts());
+                            object.put("addr",data.getAddr());
+
+                        }
+
+                        jsonObject.put("data",object);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Throwable e){e.printStackTrace();}

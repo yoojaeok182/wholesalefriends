@@ -392,7 +392,16 @@ public class HomeFragment extends Fragment {
         loadList(1,"","",SharedPreference.getIntSharedPreference(getActivity(), Constant.CommonKey.store_id)+"",
                 strKeyword,sort_type,open_type+"","");
     }
-    public void requestProcuctManager(RelativeLayout btnAllCheck,ImageView ivAllCheck,TextView tvSelectItemCount,LinearLayout btnReWareHousing,LinearLayout btnSoldOut,LinearLayout btnTop30 ){
+    public void requestProcuctManager(RelativeLayout close,TextView tvItemCount,RelativeLayout allCheckBtn,ImageView allCheckIv,RelativeLayout remove,LinearLayout reWareHousing,LinearLayout soldOut,LinearLayout top30Btn ){
+        btnPMClose = close;
+        tvSelectItemCount = tvItemCount;
+        btnAllCheck = allCheckBtn;
+        ivAllCheck = allCheckIv;
+        btnRemove = remove;
+        btnReWareHousing = reWareHousing;
+        btnSoldOut = soldOut;
+        btnTop30 = top30Btn;
+
         isAllCheck = false;
         int count = 0;
         for(int i=0; i<productList2Adapter.getItemCount();i++){
@@ -402,25 +411,47 @@ public class HomeFragment extends Fragment {
         }
 
         tvSelectItemCount.setText(count+"");
+
+        btnPMClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Main2Activity.getInstance()!=null){
+                    Main2Activity.getInstance().setVisibilityProductManager(false);
+                }
+            }
+        });
+
         btnAllCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(isAllCheck){
                     ivAllCheck.setBackgroundResource(R.drawable.check_default);
-                    isAllCheck = false;
+                    isAllCheck =false;
                 }else{
                     ivAllCheck.setBackgroundResource(R.drawable.check_on);
                     isAllCheck = true;
                 }
-
                 for(int i=0; i<productList2Adapter.getItemCount();i++){
                     productList2Adapter.getItem(i).setCheck(isAllCheck);
                 }
-
                 productList2Adapter.notifyDataSetChanged();
             }
         });
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                p_id = "";
+                for(int i=0; i<productList2Adapter.getItemCount();i++){
+                    if(productList2Adapter.getItem(i).getId()>0 &&productList2Adapter.getItem(i).isCheck()){
+                        p_id = p_id+productList2Adapter.getItem(i).getId()+"||";
+                    }
+                }
 
+                API.productDel(getActivity(),SharedPreference.getIntSharedPreference(getActivity(), Constant.CommonKey.user_no)+"",p_id,resultOkListHandler,errHandler);
+
+            }
+        });
         // 재입고
         btnReWareHousing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -458,66 +489,16 @@ public class HomeFragment extends Fragment {
                         p_id = p_id+productList2Adapter.getItem(i).getId()+"||";
                     }
                 }
+
                 API.topAdd(getActivity(),SharedPreference.getIntSharedPreference(getActivity(), Constant.CommonKey.user_no)+"",p_id,resultOkListHandler,errHandler);
             }
         });
+
     }
 
     public void setHiddenAdapterCheck(){
         productList2Adapter.setProductManager(false);
         productList2Adapter.notifyDataSetChanged();
-
-    }
-    public  void setManagerMode(RelativeLayout close,TextView tvItemCount,RelativeLayout allCheckBtn,ImageView allCheckIv,RelativeLayout remove,LinearLayout reWareHousing,LinearLayout soldOut,LinearLayout top30Btn){
-        btnPMClose = close;
-        tvSelectItemCount = tvItemCount;
-        btnAllCheck = allCheckBtn;
-        ivAllCheck = allCheckIv;
-        btnRemove = remove;
-        btnReWareHousing = reWareHousing;
-        btnSoldOut = soldOut;
-        btnTop30 = top30Btn;
-
-        btnPMClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Main2Activity.getInstance()!=null){
-                    Main2Activity.getInstance().setVisibilityProductManager(false);
-                }
-            }
-        });
-
-        btnAllCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        btnReWareHousing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        btnSoldOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        btnTop30.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO
-            }
-        });
-
 
     }
     private void selectMenu(int pos){

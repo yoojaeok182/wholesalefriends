@@ -17,6 +17,12 @@ import androidx.fragment.app.Fragment;
 import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.AlarmSettingActivity;
 import com.wholesale.wholesalefriends.main.ServiceCenterActivity;
+import com.wholesale.wholesalefriends.main.common.Constant;
+import com.wholesale.wholesalefriends.main.retail_market.NoticeActivity;
+import com.wholesale.wholesalefriends.main.wholesale_market.AppInfoActivity;
+import com.wholesale.wholesalefriends.module.AppData;
+import com.wholesale.wholesalefriends.module.SharedPreference;
+import com.wholesale.wholesalefriends.module.util.Util;
 
 public class MyPageFragment extends Fragment implements View.OnClickListener {
 
@@ -70,6 +76,12 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         btnLogout.setOnClickListener(this);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @Override
     public void onClick(View view) {
         Intent intent = null;
@@ -78,18 +90,20 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btnAlarmSetting:
                 intent = new Intent(getActivity(), AlarmSettingActivity.class);
-                startActivity(intent);
                 break;
             case R.id.btnMyShopIntroduce:
                 break;
 
             case R.id.btnNotice:
+                intent = new Intent(getActivity(), NoticeActivity.class);
                 break;
             case R.id.btnSerViceCenter:
                 intent= new Intent(getActivity(), ServiceCenterActivity.class);
 
                 break;
             case R.id.btnAppInfo:
+                intent= new Intent(getActivity(), AppInfoActivity.class);
+
                 break;
             case R.id.btnClauseTerms:
                 break;

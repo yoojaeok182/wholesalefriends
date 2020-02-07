@@ -2616,7 +2616,7 @@
                 android:background="@color/color_bg3"/>
 
             <LinearLayout
-                android:visibility="visible"
+                android:visibility="gone"
                 android:paddingTop="31dp"
                 android:paddingBottom="31dp"
                 android:paddingLeft="20dp"
@@ -2660,6 +2660,7 @@
             </LinearLayout>
 
             <ImageView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/color_bg3"/>
@@ -2702,7 +2703,7 @@
         android:layout_width="match_parent"
         android:layout_height="50.66dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/btn_02"
+        android:background="@drawable/btn_02_on"
         android:text="@string/button_title_06"
         android:textColor="@color/color_btn_title"
         android:textSize="15dp" />

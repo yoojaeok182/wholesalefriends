@@ -40,6 +40,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <ImageView
+                            android:id="@+id/ivSidePhoto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/icon_menu_shop"/>
@@ -76,11 +77,17 @@
                                         android:layout_height="wrap_content"/>
                                 </LinearLayout>
 
-                                <ImageView
-                                    android:id="@+id/ivStaffType"
-                                    android:background="@drawable/btn_staff"
+                                <TextView
+                                    android:id="@+id/tvStaffType"
+                                    android:background="@drawable/status_02"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                                    android:textSize="11dp"
+                                    android:text="직원"
+                                    android:paddingLeft="15dp"
+                                    android:paddingRight="15dp"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_text_09"
+                                    android:layout_height="20dp"/>
                             </LinearLayout>
 
                             <TextView
@@ -167,6 +174,7 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent">
                             <TextView
+                                android:id="@+id/tvViewCount"
                                 android:text="0"
                                 android:textSize="15dp"
                                 android:textColor="@color/color_text_06"
@@ -179,7 +187,7 @@
                                 android:textSize="13dp"
                                 android:textColor="@color/color_text_03"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="36dp"/>
                         </LinearLayout>
 
                         <ImageView
@@ -196,6 +204,7 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent">
                             <TextView
+                                android:id="@+id/tvUsersCount"
                                 android:text="0"
                                 android:textSize="15dp"
                                 android:textColor="@color/color_text_06"
@@ -206,9 +215,10 @@
                                 android:text="거래처"
                                 android:lineSpacingExtra="5dp"
                                 android:textSize="13dp"
+                                android:gravity="center_vertical"
                                 android:textColor="@color/color_text_03"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="36dp"/>
                         </LinearLayout>
 
                         <ImageView
@@ -225,6 +235,7 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent">
                             <TextView
+                                android:id="@+id/tvProductCount"
                                 android:text="0"
                                 android:textSize="15dp"
                                 android:textColor="@color/color_text_06"
@@ -235,9 +246,10 @@
                                 android:text="전체상품"
                                 android:lineSpacingExtra="5dp"
                                 android:textSize="13dp"
+                                android:gravity="center_vertical"
                                 android:textColor="@color/color_text_03"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="36dp"/>
                         </LinearLayout>
 
                     </LinearLayout>

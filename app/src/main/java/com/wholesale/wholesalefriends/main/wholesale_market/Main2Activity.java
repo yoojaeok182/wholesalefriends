@@ -2,6 +2,8 @@ package com.wholesale.wholesalefriends.main.wholesale_market;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,15 +17,24 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
+import com.wholesale.wholesalefriends.main.MyInfoManagementActivity;
 import com.wholesale.wholesalefriends.main.ProductRegistrationActivity;
 import com.wholesale.wholesalefriends.main.base.GroupActivity;
 import com.wholesale.wholesalefriends.main.common.Constant;
+import com.wholesale.wholesalefriends.main.data.SideCountData;
+import com.wholesale.wholesalefriends.main.data.SideCountListResponse;
+import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
 import com.wholesale.wholesalefriends.main.wholesale_market.fragment.CustomerFragment;
 import com.wholesale.wholesalefriends.main.wholesale_market.fragment.HomeFragment;
 import com.wholesale.wholesalefriends.main.wholesale_market.fragment.MyPageFragment;
 import com.wholesale.wholesalefriends.main.wholesale_market.fragment.OrderListFragment;
+import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.SharedPreference;
+
+import org.json.JSONObject;
 
 public class Main2Activity extends GroupActivity {
 
@@ -37,7 +48,7 @@ public class Main2Activity extends GroupActivity {
     private LinearLayout btnMenu02;
     private LinearLayout btnMenu03;
     private LinearLayout btnMenu04;
-    private ImageView ivStaffType;
+    private TextView tvStaffType;
     private LinearLayout laySetting;
     private TextView tvShopLocale;
     private LinearLayout btnOrderQna;
@@ -85,9 +96,15 @@ public class Main2Activity extends GroupActivity {
 
     public static boolean isFirstRun;
 
-    private static  Main2Activity instance;
-    public static Main2Activity getInstance(){
+    private static Main2Activity instance;
+    private ImageView ivSidePhoto;
+    private TextView tvViewCount;
+    private TextView tvUsersCount;
+    private TextView tvProductCount;
+
+    public static Main2Activity getInstance() {
         return instance;
+
     }
 
     @Override
@@ -97,7 +114,10 @@ public class Main2Activity extends GroupActivity {
 
         instance = this;
         isFirstRun = true;
-
+        ivSidePhoto = findViewById(R.id.ivSidePhoto);
+        tvViewCount = findViewById(R.id.tvViewCount);
+        tvUsersCount = findViewById(R.id.tvUsersCount);
+        tvProductCount = findViewById(R.id.tvProductCount);
         btnMenu = findViewById(R.id.btnMenu);
         ivLogo = findViewById(R.id.ivLogo);
         tvTitle = findViewById(R.id.tvTitle);
@@ -108,7 +128,7 @@ public class Main2Activity extends GroupActivity {
         btnMenu02 = findViewById(R.id.btnMenu02);
         btnMenu03 = findViewById(R.id.btnMenu03);
         btnMenu04 = findViewById(R.id.btnMenu04);
-        ivStaffType = findViewById(R.id.ivStaffType);
+        tvStaffType = findViewById(R.id.tvStaffType);
         laySetting = findViewById(R.id.laySetting);
         tvShopLocale = findViewById(R.id.tvShopLocale);
         btnOrderQna = findViewById(R.id.btnOrderQna);
@@ -156,17 +176,15 @@ public class Main2Activity extends GroupActivity {
 
         initSetting();
 
-        if(homeFragment!=null)homeFragment.setManagerMode(btnPMClose,tvSelectItemCount,btnAllCheck,ivAllCheck,btnRemove,btnReWareHousing,btnSoldOut,btnTop30);
 
     }
 
-    private void initSetting(){
+    private void loadSiceCount() {
+        API.sideCount(this, SharedPreference.getIntSharedPreference(this, Constant.CommonKey.user_no) + "", resultOkListHandler, errHandler);
+    }
 
-        if(SharedPreference.getIntSharedPreference(Main2Activity.this, Constant.CommonKey.level) ==2){  //직원
-            ivStaffType.setBackgroundResource(R.drawable.btn_staff);
-        }else{
-            ivStaffType.setBackgroundResource(R.drawable.btn_staff3);
-        }
+    private void initSetting() {
+
         drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -252,6 +270,7 @@ public class Main2Activity extends GroupActivity {
             }
         });
     }
+
     private void init() {
 
 
@@ -336,14 +355,12 @@ public class Main2Activity extends GroupActivity {
         setVisibilityProductManager(false);
     }
 
-    public void setVisibilityProductManager(boolean isShow){
-        if(isShow){
+    public void setVisibilityProductManager(boolean isShow) {
+        if (isShow) {
             llayoutForTitle.setVisibility(View.GONE);
             llayoutForMenu.setVisibility(View.GONE);
             llayoutForProductManagerMode.setVisibility(View.VISIBLE);
             llayoutForProductManagerModeBottom.setVisibility(View.VISIBLE);
-
-
 
 
             btnPMClose.setOnClickListener(new View.OnClickListener() {
@@ -354,9 +371,9 @@ public class Main2Activity extends GroupActivity {
                 }
             });
 
-            homeFragment.requestProcuctManager(btnAllCheck,ivAllCheck,tvSelectItemCount,btnReWareHousing,btnSoldOut,btnTop30);
+            homeFragment.requestProcuctManager(btnPMClose, tvSelectItemCount, btnAllCheck, ivAllCheck, btnRemove, btnReWareHousing, btnSoldOut, btnTop30);
 
-        }else{
+        } else {
             llayoutForTitle.setVisibility(View.VISIBLE);
             llayoutForMenu.setVisibility(View.VISIBLE);
             llayoutForProductManagerMode.setVisibility(View.GONE);
@@ -365,13 +382,17 @@ public class Main2Activity extends GroupActivity {
 
     }
 
-    public  void getHomeRefresh(){
-        if(homeFragment!=null){
+    public void getHomeRefresh() {
+        if (homeFragment != null) {
             homeFragment.getRefresh();
         }
     }
+
     private void getDrawaerController(boolean isOpen) {
 
+        if (isOpen) {
+            loadSiceCount();
+        }
     }
 
 
@@ -391,17 +412,17 @@ public class Main2Activity extends GroupActivity {
         tvTitle.setVisibility(View.GONE);
         switch (pos) {
             case 0:
-                ivLogo.setVisibility(View.GONE);
+                ivLogo.setVisibility(View.VISIBLE);
                 ivMenu01.setBackgroundResource(R.drawable.botton_icon_home_on);
                 tvMenu01.setTextColor(getResources().getColor(R.color.color_text_07));
                 break;
             case 1:
-                ivLogo.setVisibility(View.GONE);
+                ivLogo.setVisibility(View.VISIBLE);
                 ivMenu02.setBackgroundResource(R.drawable.botton_icon_category_on);
                 tvMenu02.setTextColor(getResources().getColor(R.color.color_text_07));
                 break;
             case 2:
-                ivLogo.setVisibility(View.GONE);
+                ivLogo.setVisibility(View.VISIBLE);
                 ivMenu03.setBackgroundResource(R.drawable.botton_icon_list_on);
                 tvMenu03.setTextColor(getResources().getColor(R.color.color_text_07));
                 break;
@@ -457,4 +478,74 @@ public class Main2Activity extends GroupActivity {
                 break;
         }
     }
+
+
+    private Handler resultOkListHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            try {
+                JSONObject jsonObject = (JSONObject) msg.obj;
+
+                if (jsonObject.getBoolean("result")) {
+                    SideCountListResponse sideCountListResponse = new Gson().fromJson(jsonObject.toString(), SideCountListResponse.class);
+
+                    if (sideCountListResponse.getData() != null) {
+
+                        SideCountData data = sideCountListResponse.getData();
+
+                        if(data!=null){
+                            Glide.with(Main2Activity.this).load(data.getImage()).into(ivSidePhoto);
+                            tvStoreName.setText(data.getStore_name());
+
+                            laySetting.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(Main2Activity.this, MyInfoManagementActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                            if (data.getLevel() != null && data.getLevel().indexOf("직원") > -1) {
+                                tvStaffType.setText(data.getLevel());
+                                tvStaffType.setBackgroundResource(R.drawable.status_02);
+                            } else {
+                                tvStaffType.setText(data.getLevel());
+                                tvStaffType.setBackgroundResource(R.drawable.status_01);
+                            }
+                            tvShopLocale.setText(data.getAddr());
+                            tvViewCount.setText(data.getViews()+"");
+                            tvUsersCount.setText(data.getUsers()+"");
+                            tvProductCount.setText(data.getProducts()+"");
+                        }
+
+                    }
+                } else {
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private Handler errHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            try {
+                JSONObject jsonObject = (JSONObject) msg.obj;
+
+                if (!jsonObject.getBoolean("result")) {
+
+                    if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
+                        final CommonAlertDialog dg = new CommonAlertDialog(Main2Activity.this, false, false);
+                        dg.setTitle("계정 정보 확인");
+                        dg.setMessage(jsonObject.getString("error"));
+                        dg.show();
+
+                    }
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
 }

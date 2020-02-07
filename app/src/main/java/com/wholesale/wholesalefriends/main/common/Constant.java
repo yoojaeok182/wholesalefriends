@@ -5,6 +5,7 @@ import android.os.Environment;
 public class Constant {
     public static final String PICTURE_DIR =  "/data/data/" + "com.wholesale.wholesalefriend" + "/picture";
     public static final String PICTURE_DIR2 =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) +  "/picture";
+    public static final String PICTURE_DIR3 =  Environment.getExternalStorageDirectory().getAbsolutePath()+  "/data";
 
     public static int PAGE_GO = 30;
 
@@ -31,6 +32,12 @@ public class Constant {
         String category_name = "category_name";
 
         String guide_show   = "guide_show";
+
+        String alarm_show="alarm_show";
+        String alarm_interrupt_setting="alarm_interrupt_setting";
+        String alarm_interrupt_date_start="alarm_interrupt_date_start";
+        String alarm_interrupt_date_end="alarm_interrupt_date_end";
+
 
 
         String product_id = "product_id";

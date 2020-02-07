@@ -45,6 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wholesale.wholesalefriends.main.base.MyApplication;
+import com.wholesale.wholesalefriends.main.common.Constant;
 import com.wholesale.wholesalefriends.module.StorePackageInfo;
 
 import java.io.BufferedReader;
@@ -79,6 +80,8 @@ public class Util {
     public static final int LANGUE_MIX = 2;
 
     public static boolean isPurchaceOk = false;
+
+
 
 
     public static InputFilter filter1= new InputFilter() {
@@ -322,7 +325,11 @@ public class Util {
 
 
     public static void writeToFile(String data) {
+
         final File file = new File(getTempDir(), "config.txt");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
 
         // Save your stream, don't forget to flush() it before closing it.
 
@@ -346,8 +353,11 @@ public class Util {
 
     public static String readToFile() {
         //Get the text file
-        File file = new File(getTempDir(), "config.txt");
 
+        File file = new File(getTempDir(), "config.txt");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
         //Read text from file
         StringBuilder text = new StringBuilder();
 
@@ -367,7 +377,7 @@ public class Util {
     }
 
     public static final String getTempDir() {
-        String folderPath = MyApplication.getApplication().getFilesDir().getAbsolutePath();
+        String folderPath = Constant.PICTURE_DIR3;
         File folder = new File(folderPath);
         if (!folder.exists()) {
             folder.mkdirs();

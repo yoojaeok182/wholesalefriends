@@ -45,4 +45,16 @@
         <item name="android:textColorHint">@color/color_aaaaaa</item>
         <item name="android:textColor">@color/color_333333</item>
     </style>
+
+    <style name="AppCompat.Translucent.Notitle" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/dialog_bg</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@color/color_translate</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!--        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>-->
+    </style>
+
 </resources>

@@ -20,6 +20,7 @@ import com.wholesale.wholesalefriends.main.data.PaymentGroupListResponse;
 import com.wholesale.wholesalefriends.main.data.ProductResponse;
 import com.wholesale.wholesalefriends.main.data.ProductViewResponse;
 import com.wholesale.wholesalefriends.main.data.RecomWordData;
+import com.wholesale.wholesalefriends.main.data.SideCountData;
 import com.wholesale.wholesalefriends.main.data.StoreListResponse;
 import com.wholesale.wholesalefriends.main.data.StoreSearchData;
 import com.wholesale.wholesalefriends.main.data.TopStoreListData;
@@ -746,6 +747,29 @@ public class Retrofit {
         );
     }
 
+    private interface UploadProductDelInterface{
+        @Multipart
+        @POST
+        Call<ContributorProductDel> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("p_id") RequestBody p_id,
+                @Url String apiUrl
+        );
+    }
+    private interface UploadSideCountInterface{
+        @Multipart
+        @POST
+        Call<ContributorSideCount> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Url String apiUrl
+        );
+    }
 
     public void uploadCartAdd(String method, String user_id,String store_id, String p_id,String p_option_1,String p_option_2,String amount,boolean _isLoading){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
@@ -839,7 +863,7 @@ public class Retrofit {
         if(bm!=null){
             UploadJoin1Interface uploadInterface = mRetrofit.create(UploadJoin1Interface.class);
             File file = createTempFile(mContext, bm);
-            RequestBody mFile= RequestBody.create(MediaType.parse("image/*"), file);
+            RequestBody mFile= RequestBody.create(MediaType.parse("multipart/form-data"), file);
             fileToUpload = MultipartBody.Part.createFormData("store_photo", file.getName(), mFile);
             call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,p7,p8,p9,p10, fileToUpload,Constant.DOMAIN.api+method+"/");
         }else{
@@ -889,7 +913,7 @@ public class Retrofit {
         if(bm!=null){
             UploadJoin2Interface uploadInterface = mRetrofit.create(UploadJoin2Interface.class);
             File file = createTempFile(mContext, bm);
-            RequestBody mFile= RequestBody.create(MediaType.parse("image/*"), file);
+            RequestBody mFile= RequestBody.create(MediaType.parse("multipart/form-data"), file);
             fileToUpload = MultipartBody.Part.createFormData("store_photo", file.getName(), mFile);
             call = uploadInterface.upload(p1, p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12, fileToUpload, Constant.DOMAIN.api+method+"/");
 
@@ -1315,8 +1339,8 @@ public class Retrofit {
             for(int i=0; i<bms.length;i++){
                 if(bms[i]!=null){
                     File file = createTempFile(mContext, bms[i]);
-                    RequestBody mFile= RequestBody.create(MediaType.parse("image/*"), file);
-                    fileToUpload = MultipartBody.Part.createFormData("product_image", file.getName(), mFile);
+                    RequestBody mFile= RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    fileToUpload = MultipartBody.Part.createFormData("product_image[]", file.getName(), mFile);
                     fileParams.add(fileToUpload);
                 }
             }
@@ -1819,6 +1843,57 @@ public class Retrofit {
         });
     }
 
+
+    public void uploadProductDel(String method, String user_id,String p_id){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), p_id+"");
+
+        Call<ContributorProductDel> call =null;
+        UploadProductDelInterface uploadInterface = mRetrofit.create(UploadProductDelInterface.class);
+        call = uploadInterface.upload(p1,p2,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorProductDel>() {
+            @Override
+            public void onResponse(Call<ContributorProductDel> call,
+                                   Response<ContributorProductDel> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onProductDel.onResponse((ContributorProductDel)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorProductDel> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onProductDel.onFailure(t);
+            }
+        });
+    }
+
+
+    public void uploadSideCount(String method, String user_id){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+
+        Call<ContributorSideCount> call =null;
+        UploadSideCountInterface uploadInterface = mRetrofit.create(UploadSideCountInterface.class);
+        call = uploadInterface.upload(p1,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorSideCount>() {
+            @Override
+            public void onResponse(Call<ContributorSideCount> call,
+                                   Response<ContributorSideCount> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onSideCount.onResponse((ContributorSideCount)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorSideCount> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onSideCount.onFailure(t);
+            }
+        });
+    }
+
     /**
      * RESPONSE PARAM 등록
      */
@@ -2018,6 +2093,38 @@ public class Retrofit {
     public static class ContributorTopAdd {
         public String result ="";
         public String error="";
+    }
+    public static class ContributorProductDel {
+        public String result ="";
+        public String error="";
+    }
+
+    public static class ContributorSideCount {
+        public String result ="";
+        public String error="";
+        public SideCountData data;
+    }
+
+
+    private OnSideCount onSideCount;
+    public void setOnSideCount(OnSideCount listener){
+        onSideCount = listener;
+    }
+
+    public static interface OnSideCount{
+        public void onResponse(ContributorSideCount c);
+        public void onFailure(Throwable t);
+    }
+
+
+    private OnProductDel onProductDel;
+    public void setOnProductDel(OnProductDel listener){
+        onProductDel = listener;
+    }
+
+    public static interface OnProductDel{
+        public void onResponse(ContributorProductDel c);
+        public void onFailure(Throwable t);
     }
 
 

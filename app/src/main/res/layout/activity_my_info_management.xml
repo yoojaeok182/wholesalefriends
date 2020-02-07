@@ -60,6 +60,8 @@
                 android:background="@color/color_bg2"/>
 
             <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="29.33dp"
@@ -81,6 +83,7 @@
                     android:id="@+id/edtChangePwd"
                     android:padding="15dp"
                     android:lines="1"
+                    android:maxLines="1"
                     android:textSize="13dp"
                     android:textColor="@color/color_input_01"
                     android:textColorHint="@color/hint_input_01"
@@ -106,6 +109,7 @@
                     android:padding="15dp"
                     android:lines="1"
                     android:textSize="13dp"
+                    android:maxLines="1"
                     android:textColor="@color/color_input_01"
                     android:textColorHint="@color/hint_input_01"
                     android:maxLength="10"
@@ -130,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
 
-                    <EditText
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent"

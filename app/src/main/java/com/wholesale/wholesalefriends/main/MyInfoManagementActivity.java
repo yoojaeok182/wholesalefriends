@@ -1,6 +1,7 @@
 package com.wholesale.wholesalefriends.main;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,7 +23,7 @@ public class MyInfoManagementActivity extends GroupActivity {
     private TextView tvName;
     private EditText edtChangePwd;
     private EditText edtChangePwd2;
-    private EditText edtPhone;
+    private TextView edtPhone;
     private ImageButton btnPhoneLoad;
     private EditText edtRegNumber;
     private LinearLayout btnSave;
@@ -43,5 +44,13 @@ public class MyInfoManagementActivity extends GroupActivity {
         btnPhoneLoad = findViewById(R.id.btnPhoneLoad);
         edtRegNumber = findViewById(R.id.edtRegNumber);
         btnSave = findViewById(R.id.btnSave);
+
+        tvTitle.setText("내정보 관리");
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

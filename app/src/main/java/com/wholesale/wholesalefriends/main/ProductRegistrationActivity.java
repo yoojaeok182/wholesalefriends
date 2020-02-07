@@ -441,9 +441,16 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
     //
     private void initSelectColor(){
+        String[] colorNames = getResources().getStringArray(R.array.color_code_name);
+
         for(int i=0; i<btnColors.length;i++){
 
             Button btn = btnColors[i];
+            ColorInfo info = new ColorInfo();
+            info.code_value = (i+1);
+            info.isCheck=false;
+            info.code_name =colorNames[i];
+            arrColorName.add(info);
             switch (i){
                 case 0:
                     btn.setBackgroundResource(R.drawable.btn_color_1_select);
@@ -522,80 +529,224 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     }
     private void selectColor(View view,String color,int value)
     {
-        boolean isDuplate =false;
-
         switch (value){
             case 1:
-                view.setBackgroundResource(R.drawable.btn_color_1_on);
+                if(arrColorName.get(0).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_1_select);
+                    arrColorName.get(0).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_1_on);
+                    arrColorName.get(0).isCheck =true;
+                }
+
                 break;
             case 2:
-                view.setBackgroundResource(R.drawable.btn_color_2_on);
+                if(arrColorName.get(1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_2_select);
+                    arrColorName.get(1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_2_on);
+                    arrColorName.get(1).isCheck =true;
+                }
                 break;
             case 3:
-                view.setBackgroundResource(R.drawable.btn_color_3_on);
+                if(arrColorName.get(2).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_3_select);
+                    arrColorName.get(2).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_3_on);
+                    arrColorName.get(2).isCheck =true;
+                }
+
                 break;
             case 4:
-                view.setBackgroundResource(R.drawable.btn_color_4_on);
+                if(arrColorName.get(3).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_4_select);
+                    arrColorName.get(3).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_4_on);
+                    arrColorName.get(3).isCheck =true;
+                }
                 break;
             case 5:
-                view.setBackgroundResource(R.drawable.btn_color_5_on);
+                if(arrColorName.get(4).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_5_select);
+                    arrColorName.get(4).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_5_on);
+                    arrColorName.get(4).isCheck =true;
+                }
                 break;
             case 6:
-                view.setBackgroundResource(R.drawable.btn_color_6_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_6_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_6_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 7:
-                view.setBackgroundResource(R.drawable.btn_color_7_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_7_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_7_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 8:
-                view.setBackgroundResource(R.drawable.btn_color_8_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_8_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_8_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 9:
-                view.setBackgroundResource(R.drawable.btn_color_9_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_9_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_9_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 10:
-                view.setBackgroundResource(R.drawable.btn_color_10_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_10_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_10_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 11:
-                view.setBackgroundResource(R.drawable.btn_color_11_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_11_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_11_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 12:
-                view.setBackgroundResource(R.drawable.btn_color_12_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_12_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_12_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 13:
-                view.setBackgroundResource(R.drawable.btn_color_13_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_13_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_13_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 14:
-                view.setBackgroundResource(R.drawable.btn_color_14_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_14_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_14_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 15:
-                view.setBackgroundResource(R.drawable.btn_color_15_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_15_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_15_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 16:
-                view.setBackgroundResource(R.drawable.btn_color_16_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_16_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_16_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 17:
-                view.setBackgroundResource(R.drawable.btn_color_17_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_17_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_17_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 18:
-                view.setBackgroundResource(R.drawable.btn_color_18_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_18_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_18_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 19:
-                view.setBackgroundResource(R.drawable.btn_color_19_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_19_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_19_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 20:
-                view.setBackgroundResource(R.drawable.btn_color_20_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_20_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_20_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 21:
-                view.setBackgroundResource(R.drawable.btn_color_21_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_21_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_21_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 22:
-                view.setBackgroundResource(R.drawable.btn_color_22_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_22_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_22_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 23:
-                view.setBackgroundResource(R.drawable.btn_color_23_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_23_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_23_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
             case 24:
-                view.setBackgroundResource(R.drawable.btn_color_24_on);
+                if(arrColorName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_color_24_select);
+                    arrColorName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_color_24_on);
+                    arrColorName.get(value-1).isCheck =true;
+                }
                 break;
         }
 
@@ -603,8 +754,15 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     }
 
     private void initSelectSize(){
+        String[] sizeNames = getResources().getStringArray(R.array.size_code_name);
+
         for(int i=0; i<btnSizes.length;i++){
             Button btn = btnSizes[i];
+            SizeInfo info = new SizeInfo();
+            info.code_value = (i+1);
+            info.isCheck=false;
+            info.code_name =sizeNames[i];
+            arrSizeName.add(info);
 
             switch (i){
                 case 0:
@@ -651,55 +809,139 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     }
     private void selectSize(View view,String color,int value)
     {
-
         switch (value){
             case 1:
-                view.setBackgroundResource(R.drawable.btn_size1_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_01_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size1_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
+
                 break;
             case 2:
-                view.setBackgroundResource(R.drawable.btn_size2_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_02_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size2_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 3:
-                view.setBackgroundResource(R.drawable.btn_size3_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_03_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size3_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 4:
-                view.setBackgroundResource(R.drawable.btn_size4_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_04_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size4_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 5:
-                view.setBackgroundResource(R.drawable.btn_size5_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_05_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size5_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 6:
-                view.setBackgroundResource(R.drawable.btn_size6_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_06_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size6_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 7:
-                view.setBackgroundResource(R.drawable.btn_size7_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_07_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size7_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 8:
-                view.setBackgroundResource(R.drawable.btn_size8_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_08_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size8_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 9:
-                view.setBackgroundResource(R.drawable.btn_size9_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_09_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size9_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 10:
-                view.setBackgroundResource(R.drawable.btn_size10_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_10_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size10_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 11:
-                view.setBackgroundResource(R.drawable.btn_size11_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_11_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size11_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 12:
-                view.setBackgroundResource(R.drawable.btn_size12_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_12_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size12_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
             case 13:
-                view.setBackgroundResource(R.drawable.btn_size13_on);
+                if(arrSizeName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_size_13_select);
+                    arrSizeName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_size13_on);
+                    arrSizeName.get(value-1).isCheck =true;
+                }
                 break;
         }
 
 
     }
     private void initSelectMaterial(){
+        String[] materialsNames = getResources().getStringArray(R.array.material_code_name);
+
         for(int i=0; i<btnMaterials.length;i++){
             Button btn = btnMaterials[i];
-
+            MaterialInfo info = new MaterialInfo();
+            info.code_value = (i+1);
+            info.isCheck=false;
+            info.code_name =materialsNames[i];
+            arrMaterialName.add(info);
             switch (i){
                 case 0:
                     btn.setBackgroundResource(R.drawable.btn_meterial_01_select);
@@ -743,43 +985,114 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private void selectMeterial(View view,String color,int value)
     {
         boolean isDuplate =false;
-
         switch (value){
             case 1:
-                view.setBackgroundResource(R.drawable.btn_meterial1_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_01_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial1_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 2:
-                view.setBackgroundResource(R.drawable.btn_meterial2_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_02_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial2_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 3:
-                view.setBackgroundResource(R.drawable.btn_meterial3_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_03_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial3_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 4:
-                view.setBackgroundResource(R.drawable.btn_meterial4_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_04_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial4_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 5:
-                view.setBackgroundResource(R.drawable.btn_meterial5_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_05_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial5_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 6:
-                view.setBackgroundResource(R.drawable.btn_meterial6_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_06_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial6_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 7:
-                view.setBackgroundResource(R.drawable.btn_meterial7_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_07_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial7_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 8:
-                view.setBackgroundResource(R.drawable.btn_meterial8_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_08_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial8_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 9:
-                view.setBackgroundResource(R.drawable.btn_meterial9_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_09_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial9_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 10:
-                view.setBackgroundResource(R.drawable.btn_meterial10_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_10_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial10_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 11:
-                view.setBackgroundResource(R.drawable.btn_meterial11_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_11_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial11_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
             case 12:
-                view.setBackgroundResource(R.drawable.btn_meterial12_on);
+                if(arrMaterialName.get(value-1).isCheck){
+                    view.setBackgroundResource(R.drawable.btn_meterial_12_select);
+                    arrMaterialName.get(value-1).isCheck =false;
+                }else{
+                    view.setBackgroundResource(R.drawable.btn_meterial12_on);
+                    arrMaterialName.get(value-1).isCheck =true;
+                }
                 break;
         }
 
@@ -921,18 +1234,14 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         if(arrWashingInfo.size()>0){
             for(int i=0; i<arrWashingInfo.size();i++){
                 WashingInfo data = arrWashingInfo.get(i);
-                if(!data.isCheck){
-                    view.setTextColor(getResources().getColor(R.color.color_text_07));
-                    data.isCheck = true;
-                }else{
-                    view.setTextColor(getResources().getColor(R.color.color_text_04));
-                    data.isCheck = false;
-                }
+                view.setTextColor(getResources().getColor(R.color.color_text_04));
+                arrWashingInfo.get(i).isCheck = false;
             }
         }else{
 
         }
-
+        view.setTextColor(getResources().getColor(R.color.color_text_07));
+        arrWashingInfo.get(pos).isCheck = true;
 
     }
 
@@ -1135,59 +1444,11 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-              /*      if(arrMeterialName!=null && arrMeterialName.size()>0){
-                        for(int i=0; i<arrMeterialName.size();i++){
-                            if(arrMeterialName.get(i).equals(materialNames[finalI])){
-                                edtProductInfo3.removeTagSpan(edtProductInfo3.getText(),i,true);
-
-                                return;
-                            }
-                        }
-                    }
-                    edtProductInfo3.setText(materialNames[finalI]);*/
 
                     selectMeterial(btnMaterials[finalI],materialNames[finalI],(finalI+1));
                 }
             });
         }
-     /*   edtProductInfo3.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View view, MotionEvent event) {
-                // TODO Auto-generated method stub
-                if (view.getId() ==R.id.edtProductInfo3) {
-                    view.getParent().requestDisallowInterceptTouchEvent(true);
-                    switch (event.getAction()&MotionEvent.ACTION_MASK){
-                        case MotionEvent.ACTION_UP:
-                            view.getParent().requestDisallowInterceptTouchEvent(false);
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
-        edtProductInfo3.setTagsListener(new TagsEditText.TagsEditListener() {
-            @Override
-            public void onTagsChanged(Collection<String> tags) {
-                LogUtil.d(Arrays.toString(tags.toArray()));
-                arrMeterialName= (ArrayList<String>) tags;
-                initSelectMaterial();
-                if(arrMeterialName!=null && arrMeterialName.size()>0){
-                    for(int i=0; i<arrMeterialName.size();i++){
-                        for(int j=0;j<materialNames.length;j++){
-                            if(arrMeterialName.get(i).equals(materialNames[j])){
-                                selectMeterial(btnMaterials[j],materialNames[j],(j+1));
-
-                            }
-                        }
-                    }
-                }
-
-            }
-
-            @Override
-            public void onEditingFinished() {
-
-            }
-        });*/
         //********************************************************************************************
         initSelectSize();
         for(int i=0; i<btnSizes.length;i++){
@@ -1212,43 +1473,6 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 }
             });
         }
-      /*  edtProductInfo2.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View view, MotionEvent event) {
-                // TODO Auto-generated method stub
-                if (view.getId() ==R.id.edtProductInfo2) {
-                    view.getParent().requestDisallowInterceptTouchEvent(true);
-                    switch (event.getAction()&MotionEvent.ACTION_MASK){
-                        case MotionEvent.ACTION_UP:
-                            view.getParent().requestDisallowInterceptTouchEvent(false);
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
-        edtProductInfo2.setTagsListener(new TagsEditText.TagsEditListener() {
-            @Override
-            public void onTagsChanged(Collection<String> tags) {
-                LogUtil.d(Arrays.toString(tags.toArray()));
-               arrSizeName= (ArrayList<String>) tags;
-                initSelectSize();
-                if(arrSizeName!=null && arrSizeName.size()>0){
-                    for(int i=0; i<arrSizeName.size();i++){
-                        for(int j=0;j<sizeNames.length;j++){
-                            if(arrSizeName.get(i).equals(sizeNames[j])){
-                                selectSize(btnSizes[j],sizeNames[j],(j+1));
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onEditingFinished() {
-
-            }
-        });*/
         //********************************************************************************************
         initSelectColor();
 
@@ -1258,61 +1482,11 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   /* if(arrColorName!=null && arrColorName.size()>0){
-                        for(int i=0; i<arrColorName.size();i++){
-                            if(arrColorName.get(i).equals(colorNames[finalI])){
-                              edtProductInfo1.removeTagSpan(edtProductInfo1.getText(),i,true);
-
-                                return;
-                            }
-                        }
-                    }
-
-                    edtProductInfo1.setText(colorNames[finalI]);*/
 
                     selectColor(btnColors[finalI],colorNames[finalI],(finalI+1));
                 }
             });
         }
-        /*edtProductInfo1.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View view, MotionEvent event) {
-                // TODO Auto-generated method stub
-                if (view.getId() ==R.id.edtProductInfo1) {
-                    view.getParent().requestDisallowInterceptTouchEvent(true);
-                    switch (event.getAction()&MotionEvent.ACTION_MASK){
-                        case MotionEvent.ACTION_UP:
-                            view.getParent().requestDisallowInterceptTouchEvent(false);
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
-
-        edtProductInfo1.setTagsListener(new TagsEditText.TagsEditListener() {
-            @Override
-            public void onTagsChanged(Collection<String> tags) {
-                arrColorName.clear();
-                LogUtil.d(Arrays.toString(tags.toArray()));
-                arrColorName= (ArrayList<String>) tags;
-                initSelectColor();
-                if(arrColorName!=null && arrColorName.size()>0){
-                    for(int i=0; i<arrColorName.size();i++){
-                        for(int j=0;j<colorNames.length;j++){
-                            if(arrColorName.get(i).equals(colorNames[j])){
-                                selectColor(btnColors[j],colorNames[j],(j+1));
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onEditingFinished() {
-
-            }
-        });*/
         //********************************************************************************
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1400,38 +1574,35 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     }
 
     private void checkSelectColor(){
-        String[] colorNames = getResources().getStringArray(R.array.color_code_name);
 
         String comoma = ",";
         if(arrColorName!=null && arrColorName.size()>0){
             for(int i=0; i<arrColorName.size();i++){
-                for(int j=0;j<colorNames.length;j++){
-                    if(arrColorName.get(i).equals(colorNames[j])){
-                            strColorValue = strColorValue +(j+1)+comoma;
-                    }
+                ColorInfo data = arrColorName.get(i);
+                if(data.isCheck){
+                    strColorValue = strColorValue+(data.code_value)+comoma;
                 }
             }
         }
 
-        strColorValue = strColorValue.substring(0, strColorValue.length()-1);
+//        strColorValue = strColorValue.substring(0, strColorValue.length()-1);
 
     }
 
     private void checkSelectSize(){
-        String[] sizeNames = getResources().getStringArray(R.array.size_code_name);
 
         String comoma = ",";
         if(arrSizeName!=null && arrSizeName.size()>0){
             for(int i=0; i<arrSizeName.size();i++){
-                for(int j=0;j<sizeNames.length;j++){
-                    if(arrSizeName.get(i).equals(sizeNames[j])){
-                            strSizeValue = strSizeValue +(j+1)+comoma;
-                    }
+                SizeInfo data = arrSizeName.get(i);
+                if(data.isCheck){
+                    strSizeValue = strSizeValue+(data.code_value)+comoma;
                 }
             }
         }
 
-        strSizeValue = strSizeValue.substring(0, strSizeValue.length()-1);
+
+//        strSizeValue = strSizeValue.substring(0, strSizeValue.length()-1);
 
     }
 
@@ -1440,25 +1611,26 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         for(int i=0; i<arrWashingInfo.size(); i++){
             WashingInfo data = arrWashingInfo.get(i);
             if(data.isCheck){
-                strWashingInfo = strWashingInfo+(data.code_value)+"||";
+                strWashingInfo = strWashingInfo+(data.code_value)+",";
             }
         }
     }
     private void checkSelectMaterial(){
         String[] materialNames = getResources().getStringArray(R.array.material_code_name);
 
+
         String comoma = ",";
         if(arrMaterialName!=null && arrMaterialName.size()>0){
             for(int i=0; i<arrMaterialName.size();i++){
-                for(int j=0;j<materialNames.length;j++){
-                    if(arrMaterialName.get(i).equals(materialNames[j])){
-                            strMaterialValue = strMaterialValue +(j+1)+comoma;
-                    }
+                MaterialInfo data = arrMaterialName.get(i);
+                if(data.isCheck){
+                    strMaterialValue = strMaterialValue+(data.code_value)+comoma;
                 }
             }
         }
 
-        strMaterialValue = strMaterialValue.substring(0, strMaterialValue.length()-1);
+
+//        strMaterialValue = strMaterialValue.substring(0, strMaterialValue.length()-1);
 
     }
     private void saveData(){
@@ -1880,7 +2052,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto01);
@@ -1899,7 +2071,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto01);
@@ -1914,7 +2086,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto02);
@@ -1933,7 +2105,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto01);
@@ -1946,7 +2118,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto02);
@@ -1959,7 +2131,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(2).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto03);
@@ -1978,7 +2150,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto01);
@@ -1993,7 +2165,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto02);
@@ -2006,7 +2178,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(2).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto03);
@@ -2019,7 +2191,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(3).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto04);
@@ -2038,7 +2210,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(0).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto01);
@@ -2052,7 +2224,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(1).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto02);
@@ -2065,7 +2237,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(2).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto03);
@@ -2078,7 +2250,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(3).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto04);
@@ -2091,7 +2263,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(imageFiles.get(4).getBitmap());
+                                        bmList.add(resource);
                                         return false;
                                     }
                                 }).into(ivSubPhoto05);
