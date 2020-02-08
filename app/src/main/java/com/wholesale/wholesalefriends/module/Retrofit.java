@@ -17,8 +17,10 @@ import com.wholesale.wholesalefriends.main.data.CategoryLIstData;
 import com.wholesale.wholesalefriends.main.data.CodeListData;
 import com.wholesale.wholesalefriends.main.data.NoticeListResponse;
 import com.wholesale.wholesalefriends.main.data.PaymentGroupListResponse;
+import com.wholesale.wholesalefriends.main.data.ProductQnaListResponse;
 import com.wholesale.wholesalefriends.main.data.ProductResponse;
 import com.wholesale.wholesalefriends.main.data.ProductViewResponse;
+import com.wholesale.wholesalefriends.main.data.ProductViewWholesaleResponse;
 import com.wholesale.wholesalefriends.main.data.RecomWordData;
 import com.wholesale.wholesalefriends.main.data.SideCountData;
 import com.wholesale.wholesalefriends.main.data.StoreListResponse;
@@ -771,6 +773,47 @@ public class Retrofit {
         );
     }
 
+    private interface UploadProductWholesaleViewInterface{
+        @Multipart
+        @POST
+        Call<ContributorProductWholesaleView> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("p_id") RequestBody p_id,
+
+                @Url String apiUrl
+        );
+    }
+
+
+    private interface UploadQnaLIstInterface{
+        @Multipart
+        @POST
+        Call<ContributorQnaList> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("page") RequestBody page,
+                @Part("p_id") RequestBody p_id,
+                @Url String apiUrl
+        );
+    }
+
+    private interface UploadProductQnaReplyWriteInterface{
+        @Multipart
+        @POST
+        Call<ContributorProductQnaReplyWrite> upload(
+                /**
+                 * REST API 등록
+                 */
+                @Part("user_id") RequestBody user_id,
+                @Part("q_id") RequestBody q_id,
+                @Part("content") RequestBody content,
+                @Url String apiUrl
+        );
+    }
     public void uploadCartAdd(String method, String user_id,String store_id, String p_id,String p_option_1,String p_option_2,String amount,boolean _isLoading){
         RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
         RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), store_id);
@@ -1894,6 +1937,79 @@ public class Retrofit {
         });
     }
 
+
+    public void uploadProductWholesaleView(String method,String user_id, String p_id){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), p_id);
+
+        UploadProductWholesaleViewInterface uploadInterface = mRetrofit.create(UploadProductWholesaleViewInterface.class);
+        Call<ContributorProductWholesaleView> call = uploadInterface.upload(p1, p2,Constant.DOMAIN.api+method+"/");
+
+        call.enqueue(new Callback<ContributorProductWholesaleView>() {
+            @Override
+            public void onResponse(Call<ContributorProductWholesaleView> call,
+                                   Response<ContributorProductWholesaleView> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onWholesaleView.onResponse((ContributorProductWholesaleView)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorProductWholesaleView> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onWholesaleView.onFailure(t);
+            }
+        });
+    }
+
+
+    public void uploadQnaList(String method,String page, String p_id){
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), page);
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), p_id);
+
+        Call<ContributorQnaList> call=null;
+        UploadQnaLIstInterface uploadInterface = mRetrofit.create(UploadQnaLIstInterface.class);
+        call = uploadInterface.upload(p1, p2,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorQnaList>() {
+            @Override
+            public void onResponse(Call<ContributorQnaList> call,
+                                   Response<ContributorQnaList> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onQnaList.onResponse((ContributorQnaList)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorQnaList> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onQnaList.onFailure(t);
+            }
+        });
+    }
+
+    public void uploadQnaReplyWrite(String method, String user_id,String q_id,String content){
+
+        RequestBody p1 = RequestBody.create(MediaType.parse("text/plain"), user_id+"");
+        RequestBody p2 = RequestBody.create(MediaType.parse("text/plain"), q_id+"");
+        RequestBody p3= RequestBody.create(MediaType.parse("text/plain"), content+"");
+
+        Call<ContributorProductQnaReplyWrite> call =null;
+        UploadProductQnaReplyWriteInterface uploadInterface = mRetrofit.create(UploadProductQnaReplyWriteInterface.class);
+        call = uploadInterface.upload(p1,p2,p3,Constant.DOMAIN.api+method+"/");
+
+
+        call.enqueue(new Callback<ContributorProductQnaReplyWrite>() {
+            @Override
+            public void onResponse(Call<ContributorProductQnaReplyWrite> call,
+                                   Response<ContributorProductQnaReplyWrite> response) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onQnaReplyWrite.onResponse((ContributorProductQnaReplyWrite)response.body());
+            }
+            @Override
+            public void onFailure(Call<ContributorProductQnaReplyWrite> call, Throwable t) {
+                if(dg!=null&& isShowLoading)dg.dismiss();
+                onQnaReplyWrite.onFailure(t);
+            }
+        });
+    }
     /**
      * RESPONSE PARAM 등록
      */
@@ -2103,6 +2219,56 @@ public class Retrofit {
         public String result ="";
         public String error="";
         public SideCountData data;
+    }
+
+    public static class ContributorProductWholesaleView{
+        public String result ="";
+        public String error="";
+        public ProductViewWholesaleResponse data;
+    }
+
+
+
+    public static class ContributorQnaList{
+        public String result ="";
+        public String error="";
+        public ProductQnaListResponse list;
+    }
+
+    public static class ContributorProductQnaReplyWrite {
+        public String result ="";
+        public String error="";
+    }
+
+    private OnQnaList onQnaList;
+    public void setOnQnaList(OnQnaList listener){
+        onQnaList = listener;
+    }
+
+    public static interface OnQnaList{
+        public void onResponse(ContributorQnaList c);
+        public void onFailure(Throwable t);
+    }
+
+    private OnQnaReplyWrite onQnaReplyWrite;
+    public void setOnQnaReplyWrite(OnQnaReplyWrite listener){
+        onQnaReplyWrite = listener;
+    }
+
+    public static interface OnQnaReplyWrite{
+        public void onResponse(ContributorProductQnaReplyWrite c);
+        public void onFailure(Throwable t);
+    }
+
+
+    private OnWholesaleView onWholesaleView;
+    public void setOnWholesaleView(OnWholesaleView listener){
+        onWholesaleView = listener;
+    }
+
+    public static interface OnWholesaleView{
+        public void onResponse(ContributorProductWholesaleView c);
+        public void onFailure(Throwable t);
     }
 
 

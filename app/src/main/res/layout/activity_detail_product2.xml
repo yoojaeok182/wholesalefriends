@@ -26,12 +26,28 @@
 
               <RelativeLayout
                   android:layout_width="match_parent"
-                  android:layout_height="300dp">
+                  android:layout_height="wrap_content">
 
-                  <androidx.viewpager.widget.ViewPager
-                      android:id="@+id/viewPager"
+                  <RelativeLayout
+                      android:id="@+id/rootPhoto"
                       android:layout_width="match_parent"
-                      android:layout_height="match_parent"/>
+                      android:layout_height="wrap_content">
+
+                      <ImageView
+                          android:layout_centerHorizontal="true"
+                          android:id="@+id/ivDummyPhoto"
+                          android:layout_width="320dp"
+                          android:layout_height="300dp"/>
+                      <androidx.viewpager.widget.ViewPager
+                          android:id="@+id/viewPager"
+                          android:layout_alignBottom="@id/ivDummyPhoto"
+                          android:layout_alignRight="@id/ivDummyPhoto"
+                          android:layout_alignLeft="@id/ivDummyPhoto"
+                          android:layout_alignTop="@id/ivDummyPhoto"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"/>
+                  </RelativeLayout>
+
 
                   <LinearLayout
                       android:layout_marginBottom="20dp"
@@ -112,6 +128,7 @@
                           <TextView
                               android:layout_marginTop="14.33dp"
                               android:textSize="14dp"
+                              android:textStyle="bold"
                               android:textColor="@color/color_text_08"
                               android:id="@+id/tvProductName"
                               android:layout_width="wrap_content"
@@ -328,7 +345,7 @@
                               android:gravity="center_vertical">
 
                               <TextView
-                                  android:textColor="@color/color_text_12"
+                                  android:textColor="@color/color_text_03"
                                   android:id="@+id/tvMix"
                                   android:layout_width="0dp"
                                   android:layout_weight="1"
@@ -340,6 +357,50 @@
                       </LinearLayout>
 
 
+                      <ImageView
+                          android:layout_width="match_parent"
+                          android:layout_height="1dp"
+                          android:background="@color/line_color_01"/>
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="42dp"
+                          android:orientation="horizontal">
+
+                          <LinearLayout
+                              android:background="@color/color_box8"
+                              android:layout_width="79dp"
+                              android:layout_height="match_parent"
+                              android:gravity="center">
+                              <TextView
+                                  android:text="스타일"
+                                  android:textSize="12dp"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:textColor="@color/color_text_08"/>
+                          </LinearLayout>
+                          <ImageView
+                              android:layout_width="1dp"
+                              android:layout_height="match_parent"
+                              android:background="@color/line_color_01"/>
+                          <LinearLayout
+                              android:paddingLeft="10dp"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:orientation="horizontal"
+                              android:gravity="center_vertical">
+
+                              <TextView
+                                  android:textColor="@color/color_text_03"
+                                  android:id="@+id/tvStyle"
+                                  android:layout_width="0dp"
+                                  android:layout_weight="1"
+                                  android:textSize="12dp"
+                                  android:gravity="center_vertical"
+                                  android:layout_height="match_parent"/>
+
+                          </LinearLayout>
+                      </LinearLayout>
                       <ImageView
                           android:layout_width="match_parent"
                           android:layout_height="1dp"
@@ -380,7 +441,7 @@
                                   android:layout_weight="1"
                                   android:textSize="12dp"
                                   android:maxLength="40"
-                                  android:gravity="top"
+                                  android:gravity="center_vertical"
                                   android:layout_height="match_parent"/>
 
                           </LinearLayout>
@@ -426,6 +487,7 @@
                           android:layout_height="wrap_content"/>
 
                       <ImageButton
+                          android:id="@+id/btnClipBoard"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:background="@drawable/btn_clipboard"/>
@@ -553,7 +615,7 @@
                                   android:layout_width="wrap_content"
                                   android:layout_height="match_parent">
                                   <ImageView
-                                      android:id="@+id/ivThick031"
+                                      android:id="@+id/ivThick03"
                                       android:background="@drawable/box_off_03"
                                       android:layout_width="14dp"
                                       android:layout_height="14dp"/>
@@ -898,6 +960,7 @@
                       android:orientation="horizontal">
 
                       <LinearLayout
+                          android:id="@+id/btnWashingInfo01"
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -909,6 +972,7 @@
                               android:background="@drawable/icon_handwash"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo01"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -918,7 +982,9 @@
                       </LinearLayout>
 
                       <LinearLayout
-                          android:layout_marginLeft="10dp"
+                          android:id="@+id/btnWashingInfo02"
+
+                          android:layout_marginLeft="5dp"
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -930,16 +996,19 @@
                               android:background="@drawable/icon_dry"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo02"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:text="드라이클리닝"
+                              android:text="드라이 클리닝"
                               android:textSize="12dp"
                               android:textColor="@color/color_text_04"/>
                       </LinearLayout>
 
                       <LinearLayout
-                          android:layout_marginLeft="10dp"
+                          android:id="@+id/btnWashingInfo03"
+
+                          android:layout_marginLeft="5dp"
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -951,6 +1020,7 @@
                               android:background="@drawable/icon_water"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo03"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -960,7 +1030,9 @@
                       </LinearLayout>
 
                       <LinearLayout
-                          android:layout_marginLeft="10dp"
+                          android:id="@+id/btnWashingInfo04"
+
+                          android:layout_marginLeft="5dp"
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -972,6 +1044,7 @@
                               android:background="@drawable/icon_alone"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo04"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -987,6 +1060,8 @@
                       android:orientation="horizontal">
 
                       <LinearLayout
+                          android:id="@+id/btnWashingInfo05"
+
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -998,6 +1073,7 @@
                               android:background="@drawable/icon_wool"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo05"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -1007,7 +1083,9 @@
                       </LinearLayout>
 
                       <LinearLayout
-                          android:layout_marginLeft="10dp"
+                          android:id="@+id/btnWashingInfo06"
+
+                          android:layout_marginLeft="5dp"
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -1019,16 +1097,19 @@
                               android:background="@drawable/icon_bleach"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo06"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:text="표백제사용금지"
+                              android:text="표백제 사용금지"
                               android:textSize="12dp"
                               android:textColor="@color/color_text_04"/>
                       </LinearLayout>
 
                       <LinearLayout
-                          android:layout_marginLeft="10dp"
+                          android:id="@+id/btnWashingInfo07"
+
+                          android:layout_marginLeft="5dp"
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -1040,6 +1121,7 @@
                               android:background="@drawable/icon_ironing"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo07"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -1049,7 +1131,8 @@
                       </LinearLayout>
 
                       <LinearLayout
-                          android:layout_marginLeft="10dp"
+                          android:id="@+id/btnWashingInfo08"
+                          android:layout_marginLeft="5dp"
                           android:layout_width="0dp"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
@@ -1061,6 +1144,7 @@
                               android:background="@drawable/icon_washer"/>
 
                           <TextView
+                              android:id="@+id/tvWashingInfo08"
                               android:layout_marginTop="9dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -1084,13 +1168,15 @@
 
 
 
-    <LinearLayout
-        android:background="@color/color_bg"
+    <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
+            android:background="@color/color_bg"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible"
             android:animateLayoutChanges="true"
             android:id="@+id/llayoutForProductInqurireList"
             android:layout_width="match_parent"
@@ -1145,89 +1231,92 @@
 
                 <androidx.recyclerview.widget.RecyclerView
 
+                    android:paddingBottom="75dp"
                     android:id="@+id/recyclerView"
                     android:clipToPadding="false"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
             </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:background="@color/color_bg"
+            android:id="@+id/llayoutForComment"
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/line_color_01"/>
             <LinearLayout
-                android:visibility="visible"
-                android:orientation="vertical"
-                android:background="@color/color_bg"
-                android:id="@+id/llayoutForComment"
                 android:layout_width="match_parent"
-                android:layout_height="75dp">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:paddingRight="20dp">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line_color_01"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:gravity="center_vertical"
-                    android:paddingRight="20dp">
-
-                    <LinearLayout
+                    android:gravity="center_vertical">
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/ivCheck"
-                            android:background="@drawable/check_default"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="공지"
-                            android:textSize="14dp"
-                            android:layout_marginLeft="10dp"/>
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivCheck"
+                        android:background="@drawable/check_default"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="공지"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
 
-                    <LinearLayout
+                <LinearLayout
 
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:orientation="horizontal"
-                        android:background="@drawable/box_off_01">
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/box_off_01">
 
-                        <EditText
-                            android:background="@color/color_translate"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:paddingLeft="14dp"
-                            android:paddingRight="14dp"
-                            android:textSize="13dp"
-                            android:hint="댓글을 입력해 주세요."
-                            android:textColorHint="@color/color_text_03"
-                            android:textColor="@color/color_text_08"
-                            android:id="@+id/edtComment"
-                            android:layout_height="match_parent"/>
-                        <Button
-                            android:stateListAnimator="@null"
-                            android:id="@+id/btnWrite"
-                            android:layout_width="55dp"
-                            android:text="입력"
-                            android:textColor="@color/color_text_08"
-                            android:textSize="14dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/btn_06"/>
-                    </LinearLayout>
+                    <EditText
+                        android:imeOptions="actionDone"
+                        android:background="@color/color_translate"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp"
+                        android:textSize="13dp"
+                        android:maxLines="1"
+                        android:maxLength="100"
+                        android:hint="댓글을 입력해 주세요."
+                        android:textColorHint="@color/color_text_03"
+                        android:textColor="@color/color_text_08"
+                        android:id="@+id/edtComment"
+                        android:layout_height="match_parent"/>
+                    <Button
+                        android:stateListAnimator="@null"
+                        android:id="@+id/btnWrite"
+                        android:layout_width="55dp"
+                        android:text="입력"
+                        android:textColor="@color/color_text_08"
+                        android:textSize="14dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_06"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:visibility="gone"

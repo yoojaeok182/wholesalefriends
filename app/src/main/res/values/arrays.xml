@@ -106,4 +106,20 @@
         <item>캐시미어​</item>
         <item>모달​</item>
     </string-array>
+
+    <string-array name="style_code_name">
+        <item>로맨팅</item>
+        <item>시크​</item>
+        <item>력셔리​</item>
+        <item>미시</item>
+        <item>마담</item>
+        <item>오피스​</item>
+        <item>캐쥬얼</item>
+        <item>섹시</item>
+        <item>어반/모던​</item>
+        <item>유니크</item>
+        <item>명품스타일​</item>
+        <item>연애인</item>
+        <item>심플/베이직</item>
+    </string-array>
 </resources>

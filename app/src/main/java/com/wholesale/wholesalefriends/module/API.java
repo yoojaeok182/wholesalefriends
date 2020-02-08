@@ -25,6 +25,9 @@ import com.wholesale.wholesalefriends.main.data.PaymentListPaymnetData;
 import com.wholesale.wholesalefriends.main.data.PaymentListProductData;
 import com.wholesale.wholesalefriends.main.data.PaymentListStoreData;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
+import com.wholesale.wholesalefriends.main.data.ProductQnaListData;
+import com.wholesale.wholesalefriends.main.data.ProductQnaListResponse;
+import com.wholesale.wholesalefriends.main.data.ProductQnaReplyData;
 import com.wholesale.wholesalefriends.main.data.ProductResponse;
 import com.wholesale.wholesalefriends.main.data.ProductViewImageData;
 import com.wholesale.wholesalefriends.main.data.ProductViewInfoData;
@@ -32,6 +35,8 @@ import com.wholesale.wholesalefriends.main.data.ProductViewOptionColorData;
 import com.wholesale.wholesalefriends.main.data.ProductViewOptionData;
 import com.wholesale.wholesalefriends.main.data.ProductViewOptionSizeData;
 import com.wholesale.wholesalefriends.main.data.ProductViewResponse;
+import com.wholesale.wholesalefriends.main.data.ProductViewWholesaleResponse;
+import com.wholesale.wholesalefriends.main.data.ProductWholesaleViewInfoData;
 import com.wholesale.wholesalefriends.main.data.RecomWordData;
 import com.wholesale.wholesalefriends.main.data.SideCountData;
 import com.wholesale.wholesalefriends.main.data.StoreListData;
@@ -858,8 +863,8 @@ public class API {
                         List<ProductViewImageData> list1 = response.getImage();
                         JSONArray jsonArray3 = new JSONArray();
 
-                        if(list!=null && list.size()>0){
-                            for(int i=0; i<list.size();i++){
+                        if(list1!=null && list1.size()>0){
+                            for(int i=0; i<list1.size();i++){
                                 ProductViewImageData data = list1.get(i);
                                 JSONObject object1 = new JSONObject();
                                 object1.put("url",data.getUrl());
@@ -1612,7 +1617,6 @@ public class API {
      * @param context
      * @param order_type
      * @param user_id
-     * @param arr
      * @param p_id
      * @param p_option_1
      * @param p_option_2
@@ -2195,7 +2199,7 @@ public class API {
 
 
     /**
-     * 31. 도매 회원 사이드 메뉴
+     * 32. 도매 회원 사이드 메뉴
      * @param context
      * @param user_id
      * @param resultHandler
@@ -2251,6 +2255,240 @@ public class API {
                 @Override
                 public void onFailure(Throwable t) {
                     Toast.makeText(context,"장바구니 담기 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 33. 도매 상품 정보
+     * @param context
+     * @param user_id
+     * @param p_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void wholesaleView(Context context, String user_id, String p_id, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadProductWholesaleView("product/wholesaleView",user_id,p_id);
+            hp.setOnWholesaleView(new Retrofit.OnWholesaleView() {
+                @Override
+                public void onResponse(Retrofit.ContributorProductWholesaleView c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        ProductViewWholesaleResponse response = c.data;
+                        JSONObject object = new JSONObject();
+                        ProductWholesaleViewInfoData data = response.getInfo();
+                        JSONArray jsonArray = new JSONArray();
+
+                        if(data!=null){
+                            JSONObject object1 = new JSONObject();
+                            object1.put("id",data.getId());
+                            object1.put("name",data.getName());
+                            object1.put("price",data.getPrice());
+                            object1.put("origin_info",data.getOrigin_info());
+                            object1.put("is_soldout", data.getIs_soldout());
+                            object1.put("detail", data.getDetail());
+                            object1.put("catagory", data.getCatagory());
+                            object1.put("cloth_info_1", data.getCloth_info_1());
+                            object1.put("cloth_info_2", data.getCloth_info_2());
+                            object1.put("cloth_info_3", data.getCloth_info_3());
+                            object1.put("cloth_info_4", data.getCloth_info_4());
+                            object1.put("washing_info", data.getWashing_info());
+                            object1.put("style_info", data.getStyle_info());
+                            object1.put("color", data.getColor());
+                            object1.put("size", data.getSize());
+                            object1.put("material", data.getMaterial());
+                            jsonObject.put("info",object1);
+                        }
+
+
+                        List<ProductViewImageData> list1 = response.getImage();
+                        JSONArray jsonArray3 = new JSONArray();
+
+                        if(list1!=null && list1.size()>0){
+                            for(int i=0; i<list1.size();i++){
+                                ProductViewImageData data1 = list1.get(i);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("url",data1.getUrl());
+                                jsonArray3.put(object1);
+                            }
+                            jsonObject.put("image",jsonArray3);
+                        }
+
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 34. 상품 문의 리스트
+     * @param context
+     * @param page
+     * @param p_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void qnaList(Context context, String page, String p_id, Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadQnaList("product/qnaList",page,p_id);
+
+            hp.setOnQnaList(new Retrofit.OnQnaList() {
+                @Override
+                public void onResponse(Retrofit.ContributorQnaList c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+
+                        ProductQnaListResponse response = c.list;
+                        jsonObject.put("total",response.getTotal());
+                        jsonObject.put("curent_page",response.getCurent_page());
+                        jsonObject.put("last_page",response.getLast_page());
+                        jsonObject.put("from",response.getFrom());
+                        jsonObject.put("to",response.getTo());
+                        jsonObject.put("next_page_url",response.getNext_page_url());
+                        jsonObject.put("prev_page_url",response.getPrev_page_url());
+                        jsonObject.put("per_page",response.getPer_page());
+                        List<ProductQnaListData> list = response.getData();
+                        JSONArray jsonArray = new JSONArray();
+
+                        if(list!=null && list.size()>0){
+                            for(int i=0; i<list.size();i++){
+                                ProductQnaListData data = list.get(i);
+                                JSONObject object1 = new JSONObject();
+                                object1.put("id",data.getId());
+                                object1.put("name",data.getName());
+                                object1.put("content",data.getContent());
+                                object1.put("created_at", data.getCreated_at());
+                                object1.put("q_id",data.getQ_id());
+                                List<ProductQnaReplyData> list_with_reply = data.getWith_reply();
+
+                                JSONArray jsonArray2 = new JSONArray();
+
+                                if(list_with_reply!=null && list_with_reply.size()>0){
+                                    for(int j=0; j<list_with_reply.size();j++){
+                                        ProductQnaReplyData data2 = list_with_reply.get(j);
+                                        JSONObject object2 = new JSONObject();
+                                        object2.put("is_notice",data2.getIs_notice());
+                                        object2.put("id",data2.getId());
+                                        object2.put("q_id",data2.getQ_id());
+                                        object2.put("name",data2.getName());
+                                        object2.put("created_at", data2.getCreated_at());
+                                        object2.put("content", data2.getContent());
+
+                                        jsonArray2.put(object2);
+                                    }
+
+                                }
+                                object1.put("with_reply",jsonArray2);
+
+                                jsonArray.put(object1);
+                            }
+
+                        }
+                        jsonObject.put("data",jsonArray);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }catch (Throwable e){e.printStackTrace();}
+
+    }
+
+
+    /**
+     * 35. 상품문의 답글
+     * @param context
+     * @param user_id
+     * @param p_id
+     * @param resultHandler
+     * @param errorHandler
+     */
+    public static void qnaReplyWrite(Context context, String user_id,String q_id,String content,Handler resultHandler, Handler errorHandler){
+        try{
+            Retrofit hp = new Retrofit( context);
+            hp.uploadQnaReplyWrite("product/qnaReplyWrite",user_id,q_id,content);
+            hp.setOnQnaReplyWrite(new Retrofit.OnQnaReplyWrite() {
+                @Override
+                public void onResponse(Retrofit.ContributorProductQnaReplyWrite c) {
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        if(c.result!=null && c.result.equals("success")){
+
+                            jsonObject.put("result",true);
+
+                        }else{
+                            jsonObject.put("result",false);
+                        }
+
+                        jsonObject.put("error",c.error);
+                        Message msg = new Message();
+                        msg.obj = jsonObject;
+                        if(jsonObject.getBoolean("result")){
+                            if(resultHandler!=null)  resultHandler.sendMessage(msg);
+                        }else{
+                            if(errorHandler!=null) errorHandler.sendMessage(msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context,"주문 완료 실패",Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Throwable e){e.printStackTrace();}

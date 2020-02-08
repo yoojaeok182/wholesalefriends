@@ -474,32 +474,6 @@
 
                 </LinearLayout>
 
-                <!--<mabbas007.tagsedittext.TagsEditText
-
-                    android:id="@+id/edtProductInfo1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/input_box_off_01"
-                    android:hint="직접입력 띄어쓰기로 구분"
-                    android:maxLines="1"
-                    android:paddingLeft="14dp"
-                    android:paddingRight="14dp"
-                    android:textColorHint="@color/color_text_03"
-                    android:textSize="13dp"
-                    TagsEditText:allowSpaceInTag="true"
-                    android:scrollbarSize="2dp"
-                    android:scrollbars="vertical"
-                    TagsEditText:tagsBackground="@drawable/btn_tag_01"
-                    TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"
-                    TagsEditText:tagsCloseImageRight="@drawable/tag_close"
-                    TagsEditText:tagsPaddingBottom="5dp"
-                    TagsEditText:tagsPaddingLeft="10dp"
-                    TagsEditText:tagsPaddingRight="10dp"
-                    TagsEditText:tagsPaddingTop="5dp"
-                    TagsEditText:tagsTextColor="@color/color_text_09"
-                    TagsEditText:tagsTextSize="12dp" />-->
 
                 <LinearLayout
                     android:layout_marginTop="20dp"
@@ -1718,7 +1692,7 @@
                     <LinearLayout
                         android:id="@+id/btnWashingInfo02"
 
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -1742,7 +1716,7 @@
                     <LinearLayout
                         android:id="@+id/btnWashingInfo03"
 
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -1766,7 +1740,7 @@
                     <LinearLayout
                         android:id="@+id/btnWashingInfo04"
 
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -1819,7 +1793,7 @@
                     <LinearLayout
                         android:id="@+id/btnWashingInfo06"
 
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -1843,7 +1817,7 @@
                     <LinearLayout
                         android:id="@+id/btnWashingInfo07"
 
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -1866,7 +1840,7 @@
 
                     <LinearLayout
                         android:id="@+id/btnWashingInfo08"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"

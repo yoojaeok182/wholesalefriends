@@ -202,4 +202,68 @@ public class ImageUtil {
         }
 
     }
+
+    public static void requestImageViewUI(Context ctx, View root, ImageView iv){
+        try{
+            DisplayMetrics metrics = new DisplayMetrics();
+            WindowManager windowManager = (WindowManager) (ctx!=null?ctx: MyApplication.get_instance().getApplicationContext()).getApplicationContext()
+                    .getSystemService(WINDOW_SERVICE);
+            windowManager.getDefaultDisplay().getMetrics(metrics);
+            int width =  metrics.widthPixels;
+            int rootWidth = root.getWidth();
+            int rootHeight = root.getHeight();
+
+
+            double gap = 0;
+            double imgWidth = 0;
+            double imgHeight =0;
+
+
+            int maxW = iv.getWidth();
+            int maxH = iv.getHeight();
+            Log.e("Image","maxW1:"+maxW+" maxH1:"+maxH);
+            ViewGroup.LayoutParams params = iv.getLayoutParams();
+
+            if(rootWidth ==0){
+                root.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                rootWidth = root.getMeasuredWidth();
+                rootHeight = root.getMeasuredHeight();
+
+            }
+            if(maxW == 0 || maxH == 0){
+                iv.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+                maxW = iv.getMeasuredWidth();
+                maxH = iv.getMeasuredHeight();
+                Log.e("trace","mesure maxW:"+maxW+" maxH:"+maxH);
+            }
+
+            gap= (double)(rootWidth)/ (double)maxW;
+
+
+
+
+            imgWidth = maxW*(gap);
+            imgHeight = maxH*(gap);
+
+            params.width =(int) imgWidth;
+            params.height = (int)imgHeight;
+
+            if(maxW>params.width){
+                params.width = maxW;
+
+            }else{
+
+            }
+            if(maxH>params.height){
+                params.height = maxH;
+            }
+
+            iv.setLayoutParams(params);
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

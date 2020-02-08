@@ -12,6 +12,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:paddingTop="20dp"
             android:id="@+id/rootContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,10 +33,10 @@
                    android:layout_height="wrap_content" />
 
                <TextView
+                   android:layout_marginLeft="10dp"
                    android:id="@+id/tvRegDate"
                    android:textColor="@color/color_text_03"
                    android:textSize="12dp"
-                   android:layout_marginTop="13dp"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content" />
            </LinearLayout>
@@ -59,6 +60,14 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/containerReply">
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"

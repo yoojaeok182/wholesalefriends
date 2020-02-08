@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -15,6 +17,7 @@ import com.wholesale.wholesalefriends.R;
 import com.wholesale.wholesalefriends.main.base.MyApplication;
 import com.wholesale.wholesalefriends.main.data.BannerLIstData;
 import com.wholesale.wholesalefriends.main.data.ProductViewImageData;
+import com.wholesale.wholesalefriends.module.util.ImageUtil;
 
 import java.util.ArrayList;
 
@@ -24,11 +27,20 @@ public class DetailProductViewAdapter extends PagerAdapter {
     private LayoutInflater mInflater;
     private ArrayList<ProductViewImageData> listBannerList;
     private PhotoView photoView;
+    private RelativeLayout layoutForSoldOut;
 
-    public DetailProductViewAdapter(Context ctx, ArrayList<ProductViewImageData> list) {
+    private int nSoldOut = 0;
+      public DetailProductViewAdapter(Context ctx, ArrayList<ProductViewImageData> list) {
         context = ctx;
         mInflater = LayoutInflater.from(ctx);
         listBannerList = list;
+          nSoldOut = 0;
+    }
+    public DetailProductViewAdapter(Context ctx, ArrayList<ProductViewImageData> list, int sold_out) {
+        context = ctx;
+        mInflater = LayoutInflater.from(ctx);
+        listBannerList = list;
+        nSoldOut= sold_out;
     }
 
     public interface AdapterListener {
@@ -51,9 +63,15 @@ public class DetailProductViewAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View v = mInflater.inflate(R.layout.layout_detail_photo_view, null);
         photoView = v.findViewById(R.id.photoView);
+        layoutForSoldOut= v.findViewById(R.id.layoutForSoldOut);
 
+        layoutForSoldOut.setVisibility(View.GONE);
+        if(nSoldOut ==1){
+            layoutForSoldOut.setVisibility(View.VISIBLE);
+        }
         ProductViewImageData item = listBannerList.get(position);
         if(item!=null){
+
             Glide.with(context).load(item.getUrl()).into(photoView);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

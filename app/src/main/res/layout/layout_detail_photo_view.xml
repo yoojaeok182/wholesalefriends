@@ -4,8 +4,33 @@
     android:layout_height="match_parent">
 
 
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/photoView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/photoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_alignRight="@id/photoView"
+            android:layout_alignTop="@id/photoView"
+            android:layout_alignBottom="@id/photoView"
+            android:layout_alignLeft="@id/photoView"
+            android:visibility="gone"
+            android:background="@color/color_30_translate"
+            android:id="@+id/layoutForSoldOut"
+            android:layout_width="131dp"
+            android:layout_height="160dp">
+
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:text="SOLD OUT"
+                android:textColor="@color/color_text_09"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

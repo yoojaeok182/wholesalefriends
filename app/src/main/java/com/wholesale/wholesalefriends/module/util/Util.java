@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -82,7 +83,39 @@ public class Util {
     public static boolean isPurchaceOk = false;
 
 
+    public static void requestRecommend(Activity act ){
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 
+        intent.setType("text/plain");
+
+        // Set default text message
+        // 카톡, 이메일, MMS 다 이걸로 설정 가능
+        //String subject = "문자의 제목";
+        String text ="";
+
+        /*String sns_android = SharedPreference.getSharedPreference(act,Constant.sns_text_android);
+        String sns_tstore = SharedPreference.getSharedPreference(act,Constant.sns_text_tstore);
+        if (((HALApplication) act.getApplicationContext()).getSettings().store_type().indexOf("google") != -1) {//구글
+            if(sns_android!=null && sns_android.length()>0){
+                text = sns_android;
+            }else{
+                text = "2020년 무료 신년운세가 도착했어요~! 점신에서 즉시 확인해 보세요.\n\nAOS\n\n https://play.google.com/store/apps/details?id=handasoft.mobile.divination \n\nIOS\n\nhttps://itunes.apple.com/app/apple-store/id960571015?mt=8";
+            }
+
+        }else{
+            if(sns_android!=null && sns_android.length()>0){
+                text = sns_tstore;
+            }else{
+                text = "2020년 무료 신년운세가 도착했어요~! 점신에서 즉시 확인해 보세요.\n\n https://www.onestore.co.kr/userpoc/apps/view?pid=0000681100 \n\nIOS\n\nhttps://itunes.apple.com/app/apple-store/id960571015?mt=8";
+            }
+        }*/
+
+        //intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        // Title of intent
+        Intent chooser = Intent.createChooser(intent, "친구에게 공유하기");
+        act.startActivity(chooser);
+    }
 
     public static InputFilter filter1= new InputFilter() {
 
