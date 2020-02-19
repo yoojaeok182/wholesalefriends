@@ -920,7 +920,7 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
         String destinationFileName = "IMG_" + String.valueOf(System.currentTimeMillis());
         UCrop uCrop = UCrop.of(source, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
         uCrop = advancedConfig(uCrop);
-        uCrop.withAspectRatio(500, 600 )
+        uCrop.withAspectRatio(600, 600 )
                 .start(this);
 
 
