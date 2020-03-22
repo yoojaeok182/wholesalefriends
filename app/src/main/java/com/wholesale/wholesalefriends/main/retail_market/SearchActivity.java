@@ -55,11 +55,11 @@ public class SearchActivity extends GroupActivity {
     private EditText edtSearch;
     private TagContainerLayout tagGroup;
     private LinearLayout llayoutForRecommKeword;
-    private AutofitRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private LinearLayout llayoutFOrSearch;
     private  TextView tvSearchCount;
 
-    private AutofitRecyclerView recyclerViewShop;
+    private RecyclerView recyclerViewShop;
     private HomeMain01ListAdapter homeMain01ListAdapter = null;
 
     private ArrayList<ProductListData> listDatas = new ArrayList<>();
@@ -218,10 +218,12 @@ public class SearchActivity extends GroupActivity {
 
             }
         });
-        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerViewShop.getLayoutManager();
+      /*  final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerViewShop.getLayoutManager();
         recyclerViewShop.addItemDecoration(new MarginDecoration(SearchActivity.this,getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
         recyclerViewShop.setLayoutManager(manager);
-        recyclerViewShop.setHasFixedSize(true);
+        recyclerViewShop.setHasFixedSize(true);*/
+
+      recyclerViewShop.setLayoutManager(new WrapContentGridLayoutManager(this,3));
 
         recyclerViewShop.setAdapter(categoryStoreListAdapter);
 
@@ -252,9 +254,10 @@ public class SearchActivity extends GroupActivity {
             }
         });
         homeMain01ListAdapter.setnCurrentPage(1);
-        final WrapContentGridLayoutManager manager1 = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        /*final WrapContentGridLayoutManager manager1 = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addItemDecoration(new MarginDecoration(SearchActivity.this,getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
-        recyclerView.setLayoutManager(manager1);
+        recyclerView.setLayoutManager(manager1);*/
+        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(this,3));
         recyclerView.setHasFixedSize(true);
 
         if(isCheckAll ){

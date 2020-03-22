@@ -34,6 +34,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -139,6 +140,8 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private Button btnCategory;
     private String strValueCategory;
     private int[] nSelectPhotoIndex = new int[5];
+    private int selectPhotoIndex =0;
+
     private static final int CAMERA = 1;
     private static final int GALLERY = 2;
     private static final int IMAGECROP = 99;
@@ -152,6 +155,8 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private ArrayList<ImageFile> profileList;
     private ArrayList<Bitmap> bmList = new ArrayList<>();
     private Bitmap[] arrBm= null;
+    private Bitmap[] arrSaveBm= new Bitmap[5];
+
     private int nCode_value;
 
     private String strColorValue ="";
@@ -182,6 +187,8 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private TextView tvSubPhotoRepresentative;
 
     private boolean isCheck;
+
+    private NestedScrollView scrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,6 +199,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         if(intent.hasExtra(Constant.CommonKey.store_id)){
             store_id = intent.getExtras().getString(Constant.CommonKey.store_id);
         }
+        scrollView = findViewById(R.id.scrollView);
         btnBack = findViewById(R.id.btnBack);
         tvTitle = findViewById(R.id.tvTitle);
         ivPhoto = findViewById(R.id.ivPhoto);
@@ -218,7 +226,6 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         btnInfo = findViewById(R.id.btnInfo);
         cbCheck = findViewById(R.id.cbCheck);
         btnCheck = findViewById(R.id.btnCheck);
-//        edtProductInfo1 = findViewById(R.id.edtProductInfo1);
         btnSizes = new Button[]{
                 findViewById(R.id.btnColor01),
                 findViewById(R.id.btnColor02),
@@ -246,7 +253,6 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 findViewById(R.id.btnColor24),
         };
 
-//        edtProductInfo2 = findViewById(R.id.edtProductInfo2);
 
         btnSizes = new Button[]{
                 findViewById(R.id.btnSize01),
@@ -434,11 +440,33 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
         profileList = new ArrayList<>();
         bmList = new ArrayList<>();
+        arrSaveBm = new Bitmap[5];
         init();
 
 
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.smoothScrollTo(0,0);
+                    }
+                });
+            }
+        });
     }
 
+    private boolean isModify(){
+        boolean isModify = false;
+        if(arrSaveBm!=null &&arrSaveBm[selectPhotoIndex] !=null)
+        {
+            isModify = true;
+        }
+        return isModify;
+    }
     //
     private void initSelectColor(){
         String[] colorNames = getResources().getStringArray(R.array.color_code_name);
@@ -1458,17 +1486,6 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   /* if(arrSizeName!=null && arrSizeName.size()>0){
-                        for(int i=0; i<arrSizeName.size();i++){
-                            if(arrSizeName.get(i).equals(sizeNames[finalI])){
-                                edtProductInfo2.removeTagSpan(edtProductInfo2.getText(),i,true);
-
-                                return;
-                            }
-                        }
-                    }
-
-                    edtProductInfo2.setText(sizeNames[finalI]);*/
                     selectSize(btnSizes[finalI],sizeNames[finalI],(finalI+1));
                 }
             });
@@ -1530,6 +1547,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             @Override
             public void onClick(View view) {
                 nSelectPhotoIndex[0] = 0;
+                selectPhotoIndex = 0;
                 selectPhotoDialog();
             }
         });
@@ -1538,6 +1556,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             @Override
             public void onClick(View view) {
                 nSelectPhotoIndex[0] = 0;
+                selectPhotoIndex = 0;
                 selectPhotoDialog();
             }
         });
@@ -1545,6 +1564,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             @Override
             public void onClick(View view) {
                 nSelectPhotoIndex[1] = 1;
+                selectPhotoIndex = 1;
                 selectPhotoDialog();
             }
         });
@@ -1553,6 +1573,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             @Override
             public void onClick(View view) {
                 nSelectPhotoIndex[2] = 2;
+                selectPhotoIndex = 2;
                 selectPhotoDialog();
             }
         });
@@ -1560,6 +1581,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             @Override
             public void onClick(View view) {
                 nSelectPhotoIndex[3] = 3;
+                selectPhotoIndex = 3;
                 selectPhotoDialog();
             }
         });
@@ -1568,6 +1590,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             @Override
             public void onClick(View view) {
                 nSelectPhotoIndex[4] = 4;
+                selectPhotoIndex = 4;
                 selectPhotoDialog();
             }
         });
@@ -1633,12 +1656,23 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 //        strMaterialValue = strMaterialValue.substring(0, strMaterialValue.length()-1);
 
     }
+
+    private Handler noImgHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    llayoutFOrNotImg.setVisibility(View.GONE);
+                    break;
+            }
+        }
+    };
     private void saveData(){
 
         if(profileList ==null || (profileList!=null && profileList.size() ==0)){
-            final CommonAlertDialog dg = new CommonAlertDialog(this,false,false);
-            dg.setMessage("이미지가 포함되어있지 않습니다.\n이미지 등록 후 저장해주세요.");
-            dg.show();
+            llayoutFOrNotImg.setVisibility(View.VISIBLE);
+            noImgHandler.sendEmptyMessageDelayed(0,1500);
             return;
         }
 
@@ -1850,9 +1884,18 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
     private void pickImages() {
 
+        int default_limit = 5;
+        int limit = 0;
+        if(isModify()){
+            limit = 1;
+        }else{
+           if(default_limit>bmList.size()){
+               limit = default_limit-bmList.size();
+           }
+        }
         new Picker.Builder(this, ProductRegistrationActivity.this, R.style.AppTheme_NoActionBar)
-                .setPickMode(Picker.PickMode.MULTIPLE_IMAGES)
-                .setLimit(5)
+                .setPickMode(isModify()? Picker.PickMode.SINGLE_IMAGE:Picker.PickMode.MULTIPLE_IMAGES)
+                .setLimit(limit)
                 .build()
                 .startActivity();
     }
@@ -2026,6 +2069,8 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                         }
 
+
+
                         switch (profileList.size()) {
                             case 0:
                                 tvPhotoRepresentative.setVisibility(View.GONE);
@@ -2039,11 +2084,6 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                 break;
                             case 1:
-                                tvPhotoRepresentative.setVisibility(View.GONE);
-                                tvSubPhotoRepresentative.setVisibility(View.GONE);
-                                llayoutForNoImg.setVisibility(View.GONE);
-                                ivSubPhoto01Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).into(ivPhoto);
                                 Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
@@ -2052,17 +2092,81 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                        if(isModify()){
+                                            bmList.set(selectPhotoIndex,resource);
+                                            arrSaveBm[selectPhotoIndex] = resource;
+
+                                            switch (selectPhotoIndex){
+
+                                                case 0:
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                    break;
+                                                case 1:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                    break;
+                                                case 2:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+
+                                                    break;
+                                                case 3:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                    break;
+                                                case 4:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                    break;
+                                            }
+                                        }else{
+                                            if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+
+
+                                              runOnUiThread(new Runnable() {
+                                                  @Override
+                                                  public void run() {
+                                                      tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                      tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                      llayoutForNoImg.setVisibility(View.GONE);
+                                                      ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                      Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                      Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                  }
+                                              });
+                                                arrSaveBm[0] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                arrSaveBm[1] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+                                                arrSaveBm[2] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                arrSaveBm[3] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                arrSaveBm[4] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                            }
+                                        }
                                         bmList.add(resource);
                                         return false;
                                     }
-                                }).into(ivSubPhoto01);
+                                }).submit();
+
+
+
                                 break;
                             case 2:
-                                tvPhotoRepresentative.setVisibility(View.GONE);
-                                tvSubPhotoRepresentative.setVisibility(View.GONE);
-                                llayoutForNoImg.setVisibility(View.GONE);
-                                ivSubPhoto01Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
                                 Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
@@ -2071,32 +2175,119 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
+
+                                        /*if(isModify()){
+                                            bmList.set(selectPhotoIndex,resource);
+                                            arrSaveBm[selectPhotoIndex] = resource;
+                                            switch (selectPhotoIndex){
+                                                case 0:
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                    break;
+                                                case 1:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                    break;
+                                                case 2:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+
+                                                    break;
+                                                case 3:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                    break;
+                                                case 4:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                    break;
+                                            }
+                                        }else{*/
+                                            bmList.add(resource);
+
+                                            if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                llayoutForNoImg.setVisibility(View.GONE);
+                                                ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                arrSaveBm[0] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                arrSaveBm[1] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+                                                arrSaveBm[2] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                arrSaveBm[3] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                arrSaveBm[4] = resource;
+                                            }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                            }
+
+//                                        }
+
+                                       // 두번째 이미지 로드
+                                        Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                return false;
+                                            }
+
+                                            @Override
+                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                bmList.add(resource);
+
+                                                if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                    arrSaveBm[0] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                    arrSaveBm[1] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+                                                    arrSaveBm[2] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                    arrSaveBm[3] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                    arrSaveBm[4] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                }
+                                                return false;
+                                            }
+                                        }).submit();
+
                                         return false;
                                     }
-                                }).into(ivSubPhoto01);
+                                }).submit();
 
-
-                                ivSubPhoto02Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
-
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto02);
                                 break;
                             case 3:
-                                tvPhotoRepresentative.setVisibility(View.GONE);
-                                tvSubPhotoRepresentative.setVisibility(View.GONE);
-                                llayoutForNoImg.setVisibility(View.GONE);
-                                ivSubPhoto01Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+
                                 Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
@@ -2105,43 +2296,164 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto01);
-                                ivSubPhoto02Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto02);
-                                ivSubPhoto03Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
+                                        /*if(isModify()){
+                                            bmList.set(selectPhotoIndex,resource);
+                                            arrSaveBm[selectPhotoIndex] = resource;
+                                            switch (selectPhotoIndex){
+                                                case 0:
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                    break;
+                                                case 1:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                    break;
+                                                case 2:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+
+                                                    break;
+                                                case 3:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                    break;
+                                                case 4:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                    break;
+                                            }
+                                        }else{*/
                                         bmList.add(resource);
+
+                                        if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                            tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                            llayoutForNoImg.setVisibility(View.GONE);
+                                            ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                            arrSaveBm[0] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto02Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                            arrSaveBm[1] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto03Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+                                            arrSaveBm[2] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto04Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                            arrSaveBm[3] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                            ivSubPhoto05Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                            arrSaveBm[4] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                        }
+
+//                                        }
+
+                                        // 두번째 이미지 로드
+                                        Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                return false;
+                                            }
+
+                                            @Override
+                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                bmList.add(resource);
+
+                                                if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto01);
+                                                    arrSaveBm[0] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
+                                                    arrSaveBm[1] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto03);
+                                                    arrSaveBm[2] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto04);
+                                                    arrSaveBm[3] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto05);
+                                                    arrSaveBm[4] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                }
+
+
+                                                //세번째
+                                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                                    @Override
+                                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                        return false;
+                                                    }
+
+                                                    @Override
+                                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                        bmList.add(resource);
+
+                                                        if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                            tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                            llayoutForNoImg.setVisibility(View.GONE);
+                                                            ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivPhoto);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto01);
+                                                            arrSaveBm[0] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto02);
+                                                            arrSaveBm[1] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto03);
+                                                            arrSaveBm[2] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto04);
+                                                            arrSaveBm[3] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto05);
+                                                            arrSaveBm[4] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                        }
+                                                        return false;
+                                                    }
+                                                }).submit();
+
+                                                return false;
+                                            }
+                                        }).submit();
+
                                         return false;
                                     }
-                                }).into(ivSubPhoto03);
+                                }).submit();
+
                                 break;
                             case 4:
-                                tvPhotoRepresentative.setVisibility(View.GONE);
-                                tvSubPhotoRepresentative.setVisibility(View.GONE);
-                                llayoutForNoImg.setVisibility(View.GONE);
-                                ivSubPhoto01Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
                                 Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
@@ -2150,58 +2462,207 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto01);
 
-                                ivSubPhoto02Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
+                                        /*if(isModify()){
+                                            bmList.set(selectPhotoIndex,resource);
+                                            arrSaveBm[selectPhotoIndex] = resource;
+                                            switch (selectPhotoIndex){
+                                                case 0:
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto02);
-                                ivSubPhoto03Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                    break;
+                                                case 1:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                    break;
+                                                case 2:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                                    break;
+                                                case 3:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                    break;
+                                                case 4:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                    break;
+                                            }
+                                        }else{*/
                                         bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto03);
-                                ivSubPhoto04Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(3).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
+                                        if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                            tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                            llayoutForNoImg.setVisibility(View.GONE);
+                                            ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                            arrSaveBm[0] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto02Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                            arrSaveBm[1] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto03Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+                                            arrSaveBm[2] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto04Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                            arrSaveBm[3] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                            ivSubPhoto05Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                            arrSaveBm[4] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                        }
+
+//                                        }
+
+                                        // 두번째 이미지 로드
+                                        Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                return false;
+                                            }
+
+                                            @Override
+                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                bmList.add(resource);
+
+                                                if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto01);
+                                                    arrSaveBm[0] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
+                                                    arrSaveBm[1] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto03);
+                                                    arrSaveBm[2] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto04);
+                                                    arrSaveBm[3] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto05);
+                                                    arrSaveBm[4] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                }
+
+
+                                                //세번째
+                                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                                    @Override
+                                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                        return false;
+                                                    }
+
+                                                    @Override
+                                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                        bmList.add(resource);
+
+                                                        if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                            tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                            llayoutForNoImg.setVisibility(View.GONE);
+                                                            ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivPhoto);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto01);
+                                                            arrSaveBm[0] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto02);
+                                                            arrSaveBm[1] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto03);
+                                                            arrSaveBm[2] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto04);
+                                                            arrSaveBm[3] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto05);
+                                                            arrSaveBm[4] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                        }
+
+                                                        //네버째
+                                                        Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(3).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                                            @Override
+                                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                                return false;
+                                                            }
+
+                                                            @Override
+                                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                                bmList.add(resource);
+
+                                                                if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivPhoto);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto01);
+                                                                    arrSaveBm[0] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto02);
+                                                                    arrSaveBm[1] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto03);
+                                                                    arrSaveBm[2] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto04);
+                                                                    arrSaveBm[3] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto05);
+                                                                    arrSaveBm[4] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                                }
+                                                                return false;
+                                                            }
+                                                        }).submit();
+                                                        return false;
+                                                    }
+                                                }).submit();
+
+                                                return false;
+                                            }
+                                        }).submit();
+
                                         return false;
                                     }
-                                }).into(ivSubPhoto04);
+                                }).submit();
                                 break;
                             case 5:
-                                tvPhotoRepresentative.setVisibility(View.GONE);
-                                tvSubPhotoRepresentative.setVisibility(View.GONE);
-                                llayoutForNoImg.setVisibility(View.GONE);
-                                ivSubPhoto01Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
                                 Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(0).getResizePath()).listener(new RequestListener<Bitmap>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
@@ -2210,63 +2671,249 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
                                     @Override
                                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto01);
 
-                                ivSubPhoto02Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
+                                        /*if(isModify()){
+                                            bmList.set(selectPhotoIndex,resource);
+                                            arrSaveBm[selectPhotoIndex] = resource;
+                                            switch (selectPhotoIndex){
+                                                case 0:
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto02);
-                                ivSubPhoto03Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                                    break;
+                                                case 1:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                                    break;
+                                                case 2:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                                    break;
+                                                case 3:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                                    break;
+                                                case 4:
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                                    break;
+                                            }
+                                        }else{*/
                                         bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto03);
-                                ivSubPhoto04Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(3).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
-                                        return false;
-                                    }
-                                }).into(ivSubPhoto04);
-                                ivSubPhoto05Plus.setVisibility(View.GONE);
-                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(4).getResizePath()).listener(new RequestListener<Bitmap>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                        return false;
-                                    }
+                                        if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                            tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                            llayoutForNoImg.setVisibility(View.GONE);
+                                            ivSubPhoto01Plus.setVisibility(View.GONE);
 
-                                    @Override
-                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                        bmList.add(resource);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivPhoto);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto01);
+                                            arrSaveBm[0] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto02Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto02);
+                                            arrSaveBm[1] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto03Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto03);
+                                            arrSaveBm[2] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                            ivSubPhoto04Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto04);
+                                            arrSaveBm[3] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                            ivSubPhoto05Plus.setVisibility(View.GONE);
+                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(0).getResizePath()).into(ivSubPhoto05);
+                                            arrSaveBm[4] = resource;
+                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                        }
+
+//                                        }
+
+                                        // 두번째 이미지 로드
+                                        Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(1).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                return false;
+                                            }
+
+                                            @Override
+                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                bmList.add(resource);
+
+                                                if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivPhoto);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto01);
+                                                    arrSaveBm[0] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto02);
+                                                    arrSaveBm[1] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto03);
+                                                    arrSaveBm[2] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto04);
+                                                    arrSaveBm[3] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                    ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(1).getResizePath()).into(ivSubPhoto05);
+                                                    arrSaveBm[4] = resource;
+                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                }
+
+
+                                                //세번째
+                                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(2).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                                    @Override
+                                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                        return false;
+                                                    }
+
+                                                    @Override
+                                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                        bmList.add(resource);
+
+                                                        if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                            tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                            llayoutForNoImg.setVisibility(View.GONE);
+                                                            ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivPhoto);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto01);
+                                                            arrSaveBm[0] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto02);
+                                                            arrSaveBm[1] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto03);
+                                                            arrSaveBm[2] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto04);
+                                                            arrSaveBm[3] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                            ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(2).getResizePath()).into(ivSubPhoto05);
+                                                            arrSaveBm[4] = resource;
+                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                        }
+
+                                                        //네버째
+                                                        Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(3).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                                            @Override
+                                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                                return false;
+                                                            }
+
+                                                            @Override
+                                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                                bmList.add(resource);
+
+                                                                if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                                    tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                                    llayoutForNoImg.setVisibility(View.GONE);
+                                                                    ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivPhoto);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto01);
+                                                                    arrSaveBm[0] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto02);
+                                                                    arrSaveBm[1] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto03);
+                                                                    arrSaveBm[2] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto04);
+                                                                    arrSaveBm[3] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                                    ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                                    Glide.with(ProductRegistrationActivity.this).load(profileList.get(3).getResizePath()).into(ivSubPhoto05);
+                                                                    arrSaveBm[4] = resource;
+                                                                }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                                }
+
+                                                                //5번째
+                                                                Glide.with(ProductRegistrationActivity.this).asBitmap().load(profileList.get(4).getResizePath()).listener(new RequestListener<Bitmap>() {
+                                                                    @Override
+                                                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                                        return false;
+                                                                    }
+
+                                                                    @Override
+                                                                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                                                                        bmList.add(resource);
+
+                                                                        if(arrSaveBm[0] == null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[4] == null&&arrSaveBm[4] == null){
+                                                                            tvPhotoRepresentative.setVisibility(View.VISIBLE);      //대표
+                                                                            tvSubPhotoRepresentative.setVisibility(View.VISIBLE); //대표
+                                                                            llayoutForNoImg.setVisibility(View.GONE);
+                                                                            ivSubPhoto01Plus.setVisibility(View.GONE);
+
+                                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(4).getResizePath()).into(ivPhoto);
+                                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(4).getResizePath()).into(ivSubPhoto01);
+                                                                            arrSaveBm[0] = resource;
+                                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] == null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                            ivSubPhoto02Plus.setVisibility(View.GONE);
+                                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(4).getResizePath()).into(ivSubPhoto02);
+                                                                            arrSaveBm[1] = resource;
+                                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] == null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                            ivSubPhoto03Plus.setVisibility(View.GONE);
+                                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(4).getResizePath()).into(ivSubPhoto03);
+                                                                            arrSaveBm[2] = resource;
+                                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] == null&&arrSaveBm[4] == null){
+                                                                            ivSubPhoto04Plus.setVisibility(View.GONE);
+                                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(4).getResizePath()).into(ivSubPhoto04);
+                                                                            arrSaveBm[3] = resource;
+                                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] == null){
+                                                                            ivSubPhoto05Plus.setVisibility(View.GONE);
+                                                                            Glide.with(ProductRegistrationActivity.this).load(profileList.get(4).getResizePath()).into(ivSubPhoto05);
+                                                                            arrSaveBm[4] = resource;
+                                                                        }else if(arrSaveBm[0] != null&&arrSaveBm[1] != null&&arrSaveBm[2] != null&&arrSaveBm[3] != null&&arrSaveBm[4] != null){
+
+                                                                        }
+                                                                        return false;
+                                                                    }
+                                                                }).submit();
+                                                                return false;
+                                                            }
+                                                        }).submit();
+                                                        return false;
+                                                    }
+                                                }).submit();
+
+                                                return false;
+                                            }
+                                        }).submit();
+
                                         return false;
                                     }
-                                }).into(ivSubPhoto05);
+                                }).submit();
                                 break;
                         }
                     }
@@ -2391,7 +3038,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         String destinationFileName = "IMG_" + String.valueOf(System.currentTimeMillis());
         UCrop uCrop = UCrop.of(source, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
         uCrop = advancedConfig(uCrop);
-        uCrop.withAspectRatio(500, 600)
+        uCrop.withAspectRatio(600, 600)
                 .start(this);
 
 

@@ -540,13 +540,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:paddingTop="10dp"
                     android:id="@+id/recyclerView"
                     android:clipToPadding="false"
                     android:paddingBottom="50dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:columnWidth="@dimen/column_width4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

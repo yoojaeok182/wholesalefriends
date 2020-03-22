@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 public class HomeMainViewPager02Fragment extends Fragment {
 
     private static Context ctx;
-    private AutofitRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private HomeMain02ListAdapter homeMain02ListAdapter = null;
     private ArrayList<BestProductListData> listDatas = new ArrayList<>();
 
@@ -84,9 +85,11 @@ public class HomeMainViewPager02Fragment extends Fragment {
             }
         });
         homeMain02ListAdapter.setnCurrentPage(1);
-        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
-        recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
-        recyclerView.setLayoutManager(manager);
+       /* final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));*/
+
+//        recyclerView.setLayoutManager(manager);
+        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(),3));
 
         recyclerView.setAdapter(homeMain02ListAdapter);
         loadList(1);
@@ -151,7 +154,7 @@ public class HomeMainViewPager02Fragment extends Fragment {
                 if (jsonObject.getBoolean("result")) {
 
                     if (jsonObject.getString("error") != null && jsonObject.getString("error").length() > 0) {
-                        final CommonAlertDialog dg = new CommonAlertDialog(ctx, false, true);
+                        final CommonAlertDialog dg = new CommonAlertDialog(ctx, false, false);
                         dg.setTitle("계정 정보 확인");
                         dg.setMessage(jsonObject.getString("error"));
                         dg.show();

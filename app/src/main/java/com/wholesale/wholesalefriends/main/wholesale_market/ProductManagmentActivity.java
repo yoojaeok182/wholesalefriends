@@ -64,7 +64,7 @@ public class ProductManagmentActivity extends GroupActivity {
     private LinearLayout btnSort;
     private LinearLayout btnProcuctManage;
     private LinearLayout btnFilter;
-    private AutofitRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private ImageButton btnUp;
     private LinearLayout btnReWareHousing;
     private LinearLayout btnSoldOut;

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 public class HomeMainViewPager03Fragment extends Fragment {
 
     private static Context ctx;
-    private AutofitRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private HomeMain03ListAdapter homeMain03ListAdapter = null;
     private ArrayList<ProductListData> listDatas = new ArrayList<>();
 
@@ -84,9 +85,12 @@ public class HomeMainViewPager03Fragment extends Fragment {
             }
         });
         homeMain03ListAdapter.setnCurrentPage(1);
-        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+      /*  final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
-        recyclerView.setLayoutManager(manager);
+        recyclerView.setLayoutManager(manager);*/
+
+
+        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(),3));
 
         recyclerView.setAdapter(homeMain03ListAdapter);
         loadList(1,"","","");

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -23,8 +24,6 @@ import com.bumptech.glide.RequestManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.Gson;
 import com.wholesale.wholesalefriends.R;
-import com.wholesale.wholesalefriends.main.retail_market.DetailProductActivity;
-import com.wholesale.wholesalefriends.main.retail_market.ProductListActivity;
 import com.wholesale.wholesalefriends.main.adapter.BannerPageAdapter;
 import com.wholesale.wholesalefriends.main.adapter.HomeMain01ListAdapter;
 import com.wholesale.wholesalefriends.main.common.Constant;
@@ -35,10 +34,10 @@ import com.wholesale.wholesalefriends.main.data.CategoryListResponse;
 import com.wholesale.wholesalefriends.main.data.ProductListData;
 import com.wholesale.wholesalefriends.main.data.ProductListResponse;
 import com.wholesale.wholesalefriends.main.dialog.CommonAlertDialog;
+import com.wholesale.wholesalefriends.main.retail_market.DetailProductActivity;
+import com.wholesale.wholesalefriends.main.retail_market.ProductListActivity;
 import com.wholesale.wholesalefriends.module.API;
 import com.wholesale.wholesalefriends.module.AppData;
-import com.wholesale.wholesalefriends.widget.AutofitRecyclerView;
-import com.wholesale.wholesalefriends.widget.MarginDecoration;
 import com.wholesale.wholesalefriends.widget.WrapContentGridLayoutManager;
 
 import org.json.JSONObject;
@@ -72,7 +71,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
     private TextView tvPhotoName02;
     private TextView tvPhotoInfo02;
     private AppBarLayout appBarLayout;
-    private AutofitRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private ImageButton btnUp;
     private BannerPageAdapter bannerPageAdapter;
     private ArrayList<BannerLIstData> listBanner = new ArrayList<>();
@@ -154,10 +153,11 @@ public class HomeMainViewPager01Fragment extends Fragment {
         });
         homeMain01ListAdapter.setnCurrentPage(1);
 
-        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+       /* final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addItemDecoration(new MarginDecoration(getActivity(),ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
         recyclerView.setLayoutManager(manager);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);*/
+        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(homeMain01ListAdapter);
 
         btnUp.setOnClickListener(new View.OnClickListener() {

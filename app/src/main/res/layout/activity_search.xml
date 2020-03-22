@@ -242,22 +242,22 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerView"
                             android:layout_marginTop="20dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
                             android:clipToPadding="false"
                             android:paddingBottom="50dp"
                             android:columnWidth="@dimen/column_width2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
-                        <com.wholesale.wholesalefriends.widget.AutofitRecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerViewShop"
                             android:layout_marginTop="20dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
                             android:clipToPadding="false"
                             android:paddingBottom="50dp"
                             android:columnWidth="@dimen/column_width4"

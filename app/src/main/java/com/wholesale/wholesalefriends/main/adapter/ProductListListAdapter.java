@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -107,7 +108,7 @@ public class ProductListListAdapter extends RecyclerView.Adapter<ProductListList
         TextView tvInfo;
         TextView tvLike;
         TextView tvRegDate;
-        RelativeLayout rootContainer;
+        LinearLayout rootContainer;
         TextView tvRanking;
         TextView tvImageCount;
 
@@ -124,14 +125,14 @@ public class ProductListListAdapter extends RecyclerView.Adapter<ProductListList
             tvRegDate =convertView. findViewById(R.id.tvRegDate);
             rootContainer=convertView. findViewById(R.id.rootContainer);
 
-          ivPhoto.post(new Runnable() {
+          /*ivPhoto.post(new Runnable() {
               @Override
               public void run() {
                   int clumWidth = ctx.getResources().getDimensionPixelSize(R.dimen.column_width4);
                   int margin =  ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2);
                   ImageUtil.requestImageView(ctx,clumWidth,ivPhoto,margin,margin);
               }
-          });
+          });*/
         }
 
     }

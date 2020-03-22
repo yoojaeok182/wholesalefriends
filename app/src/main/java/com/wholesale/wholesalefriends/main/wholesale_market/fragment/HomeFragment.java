@@ -183,9 +183,9 @@ public class HomeFragment extends Fragment {
         });
         productList2Adapter.setnCurrentPage(1);
 
-        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
-        recyclerView.addItemDecoration(new MarginDecoration(getActivity(),getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
-        recyclerView.setLayoutManager(manager);
+     /*   final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addItemDecoration(new MarginDecoration(getActivity(),getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));*/
+        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(),2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(productList2Adapter);
 
@@ -204,7 +204,20 @@ public class HomeFragment extends Fragment {
         });
         horRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
         horRecyclerView.setAdapter(productTop30ListAdapter);
+        productTop30ListAdapter.setAdapterListener(new ProductTop30ListAdapter.AdapterListener() {
+            @Override
+            public void moreLoading(int page) {
 
+            }
+
+            @Override
+            public void onClickItem(TopStoreListData data, int pos) {
+                Intent intent = new Intent(getActivity(), DetailProduct2Activity.class);
+                intent.putExtra(Constant.CommonKey.product_id,data.getId());
+                intent.putExtra(Constant.CommonKey.product_name,data.getName());
+                startActivity(intent);
+            }
+        });
 
 
 

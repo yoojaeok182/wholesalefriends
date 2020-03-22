@@ -4,70 +4,81 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:paddingBottom="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingBottom="15dp"
         android:gravity="center"
         android:id="@+id/rootContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-       <RelativeLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content">
-           <ImageView
-               android:id="@+id/ivPhoto"
-               android:scaleType="fitXY"
-               android:layout_width="131dp"
-               android:layout_height="160dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="V,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/ivPhoto"
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-           <RelativeLayout
-               android:layout_alignRight="@id/ivPhoto"
-               android:layout_alignTop="@id/ivPhoto"
-               android:layout_alignBottom="@id/ivPhoto"
-               android:layout_alignLeft="@id/ivPhoto"
-               android:visibility="gone"
-               android:background="@color/color_30_translate"
-               android:id="@+id/layoutForSoldOut"
-               android:layout_width="131dp"
-               android:layout_height="160dp">
+                <RelativeLayout
+                    android:layout_alignRight="@id/ivPhoto"
+                    android:layout_alignTop="@id/ivPhoto"
+                    android:layout_alignBottom="@id/ivPhoto"
+                    android:layout_alignLeft="@id/ivPhoto"
+                    android:visibility="gone"
+                    android:background="@color/color_30_translate"
+                    android:id="@+id/layoutForSoldOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
 
-               <TextView
-                   android:layout_centerInParent="true"
-                   android:text="SOLD OUT"
-                   android:textColor="@color/color_text_09"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content" />
-           </RelativeLayout>
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:text="SOLD OUT"
+                        android:textColor="@color/color_text_09"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
 
-           <ImageView
-               android:layout_alignRight="@id/ivPhoto"
-               android:visibility="gone"
-               android:layout_marginTop="5dp"
-               android:layout_marginRight="5dp"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:id="@+id/ivCheck"
-               android:background="@drawable/icon_check2"/>
-           <TextView
-               android:visibility="visible"
-               android:textSize="13dp"
-               android:textColor="@color/color_text_09"
-               android:layout_width="wrap_content"
-               android:layout_height="25.66dp"
-               android:id="@+id/tvTopStore"
-               android:text="매장 TOP"
-               android:gravity="center"
-               android:paddingLeft="10dp"
-               android:paddingRight="10dp"
-               android:background="@color/color_box2"/>
-       </RelativeLayout>
+                <ImageView
+                    android:layout_alignRight="@id/ivPhoto"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivCheck"
+                    android:background="@drawable/icon_check2"/>
+                <TextView
+                    android:visibility="visible"
+                    android:textSize="13dp"
+                    android:textColor="@color/color_text_09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25.66dp"
+                    android:id="@+id/tvTopStore"
+                    android:text="매장 TOP"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="@color/color_box2"/>
+            </RelativeLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         <LinearLayout
-            android:layout_below="@id/ivPhoto"
-            android:layout_alignLeft="@id/ivPhoto"
-            android:layout_alignRight="@id/ivPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
@@ -76,7 +87,8 @@
                 android:gravity="center"
                 android:layout_marginTop="16dp"
                 android:id="@+id/tvName"
-                android:textSize="12dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
                 android:lines="1"
                 android:ellipsize="end"
                 android:textColor="@color/color_text_08"
@@ -116,9 +128,10 @@
                     android:textSize="11dp"
                     android:id="@+id/tvLike"
                     android:layout_marginLeft="3.3dp"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:lines="1"
+                    android:maxLines="1"
+                    android:maxWidth="40dp"
                     android:ellipsize="end"
                     android:layout_height="wrap_content"/>
 

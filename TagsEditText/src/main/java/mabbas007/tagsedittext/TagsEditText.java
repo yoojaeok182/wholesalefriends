@@ -580,7 +580,30 @@ public class TagsEditText extends AutoCompleteTextView {
         }, startSpan, endSpan, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    private void removeTagSpan(Editable editable, TagSpan span, boolean includeSpace) {
+    public void removeTagSpan(Editable editable,int pos, boolean includeSpace) {
+        TagSpan span =null;
+        span = mTagSpans.get(pos);
+
+        int extraLength = includeSpace ? 1 : 0;
+        // include space
+        Tag tag = span.getTag();
+        int tagPosition = tag.getPosition();
+        int tagIndex = tag.getIndex();
+        int tagLength = span.getSource().length() + extraLength;
+        editable.replace(tagPosition, tagPosition + tagLength, "");
+        int size = mTags.size();
+        for (int i = tagIndex + 1; i < size; i++) {
+            Tag newTag = mTags.get(i);
+            newTag.setIndex(i - 1);
+            newTag.setPosition(newTag.getPosition() - tagLength);
+        }
+        mTags.remove(tagIndex);
+        mTagSpans.remove(tagIndex);
+        if (mListener == null) return;
+        mListener.onTagsChanged(convertTagSpanToList(mTagSpans));
+    }
+
+    public void removeTagSpan(Editable editable, TagSpan span, boolean includeSpace) {
         int extraLength = includeSpace ? 1 : 0;
         // include space
         Tag tag = span.getTag();

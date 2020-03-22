@@ -356,7 +356,7 @@ public class Retrofit {
     }
 
     private interface UploadBestProductList2Interface{
-//        @Multipart
+        @Multipart
         @POST
         Call<ContributorBestProductList> upload(
                 /**

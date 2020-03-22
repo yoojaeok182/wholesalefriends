@@ -165,7 +165,7 @@
                         android:lineSpacingExtra="6dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="야이디"/>
+                        android:text="아이디"/>
 
                     <EditText
                         android:inputType="text"

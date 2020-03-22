@@ -55,7 +55,7 @@ public class RetailCategoryFragment extends Fragment {
     private LinearLayout btnCategoryItem11;
     private LinearLayout btnCategoryItem12;
     private TextView tvCategorySearch;
-    private AutofitRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private LinearLayout btnCategorySearch;
 
     private CategoryStoreListAdapter categoryStoreListAdapter;
@@ -135,10 +135,11 @@ public class RetailCategoryFragment extends Fragment {
 
             }
         });
-        final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
+      /*  final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addItemDecoration(new Margin2Decoration(getActivity(),getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));
         recyclerView.setLayoutManager(manager);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);*/
+        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(),3));
         recyclerView.setAdapter(categoryStoreListAdapter);
 
         String[] items =getResources().getStringArray(R.array.store_view_item);

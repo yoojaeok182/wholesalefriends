@@ -33,19 +33,31 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content">
 
-                      <ImageView
-                          android:layout_centerHorizontal="true"
-                          android:id="@+id/ivDummyPhoto"
-                          android:layout_width="320dp"
-                          android:layout_height="300dp"/>
-                      <androidx.viewpager.widget.ViewPager
-                          android:id="@+id/viewPager"
-                          android:layout_alignBottom="@id/ivDummyPhoto"
-                          android:layout_alignRight="@id/ivDummyPhoto"
-                          android:layout_alignLeft="@id/ivDummyPhoto"
-                          android:layout_alignTop="@id/ivDummyPhoto"
+                   <!--   -->
+                      <androidx.constraintlayout.widget.ConstraintLayout
+                          xmlns:app="http://schemas.android.com/apk/res-auto"
+                          xmlns:tools="http://schemas.android.com/tools"
                           android:layout_width="match_parent"
-                          android:layout_height="match_parent"/>
+                          android:layout_height="wrap_content">
+                          <ImageView
+                              android:layout_centerHorizontal="true"
+                              android:id="@+id/ivDummyPhoto"
+                              android:layout_width="0dp"
+                              android:layout_height="0dp"
+                              app:layout_constraintDimensionRatio="H,1:1"
+                              app:layout_constraintEnd_toEndOf="parent"
+                              app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintTop_toTopOf="parent"/>
+                          <androidx.viewpager.widget.ViewPager
+                              android:id="@+id/viewPager"
+                              android:layout_width="0dp"
+                              android:layout_height="0dp"
+                              app:layout_constraintDimensionRatio="H,1:1"
+                              app:layout_constraintEnd_toEndOf="parent"
+                              app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintTop_toTopOf="parent"/>
+                      </androidx.constraintlayout.widget.ConstraintLayout>
+
                   </RelativeLayout>
 
 
@@ -1180,7 +1192,7 @@
             android:animateLayoutChanges="true"
             android:id="@+id/llayoutForProductInqurireList"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="60dp"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="match_parent"

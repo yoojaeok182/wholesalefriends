@@ -167,14 +167,14 @@ public class ProductList2Adapter extends RecyclerView.Adapter<ProductList2Adapte
             tvRegDate = convertView.findViewById(R.id.tvRegDate);
             rootContainer = convertView.findViewById(R.id.rootContainer);
 
-            ivPhoto.post(new Runnable() {
+            /*ivPhoto.post(new Runnable() {
                 @Override
                 public void run() {
                     int clumWidth = ctx.getResources().getDimensionPixelSize(R.dimen.column_width4);
                     int margin = ctx.getResources().getDimensionPixelSize(R.dimen.item_margin_half2);
                     ImageUtil.requestImageView(ctx, clumWidth, ivPhoto, margin, margin);
                 }
-            });
+            });*/
         }
 
     }

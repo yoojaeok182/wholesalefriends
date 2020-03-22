@@ -116,7 +116,7 @@ public class DetailProduct2Activity extends GroupActivity {
 
 
     private View rootPhoto;
-    private ImageView ivDummyPhoto;
+//    private ImageView ivDummyPhoto;
     private int nViewHeight;
     private WholesaleDetailProductInquireAdapter wholesaleDetailProductInquireAdapter;
     private ArrayList<ProductQnaListData>listQnaList= new ArrayList<>();
@@ -192,19 +192,19 @@ public class DetailProduct2Activity extends GroupActivity {
         tvWashingInfo08 = findViewById(R.id.tvWashingInfo08);
 
         rootPhoto = findViewById(R.id.rootPhoto);
-        ivDummyPhoto = findViewById(R.id.ivDummyPhoto);
+//        ivDummyPhoto = findViewById(R.id.ivDummyPhoto);
 
 
         if (product_name != null) {
             tvTitle.setText(product_name);
         }
 
-        ivDummyPhoto.post(new Runnable() {
+     /*   ivDummyPhoto.post(new Runnable() {
             @Override
             public void run() {
                 ImageUtil.requestImageViewUI(DetailProduct2Activity.this,rootPhoto,ivDummyPhoto);
             }
-        });
+        });*/
 
         wholesaleDetailProductInquireAdapter = new WholesaleDetailProductInquireAdapter(this,listQnaList);
         wholesaleDetailProductInquireAdapter.setAdapterListener(new WholesaleDetailProductInquireAdapter.AdapterListener() {
@@ -490,7 +490,7 @@ public class DetailProduct2Activity extends GroupActivity {
         if(nViewHeight == 0) return;
         ViewGroup.LayoutParams layoutParams = llayoutForProductInqurireList.getLayoutParams();
         if(isShowUp){
-            layoutParams.height = nViewHeight +Util.convertDpToPixel(150,this);
+            layoutParams.height = nViewHeight +Util.convertDpToPixel(380,this);
         }else{
             layoutParams.height = nViewHeight;
         }

@@ -84,6 +84,7 @@ public class ImageEditActivity extends GroupActivity {
                 ImageBitmap imageBitmap = new ImageBitmap();
                 imageBitmap.setOriginalPath(imageFiles.get(i).getOriginalPath());
                 imageBitmap.setCheck(imageFiles.get(i).isCheck());
+
                 imageBitmap.setBitmap(BitmapUtil.compressImage(imageFiles.get(i).getOriginalPath(), 1, false));
                 temp.add(imageBitmap);
             } else {
@@ -233,7 +234,7 @@ public class ImageEditActivity extends GroupActivity {
         Uri destination = Uri.fromFile(file);
 
         if(isRect) {
-            Crop.of(source, destination).withAspect(500,600).start(this);
+            Crop.of(source, destination).withAspect(600,600).start(this);
         } else {
             Crop.of(source, destination).start(this);
         }

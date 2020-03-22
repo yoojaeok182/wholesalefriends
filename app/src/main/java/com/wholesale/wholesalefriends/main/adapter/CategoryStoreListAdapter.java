@@ -119,7 +119,7 @@ public class CategoryStoreListAdapter extends RecyclerView.Adapter<CategoryStore
 
            /* */
 
-            rootContainer.post(new Runnable() {
+          /*  rootContainer.post(new Runnable() {
                 @Override
                 public void run() {
 
@@ -128,7 +128,7 @@ public class CategoryStoreListAdapter extends RecyclerView.Adapter<CategoryStore
                     ImageUtil.requestImageView(ctx,clumWidth1,rootContainer,margin1,margin1);
 
                 }
-            });
+            });*/
 
         }
 

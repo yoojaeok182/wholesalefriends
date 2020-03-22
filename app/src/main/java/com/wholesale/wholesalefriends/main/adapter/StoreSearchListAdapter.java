@@ -119,7 +119,7 @@ public class StoreSearchListAdapter extends RecyclerView.Adapter<StoreSearchList
             ivCheck = convertView.findViewById(R.id.ivCheck);
             rootContainer = convertView.findViewById(R.id.rootContainer);
 
-            rootContainer.post(new Runnable() {
+          /*  rootContainer.post(new Runnable() {
                 @Override
                 public void run() {
 
@@ -128,7 +128,7 @@ public class StoreSearchListAdapter extends RecyclerView.Adapter<StoreSearchList
                     ImageUtil.requestImageView(ctx,clumWidth1,rootContainer,margin1,margin1);
 
                 }
-            });
+            });*/
         }
 
     }
