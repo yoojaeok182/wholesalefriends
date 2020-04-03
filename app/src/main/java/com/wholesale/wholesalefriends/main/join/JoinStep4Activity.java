@@ -16,7 +16,9 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -125,6 +127,17 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
     private LinearLayout btnTerms02;
     private TextView tvErrorMsg08;
 
+    private EditText edtAddr1;
+    private EditText edtAddr2;
+    private TextView tvErrorMsg09;
+
+    private EditText edtSiteName;
+    private TextView tvErrorMsg10;
+    private EditText edSiteUrl;
+    private TextView tvErrorMsg11;
+    private LinearLayout llayoutForSite;
+
+
     private boolean isChecked01, isChecked02;
     private Bitmap store_photo;
 
@@ -141,19 +154,12 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
         setContentView(R.layout.activity_join_step_04);
         instance = this;
         Intent intent = getIntent();
-        if (intent.hasExtra("store_id")) {
-            store_id = intent.getExtras().getInt("store_id");
-        }
-
-        if (intent.hasExtra("level")) {
-            level = intent.getExtras().getInt("level");
-        }
-
-        if (intent.hasExtra("store_onoﬀ")) {
-            store_onoﬀ = intent.getExtras().getInt("store_onoﬀ");
-        }
         if (intent.hasExtra("store_type")) {
             store_type = intent.getExtras().getInt("store_type");
+        }
+
+        if (intent.hasExtra("store_id")) {
+            store_id = intent.getExtras().getInt("store_id");
         }
 
         if (intent.hasExtra("store")) {
@@ -163,22 +169,36 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
         if (intent.hasExtra("floor")) {
             strFloor = intent.getExtras().getString("floor");
         }
+
         if (intent.hasExtra("roomNo")) {
             strRoomNo = intent.getExtras().getString("roomNo");
-        }
-        if (intent.hasExtra("store_addr")) {
-            store_addr = intent.getExtras().getString("store_addr");
-        }
-        if (intent.hasExtra("site_name")) {
-            strSiteName = intent.getExtras().getString("site_name");
-        }
-        if (intent.hasExtra("site_url")) {
-            strSiteUrl = intent.getExtras().getString("site_url");
         }
 
         if (intent.hasExtra("wholesale")) {
             nWholesaleMode = intent.getExtras().getInt("wholesale");
         }
+
+        if (intent.hasExtra("level")) {
+            level = intent.getExtras().getInt("level");
+        }
+
+        if (intent.hasExtra("store_addr")) {
+            store_addr = intent.getExtras().getString("store_addr");
+        }
+        if (intent.hasExtra("store_onoﬀ")) {
+            store_onoﬀ = intent.getExtras().getInt("store_onoﬀ");
+        }
+       /*
+
+
+        if (intent.hasExtra("site_name")) {
+            strSiteName = intent.getExtras().getString("site_name");
+        }
+        if (intent.hasExtra("site_url")) {
+            strSiteUrl = intent.getExtras().getString("site_url");
+        }*/
+
+
 
         btnPhoto = findViewById(R.id.btnPhoto);
         ivTerms01Check = findViewById(R.id.ivTerms01Check);
@@ -207,6 +227,15 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
         edtStoreRegistNumber = findViewById(R.id.edtStoreRegistNumber);
         tvErrorMsg06 = findViewById(R.id.tvErrorMsg06);
         btnOk = findViewById(R.id.btnOk);
+
+        llayoutForSite = findViewById(R.id.llayoutForSite);
+        edtAddr1 = findViewById(R.id.edtAddr1);
+        edtAddr2 = findViewById(R.id.edtAddr2);
+        tvErrorMsg09 = findViewById(R.id.tvErrorMsg09);
+        edtSiteName = findViewById(R.id.edtSiteName);
+        tvErrorMsg10 = findViewById(R.id.tvErrorMsg10);
+        edSiteUrl = findViewById(R.id.edSiteUrl);
+        tvErrorMsg11 = findViewById(R.id.tvErrorMsg11);
 
 
         profileList = new ArrayList<>();
@@ -275,15 +304,88 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
             }
         });
 
+        llayoutForSite.setVisibility(View.GONE);
         if (store_type == 1) {
             tvTitle.setText("도매 회원가입");
+            edtAddr2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    if(i == EditorInfo.IME_ACTION_DONE){
+                        hideKeyboardFrom(JoinStep4Activity.this,edtAddr2);
+
+                    }
+                    return false;
+                }
+            });
         } else {
             tvTitle.setText("소매 회원가입");
+            llayoutForSite.setVisibility(View.VISIBLE);
+
         }
 
         edtId.setFilters(new InputFilter[] {com.wholesale.wholesalefriends.module.util.Util.filter1});
 
 
+        edtAddr1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkRegistBtn();
+            }
+        });
+        edtAddr2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkRegistBtn();
+            }
+        });
+
+
+
+        edtSiteName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkRegistBtn();
+            }
+        });
+
+        edSiteUrl.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkRegistBtn();
+            }
+        });
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -475,12 +577,19 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
 
     private boolean checkInput() {
         String ceoName = edtCeoeName.getText().toString().trim();
+
+        String addr1 = edtAddr1.getText().toString().trim();
+        String addr2 = edtAddr2.getText().toString().trim();
+        String siteName = edtSiteName.getText().toString().trim();
+
+        String siteUrl = edSiteUrl.getText().toString().trim();
         String strId = edtId.getText().toString().trim();
         String strPwd = edtPwd.getText().toString().trim();
         String strPwd2 = edtPwd2.getText().toString().trim();
         String strStoreName = edtStoreName.getText().toString().trim();
         String strStoreRegistNumber = edtStoreRegistNumber.getText().toString().trim();
         String strPhoneNumber = edtPhoneNumber.getText().toString().trim();
+
         tvErrorMsg01.setVisibility(View.GONE);
         tvErrorMsg02.setVisibility(View.GONE);
         tvErrorMsg03.setVisibility(View.GONE);
@@ -489,6 +598,10 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
         tvErrorMsg06.setVisibility(View.GONE);
         tvErrorMsg07.setVisibility(View.GONE);
         tvErrorMsg08.setVisibility(View.GONE);
+        tvErrorMsg09.setVisibility(View.GONE);
+        tvErrorMsg10.setVisibility(View.GONE);
+        tvErrorMsg11.setVisibility(View.GONE);
+
         if ((strStoreName != null && strStoreName.length() == 0)) {
             tvErrorMsg01.setVisibility(View.VISIBLE);
             return false;
@@ -496,6 +609,21 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
 
         if ((ceoName != null && ceoName.length() == 0)) {
             tvErrorMsg02.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        if ((addr1 != null && addr1.length() == 0) &&(addr2 != null && addr2.length() == 0)) {
+            tvErrorMsg09.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        if ((siteName != null && siteName.length() == 0)) {
+            tvErrorMsg10.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        if ((siteUrl != null && siteUrl.length() == 0)) {
+            tvErrorMsg11.setVisibility(View.VISIBLE);
             return false;
         }
 

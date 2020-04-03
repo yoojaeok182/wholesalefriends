@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment {
 
      /*   final WrapContentGridLayoutManager manager = (WrapContentGridLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addItemDecoration(new MarginDecoration(getActivity(),getResources().getDimensionPixelSize(R.dimen.item_margin_half2)));*/
-        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(),2));
+        recyclerView.setLayoutManager(new WrapContentGridLayoutManager(getActivity(),3));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(productList2Adapter);
 

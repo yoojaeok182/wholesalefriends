@@ -80,11 +80,11 @@ public class JoinStep1Activity extends GroupActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = null;
-                if(nMode == 1){
+                if(nMode == 1){     //도매
                      intent = new Intent(JoinStep1Activity.this,JoinStep2Activity.class);
 
 
-                }else if(nMode==2){
+                }else if(nMode==2){     //소매
                      intent = new Intent(JoinStep1Activity.this,RetailJoinStep02Activity.class);
                 }
                if(intent!=null) {

@@ -87,7 +87,7 @@ public class RetailJoinStep02Activity extends GroupActivity {
                 }
 
                 if(level == 1){ //대펴
-                    Intent intent = new Intent(RetailJoinStep02Activity.this,JoinStepAddrInputActivity.class);
+                    Intent intent = new Intent(RetailJoinStep02Activity.this,JoinStep4Activity.class);
                     intent.putExtra("store_type", store_type);
                     intent.putExtra("store_onoﬀ", store_onoﬀ);
                     intent.putExtra("level", level);

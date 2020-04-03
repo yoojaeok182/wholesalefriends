@@ -144,7 +144,7 @@ public class JoinStep3Activity extends GroupActivity {
 
 
                     }else{
-                        Intent intent = new Intent(JoinStep3Activity.this,JoinStepAddrInputActivity.class);
+                        Intent intent = new Intent(JoinStep3Activity.this,JoinStep4Activity.class);
                         intent.putExtra("store_type", store_type);
                         intent.putExtra("store_id", value);
                         intent.putExtra("store", strStore);
@@ -152,6 +152,7 @@ public class JoinStep3Activity extends GroupActivity {
                         intent.putExtra("roomNo", strRoomNo);
                         intent.putExtra("wholesale",nWholesaleMode);
                         intent.putExtra("level", level);
+
 
                         startActivity(intent);
                     }
