@@ -70,6 +70,11 @@ public class HomeMainViewPager01Fragment extends Fragment {
     private ImageView ivPhoto02;
     private TextView tvPhotoName02;
     private TextView tvPhotoInfo02;
+
+    private ImageView ivPhoto03;
+    private TextView tvPhotoName03;
+    private TextView tvPhotoInfo03;
+
     private AppBarLayout appBarLayout;
     private RecyclerView recyclerView;
     private ImageButton btnUp;
@@ -77,6 +82,10 @@ public class HomeMainViewPager01Fragment extends Fragment {
     private ArrayList<BannerLIstData> listBanner = new ArrayList<>();
     private LinearLayout btnStoreBanner01;
     private LinearLayout btnStoreBanner02;
+    private LinearLayout btnStoreBanner03;
+
+    private ImageView ivLineStoreBanner1;
+    private ImageView ivLineStoreBanner2;
 
 
 
@@ -105,6 +114,7 @@ public class HomeMainViewPager01Fragment extends Fragment {
 
         btnStoreBanner01 = view.findViewById(R.id.btnStoreBanner01);
         btnStoreBanner02 = view.findViewById(R.id.btnStoreBanner02);
+        btnStoreBanner03 = view.findViewById(R.id.btnStoreBanner03);
         viewPager = view.findViewById(R.id.viewPager);
         tvBannerName = view.findViewById(R.id.tvBannerName);
         tvBannerIndex = view.findViewById(R.id.tvBannerIndex);
@@ -121,6 +131,15 @@ public class HomeMainViewPager01Fragment extends Fragment {
         ivPhoto02 = view.findViewById(R.id.ivPhoto02);
         tvPhotoName02 = view.findViewById(R.id.tvPhotoName02);
         tvPhotoInfo02 = view.findViewById(R.id.tvPhotoInfo02);
+
+        ivPhoto03 = view.findViewById(R.id.ivPhoto03);
+        tvPhotoName03 = view.findViewById(R.id.tvPhotoName03);
+        tvPhotoInfo03 = view.findViewById(R.id.tvPhotoInfo03);
+
+        ivLineStoreBanner1 = view.findViewById(R.id.ivLineStoreBanner1);
+        ivLineStoreBanner2 = view.findViewById(R.id.ivLineStoreBanner2);
+
+
         appBarLayout = view.findViewById(R.id.appBarLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -324,11 +343,18 @@ public class HomeMainViewPager01Fragment extends Fragment {
             try {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
+                ivLineStoreBanner1.setVisibility(View.GONE);
+                ivLineStoreBanner2.setVisibility(View.GONE);
+                btnStoreBanner01.setVisibility(View.GONE);
+                btnStoreBanner02.setVisibility(View.GONE);
+                btnStoreBanner03.setVisibility(View.GONE);
                 if (jsonObject.getBoolean("result")) {
                     BannerList2Response bannerListResponse = new Gson().fromJson(jsonObject.toString(), BannerList2Response.class);
                     if (bannerListResponse != null && bannerListResponse.getList().size() > 0) {
                         switch (bannerListResponse.getList().size()) {
                             case 1:
+                                btnStoreBanner01.setVisibility(View.VISIBLE);
+
                                 BannerLIstData bannerLIstData = bannerListResponse.getList().get(0);
                                 Glide.with(ctx).load(bannerLIstData.getImage()).into(ivPhoto01);
                                 tvPhotoName01.setText(bannerLIstData.getName());
@@ -341,7 +367,9 @@ public class HomeMainViewPager01Fragment extends Fragment {
                                 });
                                 break;
                             case 2:
-
+                                btnStoreBanner01.setVisibility(View.VISIBLE);
+                                btnStoreBanner02.setVisibility(View.VISIBLE);
+                                ivLineStoreBanner1.setVisibility(View.VISIBLE);
                                 BannerLIstData bannerLIstData1 = bannerListResponse.getList().get(0);
                                 Glide.with(ctx).load(bannerLIstData1.getImage()).into(ivPhoto01);
                                 tvPhotoName01.setText(bannerLIstData1.getName());
@@ -364,6 +392,50 @@ public class HomeMainViewPager01Fragment extends Fragment {
                                         //TODO
                                     }
                                 });
+                                break;
+
+                            case 3:
+
+                            {
+                                btnStoreBanner01.setVisibility(View.VISIBLE);
+                                btnStoreBanner02.setVisibility(View.VISIBLE);
+                                btnStoreBanner03.setVisibility(View.VISIBLE);
+                                ivLineStoreBanner1.setVisibility(View.VISIBLE);
+                                ivLineStoreBanner2.setVisibility(View.VISIBLE);
+                                BannerLIstData data1 = bannerListResponse.getList().get(0);
+                                Glide.with(ctx).load(data1.getImage()).into(ivPhoto01);
+                                tvPhotoName01.setText(data1.getName());
+                                tvPhotoInfo01.setText(data1.getStore_addr());
+                                btnStoreBanner01.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        //TODO
+                                    }
+                                });
+
+                                BannerLIstData data2 = bannerListResponse.getList().get(1);
+                                Glide.with(ctx).load(data2.getImage()).into(ivPhoto02);
+                                tvPhotoName02.setText(data2.getName());
+                                tvPhotoInfo02.setText(data2.getStore_addr());
+                                btnStoreBanner02.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        //TODO
+                                    }
+                                });
+
+                                BannerLIstData data3 = bannerListResponse.getList().get(2);
+                                Glide.with(ctx).load(data3.getImage()).into(ivPhoto03);
+                                tvPhotoName03.setText(data3.getName());
+                                tvPhotoInfo03.setText(data3.getStore_addr());
+                                btnStoreBanner03.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        //TODO
+                                    }
+                                });
+                            }
                                 break;
                         }
                     }

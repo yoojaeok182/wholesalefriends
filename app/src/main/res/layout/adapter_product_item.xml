@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/color_bg2"
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:background="@color/color_bg2"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:paddingBottom="15dp"
+        android:paddingBottom="7dp"
         android:gravity="center"
         android:id="@+id/rootContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/color_bg"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -21,7 +24,7 @@
                 android:id="@+id/rlayPhoto"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="V,1:1"
+                app:layout_constraintDimensionRatio="V,3:4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -61,13 +64,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:background="@color/color_bg"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
             android:orientation="vertical">
             <TextView
                 android:gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:id="@+id/tvName"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -96,7 +103,7 @@
 
             <LinearLayout
                 android:gravity="center_vertical"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -117,12 +124,14 @@
                     android:layout_height="wrap_content"/>
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_width="1dp"
                     android:background="@color/line_color_01"
                     android:layout_height="10.66dp"/>
                 <TextView
+                    android:visibility="gone"
                     android:textColor="@color/color_text_04"
                     android:textSize="11dp"
                     android:id="@+id/tvRegDate"

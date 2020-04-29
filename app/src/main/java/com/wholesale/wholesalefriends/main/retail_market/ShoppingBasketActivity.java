@@ -62,6 +62,8 @@ public class ShoppingBasketActivity extends GroupActivity {
     private String c_id = "";
     private int nSelectPos =-1;
     private int nAmountCount;
+
+    private int nPrice = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,9 +119,10 @@ public class ShoppingBasketActivity extends GroupActivity {
                     if(cartListAdapter.getItem(i).getC_id()>0 &&cartListAdapter.getItem(i).isCheck()){
                         arrCid.add(cartListAdapter.getItem(i).getC_id());
                         c_id = c_id+cartListAdapter.getItem(i).getC_id()+"||";
+
                     }
                 }
-
+                getSelectPrice();
             }
 
         });
@@ -175,6 +178,7 @@ public class ShoppingBasketActivity extends GroupActivity {
                         break;
                     }
                 }
+                getSelectPrice();
 
             }
 
@@ -199,6 +203,17 @@ public class ShoppingBasketActivity extends GroupActivity {
         loadList();
     }
 
+    private void getSelectPrice(){
+        nPrice = 0;
+        for(int i=0; i<cartListAdapter.getItemCount();i++){
+            if(cartListAdapter.getItem(i).isCheck()){
+
+                nPrice += cartListAdapter.getItem(i).getPrice()*cartListAdapter.getItem(i).getAmount();
+            }
+        }
+
+        tvTotalPrice.setText(Util.getFormattedPrice(nPrice));
+    }
     private void loadList(){
         API.cartList(this, SharedPreference.getIntSharedPreference(this, Constant.CommonKey.user_no)+"",resultListHandler,errHandler);
     }
@@ -234,7 +249,7 @@ public class ShoppingBasketActivity extends GroupActivity {
                     }
                     cartListAdapter.getItem(nSelectPos).setAmount(nAmountCount);
                     cartListAdapter.notifyDataSetChanged();
-
+                    getSelectPrice();
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -249,9 +264,14 @@ public class ShoppingBasketActivity extends GroupActivity {
                 JSONObject jsonObject = (JSONObject) msg.obj;
 
                 if (jsonObject.getBoolean("result")) {
-                    clearData();
-                    loadList();
+                    if(isAllCheck){
+                        clearData();
+                        loadList();
+                    }else{
+                        cartListAdapter.remove(cartListAdapter.getItem(nSelectPos));
+                    }
 
+                    getSelectPrice();
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -300,7 +320,7 @@ public class ShoppingBasketActivity extends GroupActivity {
                     }
 
                     if(cartListResponse!=null){
-                        tvTotalPrice.setText(Util.getFormattedPrice(Integer.valueOf(cartListResponse.getTotal())));
+//                        tvTotalPrice.setText(Util.getFormattedPrice(Integer.valueOf(cartListResponse.getTotal())));
                     }else{
                         tvTotalPrice.setText("0원");
                     }

@@ -81,7 +81,7 @@ public class HomeMain02ListAdapter extends RecyclerView.Adapter<HomeMain02ListAd
                     if(adapterListener!=null) adapterListener.onClickItem(data,position);
                 }
             });
-
+           holder.tvRegDate.setVisibility(View.GONE);
 
             if(position == arrayList.size() - 1) {
                 if(adapterListener!=null) adapterListener.moreLoading(getnCurrentPage()+1);

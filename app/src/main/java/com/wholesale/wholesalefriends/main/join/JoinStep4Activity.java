@@ -541,7 +541,7 @@ public class JoinStep4Activity extends GroupActivity implements Picker.PickListe
 
         AlertDialog.Builder builder = new AlertDialog.Builder(JoinStep4Activity.this);
         builder.setCancelable(false);
-        builder.setTitle("상가 선택");
+        builder.setTitle("사진 등록");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

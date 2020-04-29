@@ -45,7 +45,7 @@
 
                             <EditText
                                 android:background="@color/color_translate"
-                                android:hint="삼품명을 검색해주세요."
+                                android:hint="상품명을 검색해주세요."
                                 android:textSize="13dp"
                                 android:textColor="@color/color_text_08"
                                 android:textColorHint="@color/color_text_03"

@@ -105,12 +105,9 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private Button btnInfo;
     private ImageView cbCheck;
     private LinearLayout btnCheck;
-//    private TagsEditText edtProductInfo1;
     private Button[] btnColors;
 
-//    private TagsEditText edtProductInfo2;
     private Button[]btnSizes;
-//    private TagsEditText edtProductInfo3;
     private Button[] btnMaterials;
     private Button[] btnThinicks;
     private Button[] btnClothInfo2s;
@@ -120,6 +117,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private LinearLayout[] btnWashingInfos;
     private TextView[] tvWashingInfos;
 
+    private ImageView[] ivWashingMasks;
     private EditText edtDescript;
 
     private ImageView[] ivRadios;
@@ -156,6 +154,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private ArrayList<Bitmap> bmList = new ArrayList<>();
     private Bitmap[] arrBm= null;
     private Bitmap[] arrSaveBm= new Bitmap[5];
+    private boolean isDuplcateWashing;
 
     private int nCode_value;
 
@@ -186,7 +185,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
     private TextView tvPhotoRepresentative;
     private TextView tvSubPhotoRepresentative;
 
-    private boolean isCheck;
+    private boolean isCheck =true;
 
     private NestedScrollView scrollView;
     @Override
@@ -331,6 +330,17 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 findViewById(R.id.tvWashingInfo08),
         };
 
+        ivWashingMasks = new ImageView[]{
+                findViewById(R.id.ivWashingMask01),
+                findViewById(R.id.ivWashingMask02),
+                findViewById(R.id.ivWashingMask03),
+                findViewById(R.id.ivWashingMask04),
+                findViewById(R.id.ivWashingMask05),
+                findViewById(R.id.ivWashingMask06),
+                findViewById(R.id.ivWashingMask07),
+                findViewById(R.id.ivWashingMask08),
+
+        };
         edtDescript = findViewById(R.id.edtDescript);
         ivRadios = new ImageView[]{
                 findViewById(R.id.ivRadio01),
@@ -1137,7 +1147,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 case 1:
                     btn.setBackgroundResource(R.drawable.btn_thickness_05_select);
                     break;
-                case 3:
+                case 2:
                     btn.setBackgroundResource(R.drawable.btn_thickness_06_select);
                     break;
             }
@@ -1149,7 +1159,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             case 1:
                 view.setBackgroundResource(R.drawable.btn_thickness5_on);
                 break;
-            case 3:
+            case 2:
                 view.setBackgroundResource(R.drawable.btn_thickness6_on);
                 break;
         }
@@ -1167,10 +1177,10 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 case 1:
                     btn.setBackgroundResource(R.drawable.btn_thickness_08_select);
                     break;
-                case 3:
+                case 2:
                     btn.setBackgroundResource(R.drawable.btn_thickness_09_select);
                     break;
-                case 4:
+                case 3:
                     btn.setBackgroundResource(R.drawable.btn_thickness_10_select);
                     break;
             }
@@ -1182,10 +1192,10 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             case 1:
                 view.setBackgroundResource(R.drawable.btn_thickness8_on);
                 break;
-            case 3:
+            case 2:
                 view.setBackgroundResource(R.drawable.btn_thickness9_on);
                 break;
-            case 4:
+            case 3:
                 view.setBackgroundResource(R.drawable.btn_thickness10_on);
                 break;
         }
@@ -1226,7 +1236,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
                 case 1:
                     btn.setBackgroundResource(R.drawable.btn_thickness_02_select);
                     break;
-                case 3:
+                case 2:
                     btn.setBackgroundResource(R.drawable.btn_thickness_03_select);
                     break;
             }
@@ -1238,7 +1248,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             case 1:
                 view.setBackgroundResource(R.drawable.btn_thickness2_on);
                 break;
-            case 3:
+            case 2:
                 view.setBackgroundResource(R.drawable.btn_thickness3_on);
                 break;
         }
@@ -1246,30 +1256,45 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
         cloth_info_1 = (pos+1);
     }
     private void initSelectWashingInfo(){
+        arrWashingInfo.clear();
         for(int i=0; i<tvWashingInfos.length;i++) {
             TextView btn = tvWashingInfos[i];
+            ImageView ivMask = ivWashingMasks[i];
             WashingInfo data = new WashingInfo();
             data.isCheck = false;
             data.code_name = tvWashingInfos[i].getText().toString().trim();
             data.code_value = (i+1);
             arrWashingInfo.add(data);
             btn.setTextColor(getResources().getColor(R.color.color_text_04));
+            ivMask.setVisibility(View.INVISIBLE);
         }
     }
-    private void selectWashingInfo(TextView view,int pos){
+    private void selectWashingInfo(TextView view,ImageView ivMask,int pos){
 
-
+        isDuplcateWashing = false;
         if(arrWashingInfo.size()>0){
             for(int i=0; i<arrWashingInfo.size();i++){
                 WashingInfo data = arrWashingInfo.get(i);
-                view.setTextColor(getResources().getColor(R.color.color_text_04));
-                arrWashingInfo.get(i).isCheck = false;
+                ImageView ivDefaultMask = ivWashingMasks[i];
+                TextView tvWashingInfo = tvWashingInfos[i];
+
+                if(i==pos && arrWashingInfo.get(i).isCheck){
+                    isDuplcateWashing = true;
+                    view.setTextColor(getResources().getColor(R.color.color_text_04));
+                    ivMask.setVisibility(View.INVISIBLE);
+                    arrWashingInfo.get(i).isCheck = false;
+                }
             }
         }else{
 
         }
-        view.setTextColor(getResources().getColor(R.color.color_text_07));
-        arrWashingInfo.get(pos).isCheck = true;
+
+        if(!isDuplcateWashing){
+            ivMask.setVisibility(View.VISIBLE);
+            view.setTextColor(getResources().getColor(R.color.color_text_07));
+            arrWashingInfo.get(pos).isCheck = true;
+        }
+
 
     }
 
@@ -1411,7 +1436,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    selectWashingInfo(tvWashingInfos[finalI],finalI);
+                    selectWashingInfo(tvWashingInfos[finalI],ivWashingMasks[finalI],finalI);
                 }
             });
         }
@@ -1505,6 +1530,13 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
             });
         }
         //********************************************************************************
+
+        if(isCheck){
+            cbCheck.setBackgroundResource(R.drawable.check_on);
+        }else{
+            cbCheck.setBackgroundResource(R.drawable.check_default);
+        }
+
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1848,7 +1880,7 @@ public class ProductRegistrationActivity extends GroupActivity implements Picker
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ProductRegistrationActivity.this);
         builder.setCancelable(false);
-        builder.setTitle("상가 선택");
+        builder.setTitle("사진 등록");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

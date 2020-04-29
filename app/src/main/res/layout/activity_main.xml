@@ -19,6 +19,7 @@
 
 
         <LinearLayout
+            android:paddingTop="14dp"
             android:id="@+id/layoutcontainer"
             android:orientation="vertical"
             android:layout_width="match_parent"

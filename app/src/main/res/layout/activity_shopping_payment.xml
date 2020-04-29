@@ -23,6 +23,7 @@
             <LinearLayout
                 android:paddingTop="35dp"
 
+                android:background="@color/color_bg2"
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"

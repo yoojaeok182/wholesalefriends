@@ -37,13 +37,16 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
 
-            <ImageButton
-
+            <Button
+                android:background="@drawable/btn_round_01_select"
                 android:layout_marginRight="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:text="결제수단"
+                android:textColor="@color/color_text_02"
+                android:textSize="13dp"
                 android:id="@+id/btnPayment"
-                android:background="@drawable/btn_payment"/>
+               />
         </LinearLayout>
         <ImageView
             android:layout_width="match_parent"

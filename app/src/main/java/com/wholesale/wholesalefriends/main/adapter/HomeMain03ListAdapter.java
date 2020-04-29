@@ -75,6 +75,7 @@ public class HomeMain03ListAdapter extends RecyclerView.Adapter<HomeMain03ListAd
             holder.tvRegDate.setText(Util.getSplitRegDate(data.getCreated_at()));
             holder.tvRanking.setText("SALE");
             holder.tvImageCount.setText("+"+data.getImage_count());
+            holder.tvRegDate.setVisibility(View.GONE);
             holder.rootContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

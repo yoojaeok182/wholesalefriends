@@ -156,7 +156,7 @@ public class Util {
             DecimalFormat myFormatter = new DecimalFormat("###,###");
              formatteredStringPrice = myFormatter.format(price);
         }catch (Throwable e){}
-        return formatteredStringPrice+"원";
+        return "합계: "+formatteredStringPrice+"원";
     }
     /**
             * 파일 Uri 를 절대경로로 변환함
